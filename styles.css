@@ -1,0 +1,329 @@
+/* ========================================
+   DESIGN TOKENS
+   ======================================== */
+@layer reset, tokens, base, components, utilities;
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Kapakana&family=Literata:opsz,wght@7..72,200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@600&display=swap");
+@import url("./assets/common/common.css");
+@import url("./assets/components/header/header.css");
+@import url("./assets/components/hero/hero.css");
+@import url("./assets/components/intro/intro.css");
+@import url("./assets/components/table-of-contents/table-of-contents.css");
+@import url("./assets/components/team-overview/team-overview.css");
+@import url("./assets/components/horizontal-story/horizontal-story.css");
+@import url("./assets/components/work/work.css");
+@import url("./assets/components/work-types/work-types.css");
+@import url("./assets/components/case-study/case-study.css");
+@import url("./assets/components/approach/approach.css");
+@import url("./assets/components/skills/skills.css");
+@import url("./assets/components/about/about.css");
+@import url("./assets/components/contact/contact.css");
+@import url("./assets/components/portfolio-bot/portfolio-bot.css");
+
+@layer tokens {
+  @font-face {
+    font-family: "Anton";
+    src: url("https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm3Kz-C8.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+      U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+      U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  @font-face {
+    font-family: "Switzer";
+    src: url("https://cdn.fontshare.com/wf/OYB4CXKJQXKTNSLJMTDQOIVUL2V5EL7S/WYO2P7DQVV5RNXGMCUO2HL4RJP4VFUAS/6XPIMU23OJVRY676OG5YVJMWEHWICATX.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Switzer";
+    src: url("https://cdn.fontshare.com/wf/5SZVFDB7V52TI6ULVC6J3WQZQCIZVDV5/ODYPSTCUDMKSTYIPTV4CLQ7URIK7XYBJ/YS3VPNVO4B3TOJMEXDGFZQ4TLZGGSRZC.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    color-scheme: dark;
+
+    /* Primitive colors */
+    --color-black: #252322;
+    --color-white: #ffffff;
+    --color-off-white: #f0ece8;
+    --color-brand-orange: #fd5b2c;
+    --color-brand-purple: #7d5ba6;
+    --color-brand-green: #8ba02c;
+    --color-gray-300: #dbdbd3;
+    --color-gray-400: #b9b6b0;
+    --color-gray-600: #615c59;
+    --color-gray-800: #403c3b;
+    --color-sky-300: #7dd3fc;
+    --color-green-500: #36d17c;
+    --color-red-400: #ff6b5e;
+
+    /* Semantic colors: dark is the default surface */
+    --color-bg: var(--color-black);
+    --color-surface: var(--color-gray-800);
+    --color-surface-raised: #514b48;
+    --color-text: var(--color-white);
+    --color-text-muted: var(--color-gray-400);
+    --color-border: var(--color-gray-800);
+    --color-accent: var(--color-brand-orange);
+    --color-accent-secondary: var(--color-brand-purple);
+    --color-accent-tertiary: var(--color-brand-green);
+    --color-on-accent: var(--color-black);
+    --color-focus: var(--color-sky-300);
+    --color-success: var(--color-green-500);
+    --color-error: var(--color-red-400);
+    --color-selection-bg: var(--color-brand-orange);
+    --color-selection-text: var(--color-black);
+
+    /* Semantic colors: explicit light sections */
+    --color-bg-light: var(--color-off-white);
+    --color-surface-light: var(--color-white);
+    --color-text-on-light: var(--color-black);
+    --color-text-muted-on-light: var(--color-gray-600);
+    --color-border-on-light: var(--color-gray-300);
+    --paper-background: url("./assets/common/images/bg.png");
+
+    /* Font families */
+    --font-display: "Anton", "Pretendard Variable", "Pretendard", "Arial Narrow", sans-serif;
+    /* Switzer handles Latin glyphs; Korean glyphs fall through to Pretendard. */
+    --font-body: "Switzer", "Pretendard Variable", "Pretendard", system-ui, -apple-system,
+      "Segoe UI", sans-serif;
+    --font-mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+
+    /* Font sizes */
+    --text-display: clamp(3rem, 13vw, 10.25rem);
+    --text-h1: clamp(2.75rem, 10vw, 7rem);
+    --text-h2: clamp(2.25rem, 7vw, 4.75rem);
+    --text-h3: clamp(1.5rem, 4vw, 2.5rem);
+    --text-lead: clamp(1.125rem, 2.2vw, 1.75rem);
+    --text-body-lg: clamp(1.0625rem, 1.4vw, 1.25rem);
+    --text-body: clamp(1rem, 1.2vw, 1.1875rem);
+    --text-small: 0.875rem;
+    --text-label: 0.8125rem;
+    --text-caption: 0.75rem;
+
+    /* Font weights */
+    --weight-regular: 500;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 600;
+    --weight-display: 900;
+
+    /* Line heights */
+    --leading-none: 1;
+    --leading-display: 0.9;
+    --leading-heading: 1.02;
+    --leading-compact: 1.2;
+    --leading-body: 1.65;
+
+    /* Letter spacing */
+    --tracking-display: -0.045em;
+    --tracking-heading: -0.03em;
+    --tracking-body: -0.005em;
+    --tracking-label: 0.04em;
+
+    /* 4px spacing scale */
+    --space-0: 0;
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+    --space-32: 8rem;
+    --space-40: 10rem;
+    --space-48: 12rem;
+    --space-60: 15rem;
+
+    /* Fluid section rhythm */
+    --section-space-sm: clamp(3.5rem, 9vw, 7.5rem);
+    --section-space: clamp(4.5rem, 12vw, 10rem);
+    --section-space-xl: clamp(6rem, 16vw, 15rem);
+
+    /* Mobile-first layout */
+    --page-gutter: 1.25rem;
+    --container-max: 90rem;
+    --content-max: 52.5rem;
+    --prose-max: 62ch;
+    --grid-columns: 4;
+    --grid-gap: 1rem;
+    --header-height: 4rem;
+    --scroll-offset: calc(var(--header-height) + var(--space-4));
+
+    /* Component sizing */
+    --control-height-sm: 2.75rem;
+    --control-height: 3.25rem;
+    --control-height-lg: 3.5rem;
+    --touch-target-min: 2.75rem;
+    --button-padding-inline: 1.5rem;
+    --card-padding: 1.25rem;
+    --card-media-featured: 16 / 10;
+    --card-media-default: 4 / 3;
+
+    /* Shape */
+    --radius-xs: 0.25rem;
+    --radius-sm: 0.5rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-pill: 999px;
+    --border-width: 1px;
+    --focus-width: 3px;
+    --focus-offset: 4px;
+
+    /* Depth */
+    --shadow-none: none;
+    --shadow-raised: 0 1rem 3rem rgb(0 0 0 / 18%);
+    --backdrop-header: blur(1rem);
+
+    /* Motion */
+    --duration-instant: 1ms;
+    --duration-fast: 180ms;
+    --duration-base: 240ms;
+    --duration-reveal: 720ms;
+    --duration-scene: 1000ms;
+    --stagger-reveal: 100ms;
+    --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --card-hover-scale: 1.025;
+    --hover-shift: 0.25rem;
+    --reveal-distance: 3rem;
+    --parallax-distance: 8%;
+
+    /* Layer order */
+    --z-base: 0;
+    --z-raised: 10;
+    --z-sticky: 100;
+    --z-header: 200;
+    --z-overlay: 300;
+    --z-modal: 400;
+    --z-toast: 500;
+  }
+
+  /* Tablet: 8-column grid */
+  @media (min-width: 48rem) {
+    :root {
+      --page-gutter: 2rem;
+      --grid-columns: 8;
+      --grid-gap: 1.25rem;
+      --card-padding: 2rem;
+    }
+  }
+
+  /* Desktop: 12-column grid */
+  @media (min-width: 64rem) {
+    :root {
+      --page-gutter: 4rem;
+      --grid-columns: 12;
+      --grid-gap: 1.5rem;
+      --header-height: 5rem;
+      --button-padding-inline: 1.875rem;
+      --card-padding: 2.5rem;
+    }
+  }
+
+  /* Reduced-motion is a token override, not a content visibility change. */
+}
+
+/*
+ * Optional semantic helpers. Keep these in the token file so every page uses
+ * the same readable foreground colors when switching section surfaces.
+ */
+@layer utilities {
+  .theme-dark {
+    color-scheme: dark;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    --section-text: var(--color-text);
+    --section-muted: var(--color-text-muted);
+    --section-border: var(--color-border);
+    --section-surface: var(--color-surface);
+  }
+
+  .theme-light {
+    color-scheme: light;
+    color: var(--color-text-on-light);
+    background-color: transparent;
+    background-image: none;
+    --section-text: var(--color-text-on-light);
+    --section-muted: var(--color-text-muted-on-light);
+    --section-border: var(--color-border-on-light);
+    --section-surface: var(--color-surface-light);
+  }
+
+  .container {
+    width: min(calc(100% - (var(--page-gutter) * 2)), var(--container-max));
+    margin-inline: auto;
+  }
+
+  .content-width {
+    width: min(100%, var(--content-max));
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    gap: var(--grid-gap);
+  }
+
+  .section-block {
+    padding-block: var(--section-space);
+  }
+
+  .section-block--xl {
+    padding-block: var(--section-space-xl);
+  }
+
+  .prose {
+    max-width: var(--prose-max);
+  }
+
+  :where(section, article, [id]) {
+    scroll-margin-top: var(--scroll-offset);
+  }
+
+  :where(a, button, input, select, textarea, summary):focus-visible {
+    outline: var(--focus-width) solid var(--color-focus);
+    outline-offset: var(--focus-offset);
+  }
+
+  ::selection {
+    color: var(--color-selection-text);
+    background: var(--color-selection-bg);
+  }
+}
+
+/* ========================================
+   GLOBAL BASE STYLES
+   ======================================== */
+@layer base {
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { min-width: 20rem; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+button, input, textarea, select { font: inherit; }
+a { color: inherit; }
+body { background: var(--color-bg-light) var(--paper-background) center / cover fixed no-repeat; color: var(--color-text-on-light); font-family: var(--font-body); font-size: var(--text-body); font-weight: var(--weight-regular); line-height: var(--leading-body); text-rendering: optimizeLegibility; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: var(--weight-display); font-synthesis: none; letter-spacing: var(--tracking-heading); }
+h2 { font-size: var(--text-h2); line-height: .98; }
+h3 { font-size: var(--text-h3); line-height: 1.05; }
+a { text-decoration-thickness: .08em; text-underline-offset: .18em; }
+.section-label, .eyebrow { font-family: var(--font-mono); font-size: var(--text-label); font-weight: 700; letter-spacing: var(--tracking-label); line-height: 1.3; }
+.skip-link { position: fixed; z-index: var(--z-toast); top: var(--space-3); left: var(--space-3); padding: .75rem 1rem; color: var(--color-on-accent); background: var(--color-accent); transform: translateY(-150%); }
+.skip-link:focus { transform: translateY(0); }
+}

@@ -1,0 +1,13 @@
+export { initHeader } from "./header/header.js";
+export { initHero } from "./hero/hero.js";
+export { initIntro } from "./intro/intro.js";
+export { initTeamOverview } from "./team-overview/team-overview.js";
+export { initHorizontalStory } from "./horizontal-story/horizontal-story.js";
+export { initWork } from "./work/work.js";
+export { initWorkTypes } from "./work-types/work-types.js";
+export { initCaseStudy } from "./case-study/case-study.js";
+export { initApproach } from "./approach/approach.js";
+export { initSkills } from "./skills/skills.js";
+export { initAbout } from "./about/about.js";
+export { initContact } from "./contact/contact.js";
+export { initPortfolioBot } from "./portfolio-bot/portfolio-bot.js";

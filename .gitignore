@@ -1,0 +1,7 @@
+# Local design-system references
+/portfolio-tokens.css
+/*.md
+
+# Local dependencies and build output
+/node_modules/
+/dist/

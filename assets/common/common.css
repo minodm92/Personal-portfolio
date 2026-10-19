@@ -1,0 +1,22 @@
+@layer components {
+  /* Primary content fills at least one viewport; long content may grow. */
+  #main > section {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  [data-reveal] { opacity: 1; transform: none; }
+  .js [data-reveal] { opacity: 0; transform: translateY(var(--reveal-distance)); transition: opacity var(--duration-reveal) var(--ease-out), transform var(--duration-reveal) var(--ease-out); transition-delay: var(--reveal-delay, 0ms); }
+  .js [data-reveal].is-visible { opacity: 1; transform: none; }
+}
+
+@media (max-width: 63.99rem) {
+  /* Let compact-layout children shrink instead of forcing horizontal overflow. */
+  :where(.container, .intro__grid, .project__grid, .skills__grid, .about__grid, .contact__footer) > * {
+    min-width: 0;
+  }
+
+  :where(h1, h2, h3, p, a, dt, dd) {
+    overflow-wrap: break-word;
+  }
+}

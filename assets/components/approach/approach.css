@@ -1,0 +1,15 @@
+@layer components {
+.marquee { display: flex; width: max-content; border-block: 1px solid var(--section-border); padding-block: .5rem; color: var(--color-accent); font-size: clamp(2.4rem, 8vw, 6rem); font-weight: 850; line-height: 1; letter-spacing: -.04em; white-space: nowrap; animation: marquee 26s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.approach h2 span { color: var(--color-accent); }
+.principles { margin-top: var(--space-16); border-top: 1px solid var(--section-border); }
+.principles article { display: grid; gap: var(--space-3); padding-block: var(--space-8); border-bottom: 1px solid var(--section-border); }
+.principles b { font: .72rem var(--font-mono); color: var(--color-accent); }.principles h3 { font-size: clamp(1.8rem, 5vw, 3rem); }.principles p { max-width: 36rem; color: var(--section-muted); }
+}
+
+@media (min-width: 48rem) {
+  .approach__grid { grid-template-columns: 2fr 6fr; }
+}
+@media (min-width: 64rem) {
+  .principles article { grid-template-columns: 4rem 1.2fr 1fr; align-items: baseline; }
+}
