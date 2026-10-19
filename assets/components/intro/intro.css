@@ -170,8 +170,6 @@
     width: min(72vw, 22rem);
     aspect-ratio: 1;
     margin: 0;
-    perspective: 75rem;
-    will-change: transform, opacity;
   }
 
   .intro-2__card-inner {
@@ -179,8 +177,6 @@
     z-index: 1;
     inset: 0;
     border-radius: 1.5rem;
-    transform-style: preserve-3d;
-    will-change: transform;
   }
 
   .intro-2__card-face {
@@ -333,6 +329,398 @@
   .intro-timeline--static .intro-2 {
     position: relative;
     transform: none;
+  }
+}
+
+/* Figma node 605:1169 — scrapbook profile intro */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.intro.intro--profile {
+  background: transparent;
+}
+
+.intro-profile__canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.intro-profile__note {
+  position: absolute;
+  z-index: 2;
+  top: 24.247%;
+  left: 10.821%;
+  width: 46.042%;
+  aspect-ratio: 884 / 622;
+  overflow: hidden;
+  transform: rotate(-10.88deg);
+  transform-origin: center;
+}
+
+.intro-profile__notebook {
+  position: absolute;
+  top: -6.91%;
+  left: -3.75%;
+  width: 107%;
+  height: 152%;
+  max-width: none;
+  object-fit: fill;
+}
+
+.intro-profile__details {
+  position: absolute;
+  z-index: 1;
+  top: 39.39%;
+  left: 2.94%;
+  width: 77%;
+  margin: 0;
+  color: #484848;
+  font-family: "Pretendard Variable", "Pretendard", sans-serif;
+  font-size: clamp(.82rem, 1.563vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.intro-profile__details > div {
+  display: grid;
+  grid-template-columns: 20.8% minmax(0, 1fr);
+  align-items: start;
+  min-height: 5.052vw;
+}
+
+.intro-profile__details dt,
+.intro-profile__details dd { margin: 0; }
+
+.intro-profile__details dd { padding-left: 0; }
+
+.intro-profile__role dd { white-space: nowrap; }
+
+.intro-profile__aspiration dd { line-height: 1.2; }
+
+.intro-profile__portrait {
+  position: absolute;
+  z-index: 1;
+  top: 19.738%;
+  left: 66.125%;
+  width: 27.708%;
+  height: 58.796%;
+  margin: 0;
+  overflow: hidden;
+  transform: rotate(6.78deg);
+  transform-origin: center;
+}
+
+.intro-profile__portrait img {
+  position: absolute;
+  top: 0;
+  left: -106.15%;
+  width: 212.2%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+}
+
+.intro-profile__tape,
+.intro-profile__cup {
+  position: absolute;
+  z-index: 4;
+  max-width: none;
+  pointer-events: none;
+}
+
+.intro-profile__tape,
+.intro-profile__cup,
+.intro-profile__tape i,
+.intro-profile__cup i {
+  display: block;
+  overflow: hidden;
+}
+
+.intro-profile__tape--vertical {
+  top: 53.98%;
+  left: 62.5%;
+  width: 5.377%;
+  height: 29.168%;
+}
+
+.intro-profile__tape--vertical i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 304.14%;
+  height: 31.744%;
+  transform: translate(-50%, -50%) rotate(90.59deg);
+}
+
+.intro-profile__tape--vertical img {
+  position: absolute;
+  top: -54.38%;
+  left: -17.75%;
+  width: 134.99%;
+  height: 196.08%;
+  max-width: none;
+}
+
+.intro-profile__sticker {
+  position: absolute;
+  z-index: 5;
+  top: 23.148%;
+  left: 8.177%;
+  width: 52.917%;
+  height: 55.093%;
+  transform-origin: center;
+}
+
+.intro-profile__sticker-paper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.intro-profile__sticker-paper img {
+  position: absolute;
+  top: -12.57%;
+  left: -3.96%;
+  width: 106.74%;
+  height: 121.47%;
+  max-width: none;
+}
+
+.intro-profile__sticker-copy {
+  position: absolute;
+  z-index: 1;
+  top: 16.975%;
+  left: 15.65%;
+  margin: 0;
+  color: #b3ab9e;
+  font-family: "DM Sans", "Pretendard Variable", "Pretendard", sans-serif;
+  font-size: clamp(1.35rem, 3.125vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.intro-profile__sticker-copy strong,
+.intro-profile__sticker-copy span { display: block; }
+
+.intro-profile__sticker-copy strong {
+  color: #484848;
+  font: inherit;
+}
+
+.js .intro-profile__sticker { opacity: 0; }
+
+.intro-profile__cat {
+  position: absolute;
+  top: 54.63%;
+  left: 4.270833%;
+  width: 8.697917%;
+  height: 21.481481%;
+  overflow: hidden;
+  transform-origin: right center;
+}
+
+.intro-profile__cat--back { z-index: 4; }
+
+/* 빨간 세로선을 넘어 나온 면만 메모지 위에서 보이는 전면 복제본 */
+.intro-profile__cat--front {
+  z-index: 6;
+  pointer-events: none;
+  clip-path: inset(0 7.2% 0 0);
+}
+
+.intro-profile__cat img {
+  position: absolute;
+  top: 0;
+  left: -45.16%;
+  width: 146.76%;
+  height: 100%;
+  max-width: none;
+}
+
+.js .intro-profile__cat { opacity: 0; }
+
+.intro-profile__whoami {
+  position: absolute;
+  z-index: 6;
+  top: 19.779%;
+  left: 5.315%;
+  width: 11.628%;
+  height: 10.249%;
+  overflow: visible;
+  color: #11100d;
+  transform-origin: left center;
+}
+
+.intro-profile__whoami i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 97.232%;
+  height: 47.791%;
+  overflow: hidden;
+  transform: translate(-50%, -50%) rotate(-16deg);
+}
+
+.intro-profile__whoami img {
+  position: absolute;
+  top: -23.12%;
+  left: -1.88%;
+  width: 103.41%;
+  height: 141.78%;
+  max-width: none;
+}
+
+.intro-profile__whoami span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-family: "DM Sans", "Pretendard Variable", "Pretendard", sans-serif;
+  font-size: 1.041667cqw;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-16deg);
+}
+
+.js .intro-profile__whoami { opacity: 0; }
+
+.intro-profile__tape--corner {
+  top: 18.98%;
+  left: 85.99%;
+  width: 6.04%;
+  height: 4.17%;
+}
+
+.intro-profile__tape--corner img {
+  position: absolute;
+  top: -39.51%;
+  left: -27.49%;
+  width: 145.97%;
+  height: 173.32%;
+  max-width: none;
+}
+
+.intro-profile__cup {
+  top: 66.67%;
+  left: 71.35%;
+  width: 9.38%;
+  height: 23.14%;
+}
+
+.intro-profile__cup i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 82.89%;
+  height: 92.56%;
+  transform: translate(-50%, -50%) rotate(8.04deg);
+}
+
+.intro-profile__cup img {
+  position: absolute;
+  top: -4.22%;
+  left: -5.89%;
+  width: 111.67%;
+  height: 108.09%;
+  max-width: none;
+}
+
+@media (max-width: 63.99rem) {
+  .intro.intro--profile {
+    position: relative;
+    min-height: max(48rem, 100svh);
+    height: auto;
+  }
+
+  .intro-profile__canvas { min-height: max(48rem, 100svh); }
+
+  .intro-profile__note {
+    top: 15%;
+    left: 4%;
+    width: 67%;
+  }
+
+  .intro-profile__portrait {
+    top: 43%;
+    left: 58%;
+    width: 34%;
+    height: 40%;
+  }
+
+  .intro-profile__details {
+    font-size: clamp(.7rem, 2.5vw, 1.35rem);
+  }
+
+  .intro-profile__details > div { min-height: 8.7vw; }
+  .intro-profile__tape--vertical { top: 53%; left: 55%; width: 7%; height: 20%; }
+  .intro-profile__tape--corner { top: 43%; left: 83%; width: 8%; height: 3.5%; }
+  .intro-profile__cup { top: 73%; left: 66%; width: 13%; height: 16%; }
+
+  .intro-profile__sticker {
+    top: 24%;
+    left: 3%;
+    width: 72%;
+    height: 42%;
+  }
+
+  .intro-profile__sticker-copy {
+    font-size: clamp(1.2rem, 4.2vw, 2.7rem);
+  }
+}
+
+@media (max-width: 35rem) {
+  .intro.intro--profile,
+  .intro-profile__canvas { min-height: 43rem; }
+
+  .intro-profile__note {
+    top: 15%;
+    left: -3%;
+    width: 94%;
+    transform: rotate(-5deg);
+  }
+
+  .intro-profile__details {
+    width: 80%;
+    font-size: clamp(.58rem, 3vw, .92rem);
+  }
+
+  .intro-profile__details > div { min-height: 12.3vw; }
+  .intro-profile__role dd { white-space: normal; }
+
+  .intro-profile__portrait {
+    top: 55%;
+    left: 49%;
+    width: 43%;
+    height: 32%;
+  }
+
+  .intro-profile__tape--vertical { top: 61%; left: 44%; width: 11%; height: 17%; }
+  .intro-profile__tape--corner { top: 55%; left: 80%; width: 11%; height: 3%; }
+  .intro-profile__cup { top: 80%; left: 59%; width: 17%; height: 12%; }
+  .intro-profile__sticker {
+    top: 27%;
+    left: 2%;
+    width: 94%;
+    height: 36%;
+  }
+
+  .intro-profile__sticker-copy {
+    top: 17%;
+    left: 15.5%;
+    font-size: clamp(.95rem, 5.1vw, 1.75rem);
   }
 }
 
@@ -537,6 +925,356 @@ html:not(.js) .intro-2 {
   }
 }
 
+/* Exact 1920x1706 composition from Figma node 604:122. */
+.intro-2 {
+  width: 100%;
+  height: 88.854167vw;
+  min-height: 0;
+  overflow: visible;
+}
+
+.intro-2 > :not(.intro-2-figma) { display: none; }
+
+.intro-2-figma {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;
+  overflow: visible;
+}
+
+.intro-2-figma figure { margin: 0; }
+
+.intro-2-figma img {
+  display: block;
+  max-width: none;
+}
+
+.intro-2-figma__torn--left {
+  position: absolute;
+  z-index: 1;
+  top: -7.561547%;
+  left: -6.25%;
+  width: 23.958333%;
+  height: 25.908558%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.intro-2-figma__torn--left img {
+  width: 100%;
+  height: 100%;
+}
+
+.intro-2-figma__torn-right {
+  position: absolute;
+  z-index: 1;
+  top: -13.540445%;
+  left: 78.6%;
+  display: grid;
+  width: 41.260208%;
+  height: 31.85973%;
+  place-items: center;
+  pointer-events: none;
+}
+
+.intro-2-figma__torn-right i {
+  display: block;
+  width: 95.558%;
+  height: 45.996%;
+  overflow: hidden;
+  transform: rotate(-24.71deg);
+}
+
+.intro-2-figma__torn-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.intro-2-figma__title {
+  position: absolute;
+  z-index: 3;
+  top: 3.810082%;
+  left: 6.302083%;
+  width: 76.5625%;
+  margin: 0;
+  color: #484848;
+  font-family: "DM Sans", "Arial Black", Arial, sans-serif;
+  font-size: 3.645833cqw;
+  font-weight: 900;
+  font-variation-settings: "opsz" 14;
+  letter-spacing: 0;
+  line-height: normal;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.intro-2-figma__title span { display: block; }
+
+.intro-2-figma__title b {
+  color: #f1efeb;
+  font: inherit;
+}
+
+.intro-2-figma__brush {
+  position: absolute;
+  z-index: 1;
+  top: 30.465%;
+  left: 2.141667%;
+  display: grid;
+  width: 97.036146%;
+  height: 54.047%;
+  place-items: center;
+  pointer-events: none;
+}
+
+.intro-2-figma__brush i {
+  position: relative;
+  display: block;
+  width: 96.39%;
+  height: 54.012%;
+  overflow: hidden;
+  transform: rotate(-14.15deg);
+}
+
+.intro-2-figma__brush img {
+  position: absolute;
+  top: -13.66%;
+  left: -2.96%;
+  width: 105.49%;
+  height: 126.8%;
+}
+
+.intro-2-figma__cards {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+
+.intro-2-figma__card {
+  position: absolute;
+  display: grid;
+  place-items: center;
+}
+
+.intro-2-figma__card i {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.intro-2-figma__card img { position: absolute; }
+
+.intro-2-figma__card--left {
+  top: 36.184642%;
+  left: 2.017188%;
+  width: 36.069427%;
+  height: 37.360727%;
+}
+
+.intro-2-figma__card--left i {
+  width: 87.794%;
+  height: 84.72%;
+  transform: rotate(-10deg);
+}
+
+.intro-2-figma__card--left img {
+  top: -6.55%;
+  left: 0;
+  width: 100%;
+  height: 112.47%;
+}
+
+.intro-2-figma__card--center {
+  top: 26.494725%;
+  left: 35.520833%;
+  width: 28.489583%;
+  height: 37.104338%;
+}
+
+.intro-2-figma__card--center i {
+  width: 100%;
+  height: 100%;
+}
+
+.intro-2-figma__card--center img {
+  top: -2.68%;
+  left: -11.36%;
+  width: 122.45%;
+  height: 105.67%;
+}
+
+.intro-2-figma__card--right {
+  top: 33.758499%;
+  left: 63.125%;
+  width: 33.972135%;
+  height: 39.517409%;
+}
+
+.intro-2-figma__card--right i {
+  width: 85.7%;
+  height: 86.92%;
+  transform: rotate(10deg);
+}
+
+.intro-2-figma__card--right img {
+  top: -3.1%;
+  left: -6.5%;
+  width: 113.28%;
+  height: 108.1%;
+}
+
+.intro-2-figma__copy {
+  position: absolute;
+  z-index: 3;
+  color: #000;
+  font-style: normal;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.intro-2-figma__copy strong,
+.intro-2-figma__copy span {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+}
+
+.intro-2-figma__copy strong {
+  height: 4.06313%;
+  font-family: "DM Sans", "Arial Black", Arial, sans-serif;
+  font-size: 1.5625cqw;
+  font-weight: 900;
+  font-variation-settings: "opsz" 14;
+  line-height: normal;
+}
+
+.intro-2-figma__copy span {
+  width: 15.861146%;
+  height: 4.489918%;
+  font-family: "Pretendard Variable", "Pretendard", sans-serif;
+  font-size: 1.041667cqw;
+  font-weight: 900;
+  line-height: normal;
+  text-align: center;
+}
+
+.intro-2-figma__copy mark {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  isolation: isolate;
+}
+
+.intro-2-figma__copy mark::before {
+  position: absolute;
+  z-index: -1;
+  right: -.08em;
+  bottom: .02em;
+  left: -.08em;
+  height: .78em;
+  background: linear-gradient(
+    180deg,
+    rgb(237 188 194 / 18%) 0%,
+    rgb(237 188 194 / 88%) 18%,
+    rgb(237 188 194 / 82%) 82%,
+    rgb(237 188 194 / 26%) 100%
+  );
+  clip-path: polygon(0 17%, 99% 5%, 100% 84%, 1% 100%);
+  content: "";
+  transform: scaleX(var(--highlight-progress, 1));
+  transform-origin: left center;
+}
+
+.js .intro-2-figma__copy mark { --highlight-progress: 0; }
+
+.intro-2-figma__copy--left,
+.intro-2-figma__copy--center,
+.intro-2-figma__copy--right {
+  inset: 0;
+}
+
+.intro-2-figma__copy--left strong {
+  top: 47.431506%;
+  left: 14.934896%;
+  width: 9.482708%;
+  transform: rotate(-10deg);
+}
+
+.intro-2-figma__copy--left .intro-2-figma__line--one {
+  top: 50.568054%;
+  left: 12.244427%;
+  transform: rotate(-10deg);
+}
+
+.intro-2-figma__copy--left .intro-2-figma__line--two {
+  top: 54.031125%;
+  left: 12.787135%;
+  transform: rotate(-10deg);
+}
+
+.intro-2-figma__copy--left .intro-2-figma__line--three {
+  top: 57.494783%;
+  left: 13.329323%;
+  transform: rotate(-10deg);
+}
+
+.intro-2-figma__copy--center strong {
+  top: 42.735053%;
+  left: 45.364583%;
+  width: auto;
+  height: auto;
+  transform: translateY(-50%);
+}
+
+.intro-2-figma__copy--center .intro-2-figma__line--one {
+  top: 43.886342%;
+  left: 42.03125%;
+}
+
+.intro-2-figma__copy--center .intro-2-figma__line--two {
+  top: 47.403341%;
+  left: 42.03125%;
+}
+
+.intro-2-figma__copy--center .intro-2-figma__line--three {
+  top: 50.92034%;
+  left: 42.03125%;
+}
+
+.intro-2-figma__copy--right strong {
+  top: 47.733118%;
+  left: 76.983854%;
+  width: 7.636198%;
+  height: 3.696718%;
+  transform: rotate(10deg);
+}
+
+.intro-2-figma__copy--right .intro-2-figma__line--one {
+  top: 50.859379%;
+  left: 73.245469%;
+  transform: rotate(10deg);
+}
+
+.intro-2-figma__copy--right .intro-2-figma__line--two {
+  top: 54.323036%;
+  left: 72.70276%;
+  transform: rotate(10deg);
+}
+
+.intro-2-figma__copy--right .intro-2-figma__line--three {
+  top: 57.786694%;
+  left: 72.160052%;
+  transform: rotate(10deg);
+}
+
 @media (max-width: 47.99rem) {
   .intro__inner {
     display: flex;
@@ -595,6 +1333,228 @@ html:not(.js) .intro-2 {
     width: calc(100% - (var(--page-gutter) * 2));
     font-size: clamp(2.4rem, 5vw, 3.2rem);
     line-height: 1.05;
+  }
+}
+
+/* Keep the Figma 1920×1080 composition proportional at every viewport ratio. */
+.intro.intro--profile {
+  position: absolute;
+  width: 100%;
+  height: 100svh;
+  min-height: 100svh;
+}
+
+.intro-profile__canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(100vw, 177.777778svh);
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  container-type: inline-size;
+  transform: translate(-50%, -50%);
+}
+
+.intro-profile__note {
+  top: 24.247%;
+  left: 10.821%;
+  width: 46.042%;
+  transform: rotate(-10.88deg);
+}
+
+.intro-profile__details {
+  width: 77%;
+  font-size: 1.5625cqw;
+}
+
+.intro-profile__details > div { min-height: 5.052083cqw; }
+
+.intro-profile__portrait {
+  top: 19.738%;
+  left: 66.125%;
+  width: 27.708%;
+  height: 58.796%;
+}
+
+.intro-profile__tape--vertical {
+  top: 53.98%;
+  left: 62.5%;
+  width: 5.377%;
+  height: 29.168%;
+}
+
+.intro-profile__tape--corner {
+  top: 18.98%;
+  left: 85.99%;
+  width: 6.04%;
+  height: 4.17%;
+}
+
+.intro-profile__cup {
+  top: 66.67%;
+  left: 71.35%;
+  width: 9.38%;
+  height: 23.14%;
+}
+
+.intro-profile__sticker {
+  top: 23.148%;
+  left: 8.177%;
+  width: 52.917%;
+  height: 55.093%;
+}
+
+.intro-profile__sticker-copy {
+  top: 16.975%;
+  left: 15.65%;
+  font-size: 3.125cqw;
+}
+
+@media (max-width: 35rem) {
+  .intro-profile__role dd { white-space: nowrap; }
+}
+
+/* Figma 604:122 — intro_2 */
+.intro-2 {
+  overflow: visible;
+  background: transparent;
+}
+
+.intro-2__brush {
+  position: absolute;
+  z-index: 1;
+  left: 3.893229%;
+  top: 42.893318%;
+  width: 93.532865%;
+  height: 29.192263%;
+  margin: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: rotate(-14.15deg);
+  transform-origin: center;
+}
+
+.intro-2__brush img {
+  position: absolute;
+  top: -13.66%;
+  left: -2.96%;
+  width: 105.49%;
+  height: 126.8%;
+  max-width: none;
+}
+
+.intro-2__card-back,
+.intro-2__bottom-paper-clip { display: none; }
+
+.intro-2__card-inner,
+.intro-2__card-face {
+  border: 0;
+  border-radius: 0;
+}
+
+.intro-2__card-front img {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.intro-2__paper-text {
+  -webkit-mask-image: url("./intro2-torn-left.png");
+  mask-image: url("./intro2-torn-left.png");
+}
+
+@media (min-width: 64rem) {
+  .intro-2 {
+    height: max(100svh, 88.854167vw);
+    min-height: 53.3125rem;
+  }
+
+  .intro-2__title {
+    top: 3.810082%;
+    left: 5.625%;
+    width: 76.5625%;
+    font-family: "DM Sans", "Arial Black", Arial, sans-serif;
+    font-size: 3.645833vw;
+    font-weight: 900;
+    line-height: normal;
+    white-space: nowrap;
+  }
+
+  .intro-2__cards {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  .intro-2__card {
+    position: absolute;
+    max-width: none;
+    aspect-ratio: auto;
+  }
+
+  .intro-2__card--one {
+    top: 39.624854%;
+    left: 4.21875%;
+    width: 31.666667%;
+    height: 31.652989%;
+    transform: rotate(-10deg);
+  }
+
+  .intro-2__card--two {
+    top: 27.080891%;
+    left: 35.520833%;
+    width: 28.489583%;
+    height: 37.104338%;
+    transform: none;
+  }
+
+  .intro-2__card--three {
+    top: 36.928488%;
+    left: 65.553385%;
+    width: 29.114583%;
+    height: 34.349355%;
+    transform: rotate(10deg);
+  }
+
+  .intro-2__card-inner,
+  .intro-2__card-face {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .intro-2__card-front img {
+    position: absolute;
+    max-width: none;
+    object-fit: fill;
+  }
+
+  .intro-2__card--one .intro-2__card-front img {
+    top: -6.55%;
+    left: 0;
+    width: 100%;
+    height: 112.47%;
+  }
+
+  .intro-2__card--two .intro-2__card-front img {
+    top: -2.68%;
+    left: -11.36%;
+    width: 122.45%;
+    height: 105.67%;
+  }
+
+  .intro-2__card--three .intro-2__card-front img {
+    top: -3.1%;
+    left: -6.5%;
+    width: 113.28%;
+    height: 108.1%;
   }
 }
 

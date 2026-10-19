@@ -3,22 +3,132 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function initHorizontalStory() {
+const svgNamespace = "http://www.w3.org/2000/svg";
+
+function splitPathIntoGlyphs(sourcePath, glyphCount, svg) {
+  const pathData = sourcePath.getAttribute("d") ?? "";
+  if (glyphCount === 1) return [pathData];
+
+  const subpaths = pathData.match(/[Mm][^Mm]*/g) ?? [pathData];
+  const measurementGroup = document.createElementNS(svgNamespace, "g");
+  measurementGroup.style.visibility = "hidden";
+  svg.append(measurementGroup);
+
+  const measured = subpaths.map((data) => {
+    const path = document.createElementNS(svgNamespace, "path");
+    path.setAttribute("d", data);
+    measurementGroup.append(path);
+    const box = path.getBBox();
+    return { data, center: box.x + box.width / 2 };
+  });
+  measurementGroup.remove();
+
+  const sorted = [...measured].sort((a, b) => a.center - b.center);
+  const boundaries = sorted
+    .slice(0, -1)
+    .map((item, index) => ({ index, gap: sorted[index + 1].center - item.center }))
+    .sort((a, b) => b.gap - a.gap)
+    .slice(0, glyphCount - 1)
+    .map(({ index }) => index)
+    .sort((a, b) => a - b);
+
+  const groups = [];
+  let start = 0;
+  boundaries.forEach((boundary) => {
+    groups.push(sorted.slice(start, boundary + 1));
+    start = boundary + 1;
+  });
+  groups.push(sorted.slice(start));
+
+  return groups.map((group) => group.map(({ data }) => data).join(""));
+}
+
+async function buildTitleInkSvg(svg, title) {
+  if (!svg || !title) return { strokes: [], fills: [], lengths: [] };
+
+  try {
+    const assetUrl = new URL("../table-of-contents/toc-title.svg", import.meta.url);
+    const response = await fetch(assetUrl);
+    if (!response.ok) throw new Error(`Title SVG request failed: ${response.status}`);
+
+    const documentSvg = new DOMParser().parseFromString(await response.text(), "image/svg+xml");
+    const sourcePaths = [...documentSvg.querySelectorAll("path")];
+    const findPath = (id) => sourcePaths.find((path) => path.id === id);
+    const orderedPathGroups = [
+      { path: findPath("T"), glyphCount: 1 },
+      { path: findPath("hing"), glyphCount: 4 },
+      {
+        path: sourcePaths.find((path) => path.id.startsWith("i") && path.id.endsWith("d") && path.id !== "hing"),
+        glyphCount: 3,
+      },
+      { path: findPath("M"), glyphCount: 1 },
+      { path: findPath("ade"), glyphCount: 3 },
+    ];
+
+    if (orderedPathGroups.some(({ path }) => !path)) throw new Error("Title SVG paths are incomplete");
+
+    const glyphPathData = orderedPathGroups.flatMap(({ path, glyphCount }) => (
+      splitPathIntoGlyphs(path, glyphCount, svg)
+    ));
+    if (glyphPathData.length !== 12) throw new Error("Title SVG could not be split into 12 glyphs");
+
+    const fillGroup = document.createElementNS(svgNamespace, "g");
+    const strokeGroup = document.createElementNS(svgNamespace, "g");
+    const fills = [];
+    const strokes = [];
+
+    glyphPathData.forEach((data) => {
+      const fill = document.createElementNS(svgNamespace, "path");
+      const stroke = document.createElementNS(svgNamespace, "path");
+      fill.setAttribute("d", data);
+      stroke.setAttribute("d", data);
+      fill.setAttribute("class", "table-of-contents__title-fill");
+      stroke.setAttribute("class", "table-of-contents__title-stroke");
+      fill.style.opacity = "0";
+      fillGroup.append(fill);
+      strokeGroup.append(stroke);
+      fills.push(fill);
+      strokes.push(stroke);
+    });
+
+    svg.replaceChildren(fillGroup, strokeGroup);
+    const lengths = strokes.map((path) => path.getTotalLength());
+    strokes.forEach((path, index) => {
+      path.style.strokeDasharray = `${lengths[index]}`;
+      path.style.strokeDashoffset = `${lengths[index]}`;
+    });
+    title.classList.add("is-svg-ready");
+    return { strokes, fills, lengths };
+  } catch (error) {
+    console.warn("Table of contents title SVG could not be initialized.", error);
+    return { strokes: [], fills: [], lengths: [] };
+  }
+}
+
+export async function initHorizontalStory() {
   const sequence = document.querySelector("[data-intro-story-sequence]");
   const sequenceViewport = sequence?.querySelector("[data-sequence-viewport]");
   const sequenceTrack = sequence?.querySelector("[data-sequence-track]");
   const tableOfContents = sequence?.querySelector("[data-table-of-contents]");
   const tocStage = tableOfContents?.querySelector(".table-of-contents__stage");
+  const tocTitle = tableOfContents?.querySelector(".table-of-contents__year");
+  const tocTitleSvg = tableOfContents?.querySelector("[data-toc-title-svg]");
   const tocTopics = gsap.utils.toArray("[data-toc-topic]", tableOfContents);
+  const tocTopicBefores = gsap.utils.toArray(".table-of-contents__topic-before", tableOfContents);
+  const tocTopicAfters = gsap.utils.toArray(".table-of-contents__topic-after", tableOfContents);
   const tocYearParts = gsap.utils.toArray(".table-of-contents__year-part", tableOfContents);
   const tocDetails = gsap.utils.toArray(
-    ".table-of-contents__number, .table-of-contents__period, .table-of-contents__direction > *",
+    ".table-of-contents__period, .table-of-contents__direction > *",
     tableOfContents,
   );
   const tocNumber = tableOfContents?.querySelector(".table-of-contents__number");
   const tocPeriod = tableOfContents?.querySelector(".table-of-contents__period");
   const tocDirection = tableOfContents?.querySelector(".table-of-contents__direction");
   const teamOverview = sequence?.querySelector("[data-team-overview]");
+  const teamExitVisual = teamOverview?.querySelector(".team-overview__visual");
+  const teamExitHeading = teamOverview?.querySelector(".team-overview__heading");
+  const teamExitSummary = teamOverview?.querySelector(".team-overview__summary");
+  const teamExitMeta = teamOverview?.querySelector(".team-overview__meta");
   const section = document.querySelector("[data-horizontal-story]");
   const track = section?.querySelector("[data-horizontal-track]");
   const storyViewport = section?.querySelector(".horizontal-story__viewport");
@@ -28,9 +138,10 @@ export function initHorizontalStory() {
   const lineDash = section?.querySelector("[data-story-line-dash]");
   const lineSolid = section?.querySelector("[data-story-line-solid]");
   const lineReveal = section?.querySelector("[data-story-line-reveal]");
-  if (!sequence || !sequenceViewport || !sequenceTrack || !tableOfContents || !tocStage || tocTopics.length !== 3 || !tocNumber || !tocPeriod || !tocDirection || !teamOverview || !section || !track || !storyViewport || !line || !lineTrack || !lineSvg || !lineDash || !lineSolid || !lineReveal) return;
+  if (!sequence || !sequenceViewport || !sequenceTrack || !tableOfContents || !tocStage || tocTopics.length !== 3 || !tocNumber || !tocPeriod || !tocDirection || !teamOverview || !teamExitVisual || !teamExitHeading || !teamExitSummary || !teamExitMeta || !section || !track || !storyViewport || !line || !lineTrack || !lineSvg || !lineDash || !lineSolid || !lineReveal) return;
 
   const parallaxItems = gsap.utils.toArray("[data-story-parallax]", section);
+  const titleInk = await buildTitleInkSvg(tocTitleSvg, tocTitle);
   const media = gsap.matchMedia();
 
   const seededRandom = (index) => {
@@ -106,13 +217,25 @@ export function initHorizontalStory() {
     const totalDistance = () => tocBuild() + tocHold() + tocToTeam() + teamHold() + teamToStory() + distance();
     const lineState = { offset: 0 };
     const [work, team, project] = tocTopics;
-    const workCenterOffset = () => {
-      const stageRect = tocStage.getBoundingClientRect();
-      const workRect = work.getBoundingClientRect();
-      return stageRect.left + stageRect.width / 2 - (workRect.left + workRect.width / 2);
-    };
-    const yearScripts = tocYearParts.filter((part) => part.matches(".table-of-contents__year-part--y, .table-of-contents__year-part--r"));
-    const yearSerifs = tocYearParts.filter((part) => !yearScripts.includes(part));
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const totalInkLength = titleInk.lengths.reduce((total, length) => total + length, 0);
+    const numberRestingShadow = "drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2)) drop-shadow(0px 1px 1.5px rgba(0, 0, 0, 0.18))";
+    gsap.set(tocTopicBefores, { autoAlpha: reduceMotion ? 0 : 1, scale: 1 });
+    gsap.set(tocTopicAfters, { autoAlpha: reduceMotion ? 1 : 0, scale: reduceMotion ? 1 : 0 });
+    gsap.set(titleInk.fills, { autoAlpha: reduceMotion ? 1 : 0 });
+    gsap.set(titleInk.strokes, { autoAlpha: reduceMotion ? 0 : 1 });
+    gsap.set(tocNumber, reduceMotion ? {
+      autoAlpha: 1,
+      y: 0,
+      scale: 1,
+      filter: numberRestingShadow,
+    } : {
+      autoAlpha: 0,
+      y: -150,
+      scale: 1.8,
+      filter: "drop-shadow(0px 40px 20px rgba(0, 0, 0, 0.05))",
+      willChange: "transform,opacity,filter",
+    });
     sizeLine();
     revealLine();
     const redrawLine = () => {
@@ -133,43 +256,63 @@ export function initHorizontalStory() {
       },
     });
 
-    timeline.fromTo(
-      work,
-      { autoAlpha: 0, x: workCenterOffset, scale: .42 },
-      { autoAlpha: 1, x: workCenterOffset, scale: 1.08, duration: () => tocBuild() * .25, ease: "power3.out" },
-    );
-    timeline.to(work, { x: 0, scale: 1, duration: () => tocBuild() * .2, ease: "power2.inOut" });
-    timeline.fromTo(
-      team,
-      { autoAlpha: 0, y: () => tocStage.clientHeight * .24, scale: .68 },
-      { autoAlpha: 1, y: 0, scale: 1, duration: () => tocBuild() * .23, ease: "power3.out" },
-      `-=${tocBuild() * .08}`,
-    );
-    timeline.fromTo(
-      project,
-      { autoAlpha: 0, x: () => tocStage.clientWidth * .3, scale: .74 },
-      { autoAlpha: 1, x: 0, scale: 1, duration: () => tocBuild() * .25, ease: "power3.out" },
-      `-=${tocBuild() * .1}`,
-    );
-    timeline.fromTo(
-      yearSerifs,
-      { autoAlpha: 0, yPercent: 65 },
-      { autoAlpha: 1, yPercent: 0, duration: () => tocBuild() * .16, stagger: () => tocBuild() * .018, ease: "power3.out" },
-      `-=${tocBuild() * .08}`,
-    );
-    timeline.fromTo(
-      yearScripts,
-      { autoAlpha: 0, scale: .55, rotation: 4 },
-      { autoAlpha: 1, scale: 1, rotation: 0, duration: () => tocBuild() * .18, stagger: () => tocBuild() * .025, ease: "back.out(1.25)" },
-      "<",
-    );
+    if (reduceMotion) {
+      timeline.to({}, { duration: () => tocBuild() * .75 });
+    } else {
+      timeline.to(tocTopicBefores, {
+        autoAlpha: 0,
+        scale: 0,
+        duration: () => tocBuild() * .315,
+        ease: "power2.in",
+      });
+      timeline.to(tocTopicAfters, {
+        autoAlpha: 1,
+        scale: 1,
+        duration: () => tocBuild() * .435,
+        ease: "back.out(1.2)",
+      });
+    }
+    if (reduceMotion || totalInkLength === 0) {
+      timeline.to({}, { duration: () => tocBuild() * .216 });
+    } else {
+      titleInk.strokes.forEach((stroke, index) => {
+        const durationRatio = .216 * (titleInk.lengths[index] / totalInkLength);
+        const fillDurationRatio = durationRatio * .12;
+        timeline.to(stroke, {
+          strokeDashoffset: 0,
+          duration: () => tocBuild() * durationRatio,
+          ease: "power1.inOut",
+        });
+        timeline.to(titleInk.fills[index], {
+          autoAlpha: 1,
+          duration: () => tocBuild() * fillDurationRatio,
+          ease: "none",
+        }, `-=${tocBuild() * fillDurationRatio}`);
+        timeline.to(stroke, {
+          autoAlpha: 0,
+          duration: () => tocBuild() * fillDurationRatio,
+          ease: "none",
+        }, "<");
+      });
+    }
     timeline.fromTo(
       tocDetails,
       { autoAlpha: 0, y: 14 },
       { autoAlpha: 1, y: 0, duration: () => tocBuild() * .1, stagger: () => tocBuild() * .012, ease: "power2.out" },
       `-=${tocBuild() * .04}`,
     );
-    timeline.to({}, { duration: tocHold() });
+    if (reduceMotion) {
+      timeline.to({}, { duration: tocHold() });
+    } else {
+      timeline.to(tocNumber, {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        filter: numberRestingShadow,
+        duration: tocHold,
+        ease: "power3.out",
+      });
+    }
 
     timeline.add("toc-exit");
     timeline.to(sequenceTrack, { x: () => -teamOverview.offsetLeft, duration: tocToTeam(), ease: "power1.inOut" }, "toc-exit");
@@ -199,7 +342,23 @@ export function initHorizontalStory() {
       "toc-exit",
     );
     timeline.to({}, { duration: teamHold() });
-    timeline.to(sequenceTrack, { x: () => -section.offsetLeft, duration: teamToStory(), ease: "power1.inOut" });
+    timeline.add("team-exit");
+    timeline.to(sequenceTrack, { x: () => -section.offsetLeft, duration: teamToStory(), ease: "power1.inOut" }, "team-exit");
+    timeline.to(
+      teamExitVisual,
+      { x: () => -teamOverview.clientWidth * .16, duration: teamToStory(), ease: "power1.inOut" },
+      "team-exit",
+    );
+    timeline.to(
+      teamExitHeading,
+      { x: () => -teamOverview.clientWidth * .11, duration: teamToStory(), ease: "power1.inOut" },
+      "team-exit",
+    );
+    timeline.to(
+      [teamExitSummary, teamExitMeta],
+      { x: () => -teamOverview.clientWidth * .08, duration: teamToStory(), ease: "power1.inOut" },
+      "team-exit",
+    );
     timeline.add("story-scroll");
     timeline.to(track, { x: () => -distance(), duration: distance() }, "story-scroll");
     timeline.to(lineTrack, { x: () => -distance(), duration: distance() }, "story-scroll");
@@ -225,7 +384,7 @@ export function initHorizontalStory() {
     return () => {
       timeline.scrollTrigger?.kill();
       timeline.kill();
-      gsap.set([sequenceTrack, track, lineTrack, tocDirection, ...tocTopics, ...tocYearParts, ...tocDetails, ...parallaxItems], { clearProps: "transform,opacity,visibility" });
+      gsap.set([sequenceTrack, track, lineTrack, tocDirection, tocNumber, teamExitVisual, teamExitHeading, teamExitSummary, teamExitMeta, ...tocTopics, ...tocTopicBefores, ...tocTopicAfters, ...tocYearParts, ...titleInk.strokes, ...titleInk.fills, ...tocDetails, ...parallaxItems], { clearProps: "transform,opacity,visibility,filter,willChange,strokeDasharray,strokeDashoffset" });
       lineReveal.setAttribute("width", "0");
       lineTrack.style.removeProperty("width");
       window.removeEventListener("resize", redrawLine);

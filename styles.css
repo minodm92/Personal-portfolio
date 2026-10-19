@@ -4,7 +4,7 @@
 @layer reset, tokens, base, components, utilities;
 
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Kapakana&family=Literata:opsz,wght@7..72,200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=DM+Sans:opsz,wght@9..40,600;9..40,900&family=Kapakana&family=Literata:opsz,wght@7..72,200&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@600&display=swap");
 @import url("./assets/common/common.css");
 @import url("./assets/components/header/header.css");
@@ -13,6 +13,8 @@
 @import url("./assets/components/table-of-contents/table-of-contents.css");
 @import url("./assets/components/team-overview/team-overview.css");
 @import url("./assets/components/horizontal-story/horizontal-story.css");
+@import url("./assets/components/process-bridge/process-bridge.css");
+@import url("./assets/components/process-market/process-market.css");
 @import url("./assets/components/work/work.css");
 @import url("./assets/components/work-types/work-types.css");
 @import url("./assets/components/case-study/case-study.css");
@@ -91,7 +93,7 @@
     --color-text-on-light: var(--color-black);
     --color-text-muted-on-light: var(--color-gray-600);
     --color-border-on-light: var(--color-gray-300);
-    --paper-background: url("./assets/common/images/bg.png");
+    --paper-background: url("./assets/components/intro/intro2-background.png");
 
     /* Font families */
     --font-display: "Anton", "Pretendard Variable", "Pretendard", "Arial Narrow", sans-serif;
@@ -313,7 +315,7 @@
    ======================================== */
 @layer base {
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body { min-width: 20rem; overflow-x: hidden; }
 img { display: block; max-width: 100%; }
 button, input, textarea, select { font: inherit; }

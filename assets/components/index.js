@@ -3,6 +3,7 @@ export { initHero } from "./hero/hero.js";
 export { initIntro } from "./intro/intro.js";
 export { initTeamOverview } from "./team-overview/team-overview.js";
 export { initHorizontalStory } from "./horizontal-story/horizontal-story.js";
+export { initProcessMarket } from "./process-market/process-market.js";
 export { initWork } from "./work/work.js";
 export { initWorkTypes } from "./work-types/work-types.js";
 export { initCaseStudy } from "./case-study/case-study.js";

@@ -4,34 +4,6 @@ import { initRevealWithin } from '../../common/reveal.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function syncPaperTextMask(section) {
-    const paper = section?.querySelector('.intro-2__paper--bridge');
-    const paperImage = paper?.querySelector('img');
-    if (!section || !paper) return () => {};
-
-    const update = () => {
-        const sectionRect = section.getBoundingClientRect();
-        const paperRect = paper.getBoundingClientRect();
-        section.style.setProperty('--intro-2-mask-x', `${paperRect.left - sectionRect.left}px`);
-        section.style.setProperty('--intro-2-mask-y', `${paperRect.top - sectionRect.top}px`);
-        section.style.setProperty('--intro-2-mask-width', `${paperRect.width}px`);
-        section.style.setProperty('--intro-2-mask-height', `${paperRect.height}px`);
-    };
-
-    const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(update) : null;
-    observer?.observe(section);
-    observer?.observe(paper);
-    window.addEventListener('resize', update, { passive: true });
-    paperImage?.addEventListener('load', update);
-    update();
-
-    return () => {
-        observer?.disconnect();
-        window.removeEventListener('resize', update);
-        paperImage?.removeEventListener('load', update);
-    };
-}
-
 function syncIntroLabelSpacing(intro) {
     const startLabel = intro?.querySelector('.intro__label--start');
     const title = intro?.querySelector('#intro-title');
@@ -70,70 +42,6 @@ function syncIntroLabelSpacing(intro) {
         window.removeEventListener('resize', update);
         intro.style.removeProperty('--intro-end-label-top');
     };
-}
-
-function initIntroTwoCards(section, reduceMotion) {
-    const cards = gsap.utils.toArray('[data-intro-two-card]', section);
-    const cardInners = gsap.utils.toArray('[data-intro-two-card-inner]', section);
-    if (!section || !cards.length || cards.length !== cardInners.length || reduceMotion.matches) {
-        return () => {};
-    }
-
-    const media = gsap.matchMedia();
-
-    media.add('(min-width: 64rem)', () => {
-        const timeline = gsap.timeline({
-            defaults: { ease: 'none' },
-            scrollTrigger: {
-                trigger: section,
-                start: 'center center',
-                end: () => `+=${Math.max(window.innerWidth * 2.4, window.innerHeight * 3)}`,
-                pin: true,
-                pinSpacing: true,
-                scrub: 0.8,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-                refreshPriority: 1,
-            },
-        });
-
-        timeline.fromTo(
-            cards,
-            { x: () => window.innerWidth * 1.15, opacity: 0 },
-            {
-                x: 0,
-                opacity: 1,
-                duration: 1,
-                stagger: 0.7,
-                ease: 'power2.out',
-            }
-        );
-
-        timeline.add('card-flip', '+=0.35');
-
-        cardInners.forEach((cardInner, index) => {
-            const flipPosition = `card-flip+=${index * 0.3}`;
-
-            timeline.to(
-                cardInner,
-                {
-                    rotationY: 180,
-                    duration: 1,
-                    ease: 'power2.inOut',
-                },
-                flipPosition
-            );
-        });
-
-        return () => {
-            timeline.scrollTrigger?.kill();
-            timeline.kill();
-            gsap.set(cards, { clearProps: 'transform,opacity' });
-            gsap.set(cardInners, { clearProps: 'transform' });
-        };
-    });
-
-    return () => media.revert();
 }
 
 function splitLinesIntoCharacters(title, lines) {
@@ -185,16 +93,207 @@ function splitLinesIntoCharacters(title, lines) {
     };
 }
 
+function initProfileSticker(viewport, intro) {
+    const sticker = intro?.querySelector('[data-profile-sticker]');
+    const tape = intro?.querySelector('[data-whoami-tape]');
+    const cat = intro?.querySelector('[data-cat-sticker]');
+    const catFront = intro?.querySelector('[data-cat-sticker-front]');
+    if (!viewport || !intro || !sticker || !tape || !cat || !catFront) return () => {};
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const restingShadow = 'drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2)) drop-shadow(0px 1px 1.5px rgba(0, 0, 0, 0.18))';
+
+    if (prefersReducedMotion) {
+        gsap.set(sticker, { autoAlpha: 1, y: 0, scale: 1, filter: restingShadow });
+        gsap.set(tape, { autoAlpha: 1, y: 0, scaleX: 1, scaleY: 1, rotation: 0, clipPath: 'inset(0 0% 0 0)', filter: 'none' });
+        gsap.set(cat, { autoAlpha: 1, xPercent: 0 });
+        gsap.set(catFront, { autoAlpha: 1, xPercent: 0, clipPath: 'inset(0 7.2% 0 0)' });
+        return () => {
+            gsap.set(sticker, { clearProps: 'opacity,visibility,transform,filter' });
+            gsap.set(tape, { clearProps: 'opacity,visibility,transform,clipPath,filter' });
+            gsap.set(cat, { clearProps: 'opacity,visibility,transform' });
+            gsap.set(catFront, { clearProps: 'opacity,visibility,transform,clipPath' });
+        };
+    }
+
+    gsap.set(sticker, {
+        autoAlpha: 0,
+        y: -150,
+        scale: 1.8,
+        filter: 'drop-shadow(0px 40px 20px rgba(0, 0, 0, 0.05))',
+        willChange: 'transform,opacity,filter',
+    });
+
+    gsap.set(tape, {
+        autoAlpha: 0,
+        y: -24,
+        scaleX: 0.08,
+        scaleY: 1.12,
+        rotation: -12,
+        clipPath: 'inset(0 92% 0 0)',
+        filter: 'drop-shadow(0px 18px 10px rgba(0, 0, 0, 0.12))',
+        willChange: 'transform,opacity,clip-path,filter',
+    });
+
+    // 빨간 세로선 뒤에 숨겨 두었다가 테이프와 함께 왼쪽으로 내민다.
+    gsap.set(cat, {
+        autoAlpha: 0,
+        xPercent: 95,
+        willChange: 'transform,opacity',
+    });
+    gsap.set(catFront, {
+        autoAlpha: 0,
+        xPercent: 95,
+        clipPath: 'inset(0 100% 0 0)',
+        willChange: 'transform,opacity,clip-path',
+    });
+
+    const setMotionHints = () => {
+        gsap.set(sticker, { willChange: 'transform,opacity,filter' });
+        gsap.set(tape, { willChange: 'transform,opacity,clip-path,filter' });
+        gsap.set(cat, { willChange: 'transform,opacity' });
+        gsap.set(catFront, { willChange: 'transform,opacity,clip-path' });
+    };
+
+    const clearMotionHints = () => {
+        gsap.set(sticker, { clearProps: 'willChange' });
+        gsap.set(tape, { clearProps: 'willChange' });
+        gsap.set(cat, { clearProps: 'willChange' });
+        gsap.set(catFront, { clearProps: 'willChange' });
+    };
+
+    const introTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: intro,
+            start: 'center center',
+            end: () => `+=${Math.max(window.innerHeight * 1.65, 1100)}`,
+            pin: viewport,
+            pinSpacing: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onEnter: setMotionHints,
+            onEnterBack: setMotionHints,
+            onLeave: clearMotionHints,
+            onLeaveBack: clearMotionHints,
+        },
+    });
+
+    introTimeline
+        .to({}, { duration: 0.5 })
+        .to(sticker, {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            filter: restingShadow,
+            duration: 0.35,
+            ease: 'power3.out',
+        })
+        .addLabel('tapeAndCat')
+        .to(tape, {
+            autoAlpha: 1,
+            y: 0,
+            scaleX: 1,
+            scaleY: 1,
+            rotation: 0,
+            clipPath: 'inset(0 0% 0 0)',
+            filter: 'drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.14))',
+            duration: 0.45,
+            ease: 'none',
+        }, 'tapeAndCat')
+        .to(cat, {
+            autoAlpha: 1,
+            xPercent: 0,
+            duration: 0.45,
+            ease: 'none',
+        }, 'tapeAndCat')
+        .to(catFront, {
+            autoAlpha: 1,
+            xPercent: 0,
+            clipPath: 'inset(0 7.2% 0 0)',
+            duration: 0.45,
+            ease: 'none',
+        }, 'tapeAndCat')
+        .to({}, { duration: 0.5 });
+
+    return () => {
+        introTimeline.scrollTrigger?.kill();
+        introTimeline.kill();
+        gsap.set(sticker, { clearProps: 'opacity,visibility,transform,filter,willChange' });
+        gsap.set(tape, { clearProps: 'opacity,visibility,transform,clipPath,filter,willChange' });
+        gsap.set(cat, { clearProps: 'opacity,visibility,transform,willChange' });
+        gsap.set(catFront, { clearProps: 'opacity,visibility,transform,clipPath,willChange' });
+    };
+}
+
+function initIntroTwoHighlights(section, reduceMotion) {
+    const cards = section?.querySelector('.intro-2-figma__cards');
+    const highlights = gsap.utils.toArray('[data-highlight-step]', section);
+    if (!section || !cards || !highlights.length) return () => {};
+
+    if (reduceMotion.matches) {
+        gsap.set(highlights, { '--highlight-progress': 1 });
+        return () => gsap.set(highlights, { clearProps: '--highlight-progress' });
+    }
+
+    const steps = [...new Set(highlights.map((highlight) => highlight.dataset.highlightStep))]
+        .map((step) => highlights.filter((highlight) => highlight.dataset.highlightStep === step));
+
+    gsap.set(highlights, {
+        '--highlight-progress': 0,
+        willChange: 'transform',
+    });
+
+    const timeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: cards,
+            start: 'center center',
+            end: () => `+=${Math.max(window.innerHeight * 2.2, 1600)}`,
+            pin: section,
+            pinSpacing: true,
+            scrub: 0.8,
+            once: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onLeave: () => gsap.set(highlights, { clearProps: 'willChange' }),
+        },
+    });
+
+    timeline.to({}, { duration: 0.5 });
+    steps.forEach((stepHighlights) => {
+        timeline.to(stepHighlights, {
+            '--highlight-progress': 1,
+            duration: 0.3,
+            ease: 'none',
+        });
+    });
+    timeline.to({}, { duration: 0.5 });
+
+    return () => {
+        timeline.scrollTrigger?.kill();
+        timeline.kill();
+        gsap.set(highlights, { clearProps: '--highlight-progress,willChange' });
+    };
+}
+
 export function initIntro({ reduceMotion }) {
     const sequence = document.querySelector('[data-intro-timeline]');
     const viewport = sequence?.querySelector('[data-intro-viewport]');
     const intro = sequence?.querySelector('.intro');
     const introTwo = sequence?.querySelector('[data-intro-two]');
-    const destroyPaperTextMask = syncPaperTextMask(introTwo);
     const destroyIntroLabelSpacing = syncIntroLabelSpacing(intro);
-    const destroyIntroTwoCards = initIntroTwoCards(introTwo, reduceMotion);
+    const destroyProfileSticker = initProfileSticker(viewport, intro);
+    const destroyIntroTwoHighlights = initIntroTwoHighlights(introTwo, reduceMotion);
     initRevealWithin(intro, reduceMotion);
     if (!sequence || !viewport || !intro) return;
+
+    if (intro.matches('.intro--profile')) {
+        return () => {
+            destroyIntroLabelSpacing();
+            destroyProfileSticker();
+            destroyIntroTwoHighlights();
+        };
+    }
 
     const title = intro.querySelector('h2');
     const lines = title?.querySelectorAll(':scope > span') ?? [];
@@ -204,9 +303,8 @@ export function initIntro({ reduceMotion }) {
         sequence.classList.add('intro-timeline--static');
         gsap.set(lines, { color: '#11100d' });
         return () => {
-            destroyPaperTextMask();
             destroyIntroLabelSpacing();
-            destroyIntroTwoCards();
+            destroyIntroTwoHighlights();
             sequence.classList.remove('intro-timeline--static');
         };
     }
@@ -251,9 +349,8 @@ export function initIntro({ reduceMotion }) {
 
     return () => {
         isActive = false;
-        destroyPaperTextMask();
         destroyIntroLabelSpacing();
-        destroyIntroTwoCards();
+        destroyIntroTwoHighlights();
         window.removeEventListener('load', refreshScrollTrigger);
         introTimeline.scrollTrigger?.kill();
         introTimeline.kill();

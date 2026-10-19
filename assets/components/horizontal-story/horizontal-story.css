@@ -365,3 +365,146 @@
   .horizontal-story__copy-title { margin-bottom: .75rem; }
   .horizontal-story__hint { display: none; }
 }
+
+@layer components {
+  .horizontal-story:has(.story-figma) .horizontal-story__masthead,
+  .horizontal-story:has(.story-figma) .horizontal-story__line,
+  .horizontal-story:has(.story-figma) .horizontal-story__hint { display: none; }
+
+  .story-figma { overflow: hidden; color: #484848; }
+  .story-figma__background { display: none; }
+
+  .story-figma__brush { position: absolute; z-index: 1; top: 7.777778%; left: 3.125%; width: 43.011823%; height: 28.930741%; display: grid; place-items: center; pointer-events: none; }
+  .story-figma__brush img { width: 97.58%; height: 71.52%; max-width: none; object-fit: cover; transform: rotate(-6.44deg); }
+
+  .story-figma__title { position: absolute; z-index: 2; margin: 0; color: #484848; font-family: "Literata", Georgia, serif; font-size: 5.729167vw; font-weight: 200; line-height: .89; letter-spacing: -.458333vw; white-space: nowrap; }
+  .story-figma__title--single { top: 15.555556%; left: 7.03125%; padding-left: 4.21875vw; }
+  .story-figma__title--single > span { position: absolute; top: .094444em; left: 0; font-family: "Kapakana", "Times New Roman", serif; font-size: 1.636364em; font-weight: 400; line-height: 1; letter-spacing: 0; }
+  .story-figma__title--double { top: 12.5%; left: 7.03125%; }
+  .story-figma__title--double > span { position: relative; display: block; }
+  .story-figma--four .story-figma__title--single { padding-left: 5.9375vw; }
+
+  .story-figma__photo { position: absolute; z-index: 1; top: 13.425926%; left: 46.614583%; width: 48.177083%; height: 48.148148%; margin: 0; overflow: hidden; }
+  .story-figma__photo img { position: absolute; top: -12.08%; left: 0; width: 100%; height: 124.17%; max-width: none; object-fit: cover; }
+  .story-figma__frame { position: absolute; z-index: 3; top: 14.351852%; left: 45.052083%; width: 51.302083%; height: 48.981481%; max-width: none; object-fit: cover; pointer-events: none; }
+  .story-figma__tape { position: absolute; z-index: 4; top: 11.851852%; left: 86.666667%; width: 11.306667%; height: 4.898148%; max-width: none; object-fit: cover; transform: rotate(13.19deg); pointer-events: none; }
+
+  .story-figma__copy { position: absolute; z-index: 4; top: 63.240741%; left: 7.03125%; width: 73.177083%; height: 24%; }
+  .story-figma__strip { position: absolute; z-index: -1; top: 0; left: 0; width: 24.010417vw; height: 9.907407svh; max-width: none; object-fit: cover; object-position: center; pointer-events: none; }
+  .story-figma__tagline { position: absolute; top: 3.240741svh; left: 2.552083vw; margin: 0; color: #f1efeb; font-family: "DM Sans", sans-serif; font-size: 2.604167vw; font-weight: 600; line-height: normal; white-space: nowrap; }
+  .story-figma__description { position: absolute; top: 10.37037svh; left: 2.552083vw; margin: 0; color: #484848; font-family: "Pretendard Variable", Pretendard, sans-serif; font-size: 1.5625vw; font-weight: 600; line-height: normal; letter-spacing: -.025em; }
+
+  .story-figma__cat { position: absolute; z-index: 5; max-width: none; object-fit: cover; pointer-events: none; }
+  .story-figma__cat--bike { top: 56.666667%; left: 86.5625%; width: 12.083333%; height: 25.740741%; }
+  .story-figma__cat--peek { top: .648148%; left: 62.34375%; width: 16.770833%; height: 14.166667%; }
+
+  .story-figma--one .story-figma__brush > div { position: relative; width: 97.580244%; height: 71.523251%; overflow: hidden; transform: rotate(-6.44deg); }
+  .story-figma--one .story-figma__brush > div img { position: absolute; top: -13.66%; left: -2.96%; width: 105.49%; height: 126.8%; max-width: none; object-fit: cover; transform: none; }
+
+  .story-figma--one .story-figma__title { top: 0; left: 0; width: 100%; height: 100%; padding: 0; pointer-events: none; }
+  .story-figma--one .story-figma__title--single > span { position: absolute; display: block; margin: 0; padding: 0; transform: none; }
+  .story-figma--one .story-figma__title-initial { top: 17.12963%; left: 7.03125%; font-family: "Kapakana", "Times New Roman", serif; font-size: 9.375vw; font-weight: 400; line-height: normal; letter-spacing: 0; }
+  .story-figma--one .story-figma__title-rest { top: 15.555556%; left: 11.25%; font-family: "Literata", Georgia, serif; font-size: 5.729167vw; font-weight: 200; line-height: normal; letter-spacing: -.458333vw; }
+
+  .story-figma--one .story-figma__frame { position: absolute; z-index: 3; top: 14.351852%; left: 45.052083%; width: 51.302083%; height: 48.981481%; overflow: hidden; pointer-events: none; }
+  .story-figma--one .story-figma__frame img { position: absolute; top: 0; left: 0; width: 102.51%; height: 107.18%; max-width: none; }
+
+  .story-figma--one .story-figma__tape { top: 9.62963%; left: 86.510417%; width: 11.637083%; height: 9.35463%; display: grid; place-items: center; transform: none; }
+  .story-figma--one .story-figma__tape > div { position: relative; width: 97.161552%; height: 52.360684%; overflow: hidden; transform: rotate(13.19deg); }
+  .story-figma--one .story-figma__tape img { position: absolute; top: -23.12%; left: -1.88%; width: 103.41%; height: 141.78%; max-width: none; object-fit: cover; }
+
+  .story-figma--one .story-figma__strip { overflow: hidden; }
+  .story-figma--one .story-figma__strip img { position: absolute; top: -28.57%; left: -1.74%; width: 103.65%; height: 149.62%; max-width: none; object-fit: cover; }
+
+  .story-figma--two .story-figma__brush > div { position: relative; width: 97.580244%; height: 71.523251%; overflow: hidden; transform: rotate(-6.44deg); }
+  .story-figma--two .story-figma__brush > div img { position: absolute; top: -13.66%; left: -2.96%; width: 105.49%; height: 126.8%; max-width: none; object-fit: cover; transform: none; }
+
+  .story-figma--two .story-figma__title { top: 0; left: 0; width: 100%; height: 100%; padding: 0; pointer-events: none; }
+  .story-figma--two .story-figma__title > span { position: absolute; display: block; margin: 0; padding: 0; transform: none; }
+  .story-figma--two .story-figma__title-initial { top: 14.074074%; left: 7.03125%; font-family: "Kapakana", "Times New Roman", serif; font-size: 9.375vw; font-weight: 400; line-height: normal; letter-spacing: 0; }
+  .story-figma--two .story-figma__title-line { font-family: "Literata", Georgia, serif; font-size: 5.729167vw; font-weight: 200; line-height: normal; letter-spacing: -.458333vw; }
+  .story-figma--two .story-figma__title-line--first { top: 12.5%; left: 12.96875%; }
+  .story-figma--two .story-figma__title-line--second { top: 21.568519%; left: 8.4375%; }
+
+  .story-figma--two .story-figma__frame { position: absolute; z-index: 3; top: 14.351852%; left: 45.052083%; width: 51.302083%; height: 48.981481%; overflow: hidden; pointer-events: none; }
+  .story-figma--two .story-figma__frame img { position: absolute; top: 0; left: 0; width: 102.51%; height: 107.18%; max-width: none; }
+  .story-figma--two .story-figma__strip { overflow: hidden; }
+  .story-figma--two .story-figma__strip img { position: absolute; top: -28.57%; left: -1.74%; width: 103.65%; height: 149.62%; max-width: none; object-fit: cover; }
+
+  .story-figma--three .story-figma__brush > div { position: relative; width: 97.580244%; height: 71.523251%; overflow: hidden; transform: rotate(-6.44deg); }
+  .story-figma--three .story-figma__brush > div img { position: absolute; top: -13.66%; left: -2.96%; width: 105.49%; height: 126.8%; max-width: none; object-fit: cover; transform: none; }
+
+  .story-figma--three .story-figma__title { top: 0; left: 0; width: 100%; height: 100%; padding: 0; pointer-events: none; }
+  .story-figma--three .story-figma__title > span { position: absolute; display: block; margin: 0; padding: 0; transform: none; }
+  .story-figma--three .story-figma__title-initial { top: 14.074074%; left: 7.03125%; font-family: "Kapakana", "Times New Roman", serif; font-size: 9.375vw; font-weight: 400; line-height: normal; letter-spacing: 0; }
+  .story-figma--three .story-figma__title-line { font-family: "Literata", Georgia, serif; font-size: 5.729167vw; font-weight: 200; line-height: normal; letter-spacing: -.458333vw; }
+  .story-figma--three .story-figma__title-line--first { top: 12.5%; left: 11.614583%; }
+  .story-figma--three .story-figma__title-line--second { top: 21.568519%; left: 8.4375%; }
+
+  .story-figma--three .story-figma__frame { position: absolute; z-index: 3; top: 14.351852%; left: 45.052083%; width: 51.302083%; height: 48.981481%; overflow: hidden; pointer-events: none; }
+  .story-figma--three .story-figma__frame img { position: absolute; top: 0; left: 0; width: 102.51%; height: 107.18%; max-width: none; }
+  .story-figma--three .story-figma__strip { overflow: hidden; }
+  .story-figma--three .story-figma__strip img { position: absolute; top: -28.57%; left: -1.74%; width: 103.65%; height: 149.62%; max-width: none; object-fit: cover; }
+
+  .story-figma--four .story-figma__brush > div { position: relative; width: 97.580244%; height: 71.523251%; overflow: hidden; transform: rotate(-6.44deg); }
+  .story-figma--four .story-figma__brush > div img { position: absolute; top: -13.66%; left: -2.96%; width: 105.49%; height: 126.8%; max-width: none; object-fit: cover; transform: none; }
+
+  .story-figma--four .story-figma__title { top: 0; left: 0; width: 100%; height: 100%; padding: 0; pointer-events: none; }
+  .story-figma--four .story-figma__title--single > span { position: absolute; display: block; margin: 0; padding: 0; transform: none; }
+  .story-figma--four .story-figma__title-initial { top: 17.12963%; left: 7.03125%; font-family: "Kapakana", "Times New Roman", serif; font-size: 9.375vw; font-weight: 400; line-height: normal; letter-spacing: 0; }
+  .story-figma--four .story-figma__title-rest { top: 15.555556%; left: 12.96875%; font-family: "Literata", Georgia, serif; font-size: 5.729167vw; font-weight: 200; line-height: normal; letter-spacing: -.458333vw; }
+
+  .story-figma--four .story-figma__frame { position: absolute; z-index: 3; top: 14.351852%; left: 45.052083%; width: 51.302083%; height: 48.981481%; overflow: hidden; pointer-events: none; }
+  .story-figma--four .story-figma__frame img { position: absolute; top: 0; left: 0; width: 102.51%; height: 107.18%; max-width: none; }
+  .story-figma--four .story-figma__tape { top: 9.62963%; left: 86.510417%; width: 11.637083%; height: 9.35463%; display: grid; place-items: center; transform: none; }
+  .story-figma--four .story-figma__tape > div { position: relative; width: 97.161552%; height: 52.360684%; overflow: hidden; transform: rotate(13.19deg); }
+  .story-figma--four .story-figma__tape img { position: absolute; top: -23.12%; left: -1.88%; width: 103.41%; height: 141.78%; max-width: none; object-fit: cover; }
+  .story-figma--four .story-figma__strip { overflow: hidden; }
+  .story-figma--four .story-figma__strip img { position: absolute; top: -28.57%; left: -1.74%; width: 103.65%; height: 149.62%; max-width: none; object-fit: cover; }
+}
+
+@media (max-width: 63.99rem) {
+  .story-figma__title { font-size: clamp(3rem, 8vw, 5.5rem); }
+  .story-figma__tagline { font-size: clamp(1.25rem, 3vw, 2rem); }
+  .story-figma__description { font-size: clamp(.8rem, 1.75vw, 1.15rem); }
+}
+
+@media (max-width: 47.99rem) {
+  .horizontal-story__track { min-height: 42rem; }
+  .story-figma { height: 42rem; }
+  .story-figma__brush { top: 7%; left: -3%; width: 88%; height: 25%; }
+  .story-figma__title { top: 10%; left: 5%; font-size: clamp(2.75rem, 14vw, 4.5rem); line-height: .82; }
+  .story-figma__title--single { padding-left: 11vw; }
+  .story-figma--four .story-figma__title--single { padding-left: 15vw; }
+  .story-figma__photo { top: 34%; left: 8%; width: 84%; height: 31%; }
+  .story-figma__frame { top: 34.5%; left: 5%; width: 90%; height: 32%; }
+  .story-figma__tape { top: 31%; left: 73%; width: 23%; height: 4%; }
+  .story-figma__copy { top: 68%; left: 2%; width: 96%; height: 28%; }
+  .story-figma__strip { width: 78%; height: 4.25rem; }
+  .story-figma__tagline { top: 1.15rem; left: 7%; margin: 0; font-size: clamp(1.05rem, 5vw, 1.5rem); white-space: normal; }
+  .story-figma__description { top: 4.75rem; left: 7%; margin: 0 5% 0 0; font-size: .72rem; line-height: 1.35; }
+  .story-figma__cat--bike { top: 51%; left: 72%; width: 25%; height: 19%; }
+  .story-figma__cat--peek { top: 29%; left: 55%; width: 32%; height: 10%; }
+  .story-figma--one .story-figma__title { top: 7%; left: 5%; width: 90%; height: 22%; }
+  .story-figma--one .story-figma__title-initial { top: 10%; left: 0; font-size: clamp(5rem, 23vw, 7.5rem); }
+  .story-figma--one .story-figma__title-rest { top: 0; left: 12vw; font-size: clamp(2.75rem, 14vw, 4.5rem); }
+  .story-figma--one .story-figma__frame { top: 34.5%; left: 5%; width: 90%; height: 32%; }
+  .story-figma--one .story-figma__tape { top: 30%; left: 72%; width: 25%; height: 8%; }
+  .story-figma--two .story-figma__title { top: 6%; left: 4%; width: 92%; height: 25%; }
+  .story-figma--two .story-figma__title-initial { top: 8%; left: 0; font-size: clamp(5rem, 23vw, 7.5rem); }
+  .story-figma--two .story-figma__title-line { font-size: clamp(2.75rem, 14vw, 4.5rem); }
+  .story-figma--two .story-figma__title-line--first { top: 0; left: 16vw; }
+  .story-figma--two .story-figma__title-line--second { top: 42%; left: 7vw; }
+  .story-figma--two .story-figma__frame { top: 34.5%; left: 5%; width: 90%; height: 32%; }
+  .story-figma--three .story-figma__title { top: 6%; left: 4%; width: 92%; height: 25%; }
+  .story-figma--three .story-figma__title-initial { top: 8%; left: 0; font-size: clamp(5rem, 23vw, 7.5rem); }
+  .story-figma--three .story-figma__title-line { font-size: clamp(2.75rem, 14vw, 4.5rem); }
+  .story-figma--three .story-figma__title-line--first { top: 0; left: 13vw; }
+  .story-figma--three .story-figma__title-line--second { top: 42%; left: 7vw; }
+  .story-figma--three .story-figma__frame { top: 34.5%; left: 5%; width: 90%; height: 32%; }
+  .story-figma--four .story-figma__title { top: 7%; left: 5%; width: 90%; height: 22%; padding: 0; }
+  .story-figma--four .story-figma__title-initial { top: 10%; left: 0; font-size: clamp(5rem, 23vw, 7.5rem); }
+  .story-figma--four .story-figma__title-rest { top: 0; left: 15vw; font-size: clamp(2.75rem, 14vw, 4.5rem); }
+  .story-figma--four .story-figma__frame { top: 34.5%; left: 5%; width: 90%; height: 32%; }
+  .story-figma--four .story-figma__tape { top: 30%; left: 72%; width: 25%; height: 8%; }
+}
