@@ -1,105 +1,98 @@
-const MOCKUP_EMBED_URL = new URL("/team-mockup/motorstudio-embed.html", window.location.origin).href;
-const mockupFrames = new Set();
-const frameState = new WeakMap();
-let mockupProgress = 0;
+const videoStates = new WeakMap();
+const LOADER_PLAYBACK_RATE = 8;
 
-function clampProgress(value) {
-  return Math.min(1, Math.max(0, Number(value) || 0));
+function forwardRate(video, state) {
+  return video.currentTime < state.loaderEnd ? LOADER_PLAYBACK_RATE : state.rate;
 }
 
-function elementTop(element, frameWindow) {
-  return element.getBoundingClientRect().top + frameWindow.scrollY;
+function cancelReverse(video) {
+  const state = videoStates.get(video);
+  if (!state?.frame) return;
+  cancelAnimationFrame(state.frame);
+  state.frame = 0;
 }
 
-function measureFrame(frame) {
-  const frameWindow = frame.contentWindow;
-  const frameDocument = frame.contentDocument;
-  if (!frameWindow || !frameDocument?.body) return null;
-
-  const root = frameDocument.documentElement;
-  const viewportHeight = Math.max(1, frameWindow.innerHeight);
-  const scrollHeight = Math.max(root.scrollHeight, frameDocument.body.scrollHeight);
-  const maxScroll = Math.max(0, scrollHeight - viewportHeight);
-  if (maxScroll <= viewportHeight * .5) return null;
-
-  const videos = [...frameDocument.querySelectorAll("video")]
-    .map((video) => ({ video, rect: video.getBoundingClientRect() }))
-    .filter(({ rect }) => rect.width > 1 && rect.height > 1)
-    .sort((a, b) => a.rect.top - b.rect.top || (b.rect.width * b.rect.height) - (a.rect.width * a.rect.height));
-  const heroVideo = videos[0];
-  const heroBottom = heroVideo ? heroVideo.rect.bottom + frameWindow.scrollY : viewportHeight;
-
-  const sections = [...frameDocument.querySelectorAll("main section, main > div, body > section")]
-    .map((element) => ({ element, top: elementTop(element, frameWindow) }))
-    .filter(({ element, top }) => element.getBoundingClientRect().height > viewportHeight * .35 && top >= heroBottom - 8)
-    .sort((a, b) => a.top - b.top);
-  const start = Math.min(maxScroll, Math.max(0, sections[0]?.top ?? heroBottom));
-  const end = Math.min(maxScroll, start + viewportHeight * 2);
-
-  return { start, end: Math.max(start, end) };
+function playForward(video) {
+  const state = videoStates.get(video);
+  if (!state || !state.visible) return;
+  cancelReverse(video);
+  state.direction = "forward";
+  video.playbackRate = forwardRate(video, state);
+  video.play().catch(() => {});
 }
 
-function applyFrameProgress(frame, progress = mockupProgress) {
-  const state = frameState.get(frame);
-  if (!state?.ready) return;
+function playReverse(video) {
+  const state = videoStates.get(video);
+  if (!state || !state.visible) return;
+  video.pause();
+  cancelReverse(video);
+  state.direction = "reverse";
+  state.previousTime = performance.now();
 
-  const metrics = measureFrame(frame) ?? state.metrics;
-  if (!metrics) return;
-  state.metrics = metrics;
+  const step = (now) => {
+    if (!state.visible || state.direction !== "reverse") {
+      state.frame = 0;
+      return;
+    }
 
-  const target = metrics.start + (metrics.end - metrics.start) * clampProgress(progress);
-  frame.contentWindow?.scrollTo({ top: target, left: 0, behavior: "auto" });
-}
+    const elapsed = Math.min(.1, (now - state.previousTime) / 1000);
+    state.previousTime = now;
+    const reverseRate = video.currentTime <= state.loaderEnd ? LOADER_PLAYBACK_RATE : state.rate;
+    video.currentTime = Math.max(0, video.currentTime - elapsed * reverseRate);
 
-function prepareFrame(frame) {
-  const state = { ready: false, metrics: null, timeout: 0 };
-  frameState.set(frame, state);
-  mockupFrames.add(frame);
-
-  frame.addEventListener("load", () => {
-    let attempts = 0;
-    const waitForContent = () => {
-      attempts += 1;
-      const metrics = measureFrame(frame);
-      const hasVideo = Boolean(frame.contentDocument?.querySelector("video"));
-
-      if (metrics && (hasVideo || attempts >= 24)) {
-        state.ready = true;
-        state.metrics = metrics;
-        applyFrameProgress(frame);
-        frame.closest(".team-mockup__desktop-screen, .team-mockup__phone-screen")?.classList.add("is-ready");
-        return;
-      }
-
-      if (attempts < 60) state.timeout = window.setTimeout(waitForContent, 250);
-    };
-
-    state.timeout = window.setTimeout(waitForContent, 2200);
-  }, { once: true });
-
-  frame.src = MOCKUP_EMBED_URL;
-}
-
-function initTeamMockupFrames(section) {
-  const frames = section ? [...section.querySelectorAll("[data-team-mockup-frame]")] : [];
-  if (!frames.length) return;
-
-  const relayWheel = (event) => {
-    if (event.data?.type !== "team-mockup-wheel") return;
-    window.scrollBy({
-      top: Number(event.data.deltaY) || 0,
-      left: Number(event.data.deltaX) || 0,
-      behavior: "auto",
-    });
+    if (video.currentTime <= .04) {
+      video.currentTime = 0;
+      state.frame = 0;
+      playForward(video);
+      return;
+    }
+    state.frame = requestAnimationFrame(step);
   };
-  window.addEventListener("message", relayWheel);
 
-  frames.forEach(prepareFrame);
+  state.frame = requestAnimationFrame(step);
 }
 
-export function setTeamMockupProgress(progress) {
-  mockupProgress = clampProgress(progress);
-  mockupFrames.forEach((frame) => applyFrameProgress(frame, mockupProgress));
+function prepareVideo(video) {
+  video.muted = true;
+  video.defaultMuted = true;
+  video.loop = false;
+  videoStates.set(video, {
+    direction: "forward",
+    visible: false,
+    frame: 0,
+    previousTime: 0,
+    rate: Number(video.dataset.playbackRate) || 1,
+    loaderEnd: Number(video.dataset.loaderEnd) || 0,
+  });
+  video.addEventListener("ended", () => playReverse(video));
+  video.addEventListener("timeupdate", () => {
+    const state = videoStates.get(video);
+    if (!state || state.direction !== "forward") return;
+    const nextRate = forwardRate(video, state);
+    if (video.playbackRate !== nextRate) video.playbackRate = nextRate;
+  });
+
+}
+
+function setVideoPlayback(section, playing) {
+  section?.querySelectorAll("[data-team-mockup-video]").forEach((video) => {
+    const state = videoStates.get(video);
+    if (!state) return;
+    state.visible = playing;
+
+    if (!playing) {
+      video.pause();
+      cancelReverse(video);
+      return;
+    }
+
+    if (state.direction === "reverse") playReverse(video);
+    else playForward(video);
+  });
+}
+
+export function setTeamMockupProgress() {
+  // Retained for the horizontal-story integration. Videos play independently.
 }
 
 export function initTeamOverview() {
@@ -107,15 +100,19 @@ export function initTeamOverview() {
   const mockup = document.querySelector("[data-team-mockup]");
   if (!sections.length) return;
 
-  initTeamMockupFrames(mockup);
+  mockup?.querySelectorAll("[data-team-mockup-video]").forEach(prepareVideo);
 
   if (!("IntersectionObserver" in window)) {
     sections.forEach((section) => section.classList.add("is-active"));
+    setVideoPlayback(mockup, true);
     return;
   }
 
   const observer = new IntersectionObserver(
-    (entries) => entries.forEach((entry) => entry.target.classList.toggle("is-active", entry.isIntersecting)),
+    (entries) => entries.forEach((entry) => {
+      entry.target.classList.toggle("is-active", entry.isIntersecting);
+      if (entry.target === mockup) setVideoPlayback(mockup, entry.isIntersecting);
+    }),
     { threshold: .35 },
   );
   sections.forEach((section) => observer.observe(section));

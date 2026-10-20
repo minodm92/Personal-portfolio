@@ -325,15 +325,19 @@
       <section class="team-mockup theme-light" aria-labelledby="team-mockup-title" data-team-mockup>
         <div class="team-mockup__visual">
           <div class="team-mockup__desktop">
-            <img class="team-mockup__desktop-frame" src="assets/components/team-overview/team-overview-mockup-desktop.png" alt="" />
+            <img class="team-mockup__desktop-frame" src="assets/components/team-overview/team-overview-mockup-desktop-overlay.png" alt="" />
             <div class="team-mockup__desktop-screen">
-              <iframe data-team-mockup-frame data-mockup-device="desktop" title="현대 모터스튜디오 데스크톱 화면" tabindex="-1"></iframe>
+              <video data-team-mockup-video data-playback-rate="0.8" muted playsinline preload="metadata" aria-label="현대 모터스튜디오 데스크톱 메인 페이지 영상">
+                <source src="assets/components/team-overview/videos/teamproject-desktop.webm" type="video/webm" />
+              </video>
             </div>
           </div>
           <div class="team-mockup__phone">
-            <img class="team-mockup__phone-frame" src="assets/components/team-overview/team-overview-mockup-phone.png" alt="" />
-            <div class="team-mockup__phone-screen">
-              <iframe data-team-mockup-frame data-mockup-device="mobile" title="현대 모터스튜디오 모바일 화면" tabindex="-1"></iframe>
+            <img class="team-mockup__phone-frame" src="assets/components/team-overview/team-overview-mockup-phone-new.png" alt="" />
+            <div class="team-mockup__phone-screen" aria-hidden="true">
+              <video data-team-mockup-video data-playback-rate="1" muted playsinline preload="metadata">
+                <source src="assets/components/team-overview/videos/teamproject-mobile.webm" type="video/webm" />
+              </video>
             </div>
           </div>
         </div>
@@ -396,66 +400,70 @@
 
           <div class="horizontal-story__track" data-horizontal-track>
             <article class="horizontal-story__panel story-figma story-figma--one" data-horizontal-item>
+              <div class="story-figma__canvas">
               <img class="story-figma__background" src="assets/components/horizontal-story/h1-bg.png" alt="" />
               <div class="story-figma__brush" aria-hidden="true"><div><img src="assets/components/horizontal-story/h1-brush.png" alt="" /></div></div>
               <h2 class="story-figma__title story-figma__title--single"><span class="story-figma__title-initial">E</span><span class="story-figma__title-rest">ditorial Design</span></h2>
               <figure class="story-figma__photo">
                 <img src="assets/components/horizontal-story/h1-photo.png" alt="청록색 모자를 쓴 사람이 들판에 서 있는 모습" />
               </figure>
-              <div class="story-figma__frame" aria-hidden="true"><img src="assets/components/horizontal-story/h1-frame.png" alt="" /></div>
               <div class="story-figma__tape" aria-hidden="true"><div><img src="assets/components/horizontal-story/h1-tape.png" alt="" /></div></div>
               <div class="story-figma__copy">
                 <div class="story-figma__strip" aria-hidden="true"><img src="assets/components/horizontal-story/h1-strip.png" alt="" /></div>
-                <p class="story-figma__tagline">We bring every mobility story to life.</p>
+                <p class="story-figma__tagline">We bring every mobility</p>
                 <p class="story-figma__description">대형 이미지와 간결한 문장을 조합해 공간과 콘텐츠의 분위기를 강조했습니다.<br />서로 다른 콘텐츠가 하나의 브랜드 이야기로 이어지게 했습니다.<br />정보를 읽는 화면을 넘어 현대 모빌리티를 미리 경험하는 탐색 환경을 설계했습니다.</p>
+              </div>
               </div>
             </article>
 
             <article class="horizontal-story__panel story-figma story-figma--two" data-horizontal-item>
+              <div class="story-figma__canvas">
               <img class="story-figma__background" src="assets/components/horizontal-story/h2-bg.png" alt="" />
               <div class="story-figma__brush" aria-hidden="true"><div><img src="assets/components/horizontal-story/h2-brush.png" alt="" /></div></div>
               <h2 class="story-figma__title story-figma__title--double"><span class="story-figma__title-initial">B</span><span class="story-figma__title-line story-figma__title-line--first">rand</span><span class="story-figma__title-line story-figma__title-line--second">Experience Design</span></h2>
               <figure class="story-figma__photo">
                 <img src="assets/components/horizontal-story/h2-photo.png" alt="청록색 모자를 쓴 사람이 들판에 서 있는 모습" />
               </figure>
-              <div class="story-figma__frame" aria-hidden="true"><img src="assets/components/horizontal-story/h2-frame.png" alt="" /></div>
-              <img class="story-figma__cat story-figma__cat--bike" src="assets/components/horizontal-story/h2-cat.png" alt="자전거를 타는 고양이 스티커" />
+              <div class="story-figma__tape" aria-hidden="true"><div><img src="assets/components/horizontal-story/h1-tape.png" alt="" /></div></div>
               <div class="story-figma__copy">
                 <div class="story-figma__strip" aria-hidden="true"><img src="assets/components/horizontal-story/h2-strip.png" alt="" /></div>
                 <p class="story-figma__tagline">From Discovery to Experience</p>
                 <p class="story-figma__description">흩어진 정보를 하나의 여정으로 연결했습니다.<br />사용자는 관심 있는 경험을 발견하고 필요한 내용을 빠르게 이해할 수 있습니다.<br />온라인 탐색이 일정 확인과 예약, 실제 공간 방문까지 자연스럽게 이어집니다.</p>
               </div>
+              </div>
             </article>
 
             <article class="horizontal-story__panel story-figma story-figma--three" data-horizontal-item>
+              <div class="story-figma__canvas">
               <img class="story-figma__background" src="assets/components/horizontal-story/h3-bg.png" alt="" />
               <div class="story-figma__brush" aria-hidden="true"><div><img src="assets/components/horizontal-story/h3-brush.png" alt="" /></div></div>
               <h2 class="story-figma__title story-figma__title--double"><span class="story-figma__title-initial">T</span><span class="story-figma__title-line story-figma__title-line--first">ypography</span><span class="story-figma__title-line story-figma__title-line--second">and Interaction</span></h2>
               <figure class="story-figma__photo">
                 <img src="assets/components/horizontal-story/h3-photo.png" alt="청록색 모자를 쓴 사람이 들판에 서 있는 모습" />
               </figure>
-              <div class="story-figma__frame" aria-hidden="true"><img src="assets/components/horizontal-story/h3-frame.png" alt="" /></div>
-              <img class="story-figma__cat story-figma__cat--peek" src="assets/components/horizontal-story/h3-cat.png" alt="프레임 위로 얼굴을 내민 검은 고양이" />
+              <div class="story-figma__tape" aria-hidden="true"><div><img src="assets/components/horizontal-story/h1-tape.png" alt="" /></div></div>
               <div class="story-figma__copy">
                 <div class="story-figma__strip" aria-hidden="true"><img src="assets/components/horizontal-story/h3-strip.png" alt="" /></div>
-                <p class="story-figma__tagline">A rhythm that leads to dynamic effects</p>
+                <p class="story-figma__tagline">A rhythm that leads to effects</p>
                 <p class="story-figma__description">대담한 영문 타이포그래피로 현대 모빌리티의 역동성을 표현했습니다.<br />명확한 한글 위계와 여백을 활용해 복잡한 정보의 가독성을 높였습니다.<br />스크롤 인터랙션을 더해 콘텐츠를 따라 이동하는 듯한 리듬을 완성했습니다.</p>
+              </div>
               </div>
             </article>
 
             <article class="horizontal-story__panel story-figma story-figma--four" data-horizontal-item>
+              <div class="story-figma__canvas">
               <img class="story-figma__background" src="assets/components/horizontal-story/h4-bg.png" alt="" />
               <div class="story-figma__brush" aria-hidden="true"><div><img src="assets/components/horizontal-story/h4-brush.png" alt="" /></div></div>
               <h2 class="story-figma__title story-figma__title--single"><span class="story-figma__title-initial">B</span><span class="story-figma__title-rest">efore and After</span></h2>
               <figure class="story-figma__photo">
                 <img src="assets/components/horizontal-story/h4-photo.png" alt="청록색 모자를 쓴 사람이 들판에 서 있는 모습" />
               </figure>
-              <div class="story-figma__frame" aria-hidden="true"><img src="assets/components/horizontal-story/h4-frame.png" alt="" /></div>
               <div class="story-figma__tape" aria-hidden="true"><div><img src="assets/components/horizontal-story/h4-tape.png" alt="" /></div></div>
               <div class="story-figma__copy">
                 <div class="story-figma__strip" aria-hidden="true"><img src="assets/components/horizontal-story/h4-strip.png" alt="" /></div>
-                <p class="story-figma__tagline">Turn exploration into action with a clear structure.</p>
+                <p class="story-figma__tagline">Turn exploration into action with a</p>
                 <p class="story-figma__description">분산되어 있던 지점과 콘텐츠, 예약 정보를 목적에 따라 다시 구성했습니다.<br />차량과 전시, 프로그램의 차이를 한눈에 비교할 수 있도록 정리했습니다.<br />반복되던 이동을 줄이고 상세 정보에서 예약까지 연결되는 흐름을 만들었습니다.</p>
+              </div>
               </div>
             </article>
 
