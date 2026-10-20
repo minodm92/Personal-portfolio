@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setTeamMockupProgress } from "../team-overview/team-overview.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,7 +44,7 @@ function splitPathIntoGlyphs(sourcePath, glyphCount, svg) {
   return groups.map((group) => group.map(({ data }) => data).join(""));
 }
 
-async function buildTitleInkSvg(svg, title) {
+export async function buildTableOfContentsTitleInkSvg(svg, title) {
   if (!svg || !title) return { strokes: [], fills: [], lengths: [] };
 
   try {
@@ -129,6 +130,11 @@ export async function initHorizontalStory() {
   const teamExitHeading = teamOverview?.querySelector(".team-overview__heading");
   const teamExitSummary = teamOverview?.querySelector(".team-overview__summary");
   const teamExitMeta = teamOverview?.querySelector(".team-overview__meta");
+  const teamMockup = sequence?.querySelector("[data-team-mockup]");
+  const mockupExitVisual = teamMockup?.querySelector(".team-mockup__visual");
+  const mockupExitHeading = teamMockup?.querySelector(".team-mockup__heading");
+  const mockupExitSummary = teamMockup?.querySelector(".team-mockup__summary");
+  const mockupExitLink = teamMockup?.querySelector(".team-mockup__link");
   const section = document.querySelector("[data-horizontal-story]");
   const track = section?.querySelector("[data-horizontal-track]");
   const storyViewport = section?.querySelector(".horizontal-story__viewport");
@@ -138,10 +144,10 @@ export async function initHorizontalStory() {
   const lineDash = section?.querySelector("[data-story-line-dash]");
   const lineSolid = section?.querySelector("[data-story-line-solid]");
   const lineReveal = section?.querySelector("[data-story-line-reveal]");
-  if (!sequence || !sequenceViewport || !sequenceTrack || !tableOfContents || !tocStage || tocTopics.length !== 3 || !tocNumber || !tocPeriod || !tocDirection || !teamOverview || !teamExitVisual || !teamExitHeading || !teamExitSummary || !teamExitMeta || !section || !track || !storyViewport || !line || !lineTrack || !lineSvg || !lineDash || !lineSolid || !lineReveal) return;
+  if (!sequence || !sequenceViewport || !sequenceTrack || !tableOfContents || !tocStage || tocTopics.length !== 3 || !tocNumber || !tocPeriod || !tocDirection || !teamOverview || !teamExitVisual || !teamExitHeading || !teamExitSummary || !teamExitMeta || !teamMockup || !mockupExitVisual || !mockupExitHeading || !mockupExitSummary || !mockupExitLink || !section || !track || !storyViewport || !line || !lineTrack || !lineSvg || !lineDash || !lineSolid || !lineReveal) return;
 
   const parallaxItems = gsap.utils.toArray("[data-story-parallax]", section);
-  const titleInk = await buildTitleInkSvg(tocTitleSvg, tocTitle);
+  const titleInk = await buildTableOfContentsTitleInkSvg(tocTitleSvg, tocTitle);
   const media = gsap.matchMedia();
 
   const seededRandom = (index) => {
@@ -208,14 +214,18 @@ export async function initHorizontalStory() {
 
   media.add("(min-width: 64rem)", () => {
     // The table of contents, overview, and story share one pinned horizontal journey.
-    const distance = () => Math.max(0, track.scrollWidth + 1);
+    const distance = () => Math.max(0, track.scrollWidth - storyViewport.clientWidth);
     const tocBuild = () => window.innerWidth * 1.45;
     const tocHold = () => window.innerWidth * .2;
     const tocToTeam = () => Math.max(0, teamOverview.offsetLeft - tableOfContents.offsetLeft);
     const teamHold = () => window.innerWidth * .55;
-    const teamToStory = () => Math.max(0, section.offsetLeft - teamOverview.offsetLeft);
-    const totalDistance = () => tocBuild() + tocHold() + tocToTeam() + teamHold() + teamToStory() + distance();
+    const teamToMockup = () => Math.max(0, teamMockup.offsetLeft - teamOverview.offsetLeft);
+    const mockupHold = () => window.innerWidth * .55;
+    const mockupToStory = () => Math.max(0, section.offsetLeft - teamMockup.offsetLeft);
+    const outroHold = () => window.innerWidth * .3;
+    const totalDistance = () => tocBuild() + tocHold() + tocToTeam() + teamHold() + teamToMockup() + mockupHold() + mockupToStory() + distance() + outroHold();
     const lineState = { offset: 0 };
+    const mockupScrollState = { progress: 0 };
     const [work, team, project] = tocTopics;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const totalInkLength = titleInk.lengths.reduce((total, length) => total + length, 0);
@@ -343,21 +353,44 @@ export async function initHorizontalStory() {
     );
     timeline.to({}, { duration: teamHold() });
     timeline.add("team-exit");
-    timeline.to(sequenceTrack, { x: () => -section.offsetLeft, duration: teamToStory(), ease: "power1.inOut" }, "team-exit");
+    timeline.to(sequenceTrack, { x: () => -teamMockup.offsetLeft, duration: teamToMockup(), ease: "power1.inOut" }, "team-exit");
     timeline.to(
       teamExitVisual,
-      { x: () => -teamOverview.clientWidth * .16, duration: teamToStory(), ease: "power1.inOut" },
+      { x: () => -teamOverview.clientWidth * .16, duration: teamToMockup(), ease: "power1.inOut" },
       "team-exit",
     );
     timeline.to(
       teamExitHeading,
-      { x: () => -teamOverview.clientWidth * .11, duration: teamToStory(), ease: "power1.inOut" },
+      { x: () => -teamOverview.clientWidth * .11, duration: teamToMockup(), ease: "power1.inOut" },
       "team-exit",
     );
     timeline.to(
       [teamExitSummary, teamExitMeta],
-      { x: () => -teamOverview.clientWidth * .08, duration: teamToStory(), ease: "power1.inOut" },
+      { x: () => -teamOverview.clientWidth * .08, duration: teamToMockup(), ease: "power1.inOut" },
       "team-exit",
+    );
+    timeline.to(mockupScrollState, {
+      progress: 1,
+      duration: mockupHold(),
+      ease: "none",
+      onUpdate: () => setTeamMockupProgress(mockupScrollState.progress),
+    });
+    timeline.add("mockup-exit");
+    timeline.to(sequenceTrack, { x: () => -section.offsetLeft, duration: mockupToStory(), ease: "power1.inOut" }, "mockup-exit");
+    timeline.to(
+      mockupExitVisual,
+      { x: () => -teamMockup.clientWidth * .16, duration: mockupToStory(), ease: "power1.inOut" },
+      "mockup-exit",
+    );
+    timeline.to(
+      mockupExitHeading,
+      { x: () => -teamMockup.clientWidth * .11, duration: mockupToStory(), ease: "power1.inOut" },
+      "mockup-exit",
+    );
+    timeline.to(
+      [mockupExitSummary, mockupExitLink],
+      { x: () => -teamMockup.clientWidth * .08, duration: mockupToStory(), ease: "power1.inOut" },
+      "mockup-exit",
     );
     timeline.add("story-scroll");
     timeline.to(track, { x: () => -distance(), duration: distance() }, "story-scroll");
@@ -380,13 +413,15 @@ export async function initHorizontalStory() {
       },
       "story-scroll",
     );
+    timeline.to({}, { duration: outroHold });
 
     return () => {
       timeline.scrollTrigger?.kill();
       timeline.kill();
-      gsap.set([sequenceTrack, track, lineTrack, tocDirection, tocNumber, teamExitVisual, teamExitHeading, teamExitSummary, teamExitMeta, ...tocTopics, ...tocTopicBefores, ...tocTopicAfters, ...tocYearParts, ...titleInk.strokes, ...titleInk.fills, ...tocDetails, ...parallaxItems], { clearProps: "transform,opacity,visibility,filter,willChange,strokeDasharray,strokeDashoffset" });
+      gsap.set([sequenceTrack, track, lineTrack, tocDirection, tocNumber, teamExitVisual, teamExitHeading, teamExitSummary, teamExitMeta, mockupExitVisual, mockupExitHeading, mockupExitSummary, mockupExitLink, ...tocTopics, ...tocTopicBefores, ...tocTopicAfters, ...tocYearParts, ...titleInk.strokes, ...titleInk.fills, ...tocDetails, ...parallaxItems], { clearProps: "transform,opacity,visibility,filter,willChange,strokeDasharray,strokeDashoffset" });
       lineReveal.setAttribute("width", "0");
       lineTrack.style.removeProperty("width");
+      setTeamMockupProgress(0);
       window.removeEventListener("resize", redrawLine);
     };
   });

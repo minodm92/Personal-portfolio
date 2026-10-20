@@ -2,10 +2,16 @@
   .process-bridge {
     position: relative;
     width: 100%;
-    min-height: 100svh;
+    padding-block: 35svh;
     overflow: hidden;
     color: #484848;
     background: transparent;
+  }
+
+  .process-bridge__stage {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
   }
 
   .process-bridge__banner {
@@ -108,7 +114,7 @@
 }
 
 @media (max-width: 47.99rem) {
-  .process-bridge { min-height: 42rem; }
+  .process-bridge__stage { min-height: 42rem; }
   .process-bridge__banner { top: 31%; left: 2%; width: 96%; height: 31%; }
   .process-bridge__title { top: 27%; left: 4%; gap: 1vw; font-size: clamp(1.8rem, 9vw, 3.5rem); }
   .process-bridge__word i { margin-top: .65rem; font-size: clamp(3rem, 16vw, 5rem); }

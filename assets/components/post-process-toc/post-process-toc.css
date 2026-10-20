@@ -1,0 +1,91 @@
+@layer components {
+  .post-process-toc {
+    position: relative;
+    z-index: 1;
+    min-height: 100svh;
+    place-items: start center;
+  }
+
+  .post-process-toc .table-of-contents__stage { width: min(100vw, 177.777778svh, 120rem); }
+
+  .post-process-toc .table-of-contents__work {
+    top: 49.166667%;
+    left: 12.395833%;
+    color: #484848;
+  }
+
+  .post-process-toc .table-of-contents__team {
+    top: 45.833333%;
+    left: 53.229167%;
+    color: #a9b8ae;
+  }
+
+  .post-process-toc .table-of-contents__project {
+    top: 61.111111%;
+    left: 57.552083%;
+    color: #484848;
+  }
+
+  .post-process-toc__topic-start,
+  .post-process-toc__topic-end {
+    display: block;
+    transform-origin: center;
+  }
+
+  .post-process-toc__topic-end {
+    position: absolute;
+    inset: 0 auto auto 0;
+    text-transform: none;
+  }
+
+  .post-process-toc .table-of-contents__topics p { text-transform: none; }
+
+  .post-process-toc .table-of-contents__work .post-process-toc__topic-start {
+    margin-left: .885417cqw;
+  }
+
+  .post-process-toc .table-of-contents__team .table-of-contents__topic-letter {
+    top: calc(50% - 4.270833cqw);
+    left: 4.322917cqw;
+  }
+
+  .post-process-toc__number {
+    position: absolute;
+    z-index: 3;
+    top: 50.833333%;
+    left: 33.125%;
+    margin: 0;
+    color: #484848;
+    font: 600 1.5625cqw/normal "Pretendard Variable", Pretendard, Arial, sans-serif;
+    transform-origin: center;
+  }
+
+  .post-process-toc .table-of-contents__period,
+  .post-process-toc .table-of-contents__direction {
+    font-family: "Be Vietnam Pro", Arial, sans-serif;
+  }
+
+  .post-process-toc .table-of-contents__period {
+    top: 86.018519%;
+    font-weight: 600;
+  }
+
+  .post-process-toc .table-of-contents__direction {
+    top: 83.425926%;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .post-process-toc {
+    min-height: auto;
+    padding-block: var(--section-space);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .post-process-toc .table-of-contents__work { top: 18rem; left: 2%; }
+  .post-process-toc .table-of-contents__team { top: 27rem; left: 43%; }
+  .post-process-toc .table-of-contents__project { top: 33rem; left: 34%; }
+  .post-process-toc__number { top: 19.5rem; left: 51%; font-size: 1.5rem; }
+}

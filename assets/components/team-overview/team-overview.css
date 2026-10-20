@@ -28,16 +28,66 @@
   .team-overview__meta div + div { margin-top: 1.3021vw; }
   .team-overview__meta dt, .team-overview__meta dd { margin: 0; }
 
+  .team-mockup { position: relative; min-height: 100svh; overflow: hidden; color: #11100d; background: transparent; container-type: inline-size; }
+  .team-mockup__visual, .team-mockup__content, .team-mockup__heading { position: absolute; inset: 0; }
+  .team-mockup__visual { z-index: 1; }
+  .team-mockup__content { z-index: 2; pointer-events: none; }
+  .team-mockup__link { pointer-events: auto; }
+
+  .team-mockup__desktop { position: absolute; top: 26.666667%; left: 3.020833%; width: 36.458333%; height: 51.759259%; }
+  .team-mockup__phone { position: absolute; z-index: 2; top: 52.314815%; left: 34.84375%; width: 9.6875%; height: 29.259259%; }
+  .team-mockup__desktop-frame, .team-mockup__phone-frame { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: contain; pointer-events: none; }
+  .team-mockup__desktop-frame, .team-mockup__phone-frame { filter: drop-shadow(.18cqw 0 0 #ebe9dd) drop-shadow(-.18cqw 0 0 #ebe9dd) drop-shadow(0 .18cqw 0 #ebe9dd) drop-shadow(0 -.18cqw 0 #ebe9dd) drop-shadow(.11cqw .11cqw 0 #ebe9dd) drop-shadow(-.11cqw .11cqw 0 #ebe9dd) drop-shadow(0 .28cqw .2cqw rgb(41 38 33 / 24%)); }
+  .team-mockup__phone-frame { transform: scaleX(-1); }
+
+  .team-mockup__desktop-screen, .team-mockup__phone-screen { position: absolute; z-index: 3; overflow: hidden; background: #fff; opacity: 0; transition: opacity .35s ease; }
+  .team-mockup__desktop-screen.is-ready, .team-mockup__phone-screen.is-ready { opacity: 1; }
+  .team-mockup__desktop-screen { top: 5.35%; left: 4.25%; width: 91.5%; height: 64.35%; }
+  .team-mockup__phone-screen { top: 5.5%; left: 8%; width: 82%; height: 89%; clip-path: polygon(27% 0, 97% 4%, 82% 100%, 0 92%); transform: rotate(1.7deg); transform-origin: center; }
+  .team-mockup__desktop-screen iframe, .team-mockup__phone-screen iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; transform-origin: 0 0; }
+  .team-mockup__desktop-screen iframe { width: 225%; height: 225%; transform: scale(.444444); }
+  .team-mockup__phone-screen iframe { width: 300%; height: 300%; transform: scale(.333333); }
+
+  .team-mockup__note, .team-mockup__tape, .team-mockup__car, .team-mockup__label { position: absolute; margin: 0; pointer-events: none; }
+  .team-mockup__note { top: 16.481481%; left: 50.208333%; width: 41.979167%; height: 43.703704%; overflow: hidden; }
+  .team-mockup__note img { position: absolute; top: -12.57%; left: -3.96%; width: 106.74%; height: 121.47%; max-width: none; }
+
+  .team-mockup__tape { top: 16.481481%; left: 44.53125%; width: 11.306667%; height: 4.898148%; overflow: hidden; }
+  .team-mockup__tape img { position: absolute; top: -23.12%; left: -1.88%; width: 103.41%; height: 141.78%; max-width: none; }
+  .team-mockup__kicker { position: absolute; z-index: 2; top: 17.685185%; left: 46.09375%; margin: 0; font: 600 1.041667cqw/normal "DM Sans", sans-serif; white-space: nowrap; }
+
+  .team-mockup h2 { position: absolute; inset: 0; margin: 0; font: 700 8.333333cqw/normal "Caveat", cursive; letter-spacing: -.025em; text-transform: uppercase; }
+  .team-mockup h2 span { position: absolute; display: block; transform: translateY(-50%); white-space: nowrap; }
+  .team-mockup h2 span:first-child { top: 28.981481%; left: 43.59375%; color: #a9b8ae; }
+  .team-mockup h2 span:last-child { top: 44.259259%; left: 47.916667%; color: #484848; }
+
+  .team-mockup__car { top: 20.648148%; left: 67.395833%; width: 3.639167%; height: 4.772778%; display: grid; place-items: center; transform: rotate(-12.32deg); overflow: hidden; }
+  .team-mockup__car img { width: 90.161943%; height: 75.661667%; max-width: none; object-fit: cover; }
+
+  .team-mockup__label { top: 50.925926%; left: 79.010417%; width: 17.96875%; height: 10.648148%; }
+  .team-mockup__label img { width: 100%; height: 100%; object-fit: cover; }
+  .team-mockup__label span { position: absolute; top: 39.130435%; left: 31.014493%; z-index: 1; color: #f1efeb; font: 600 1.041667cqw/normal "DM Sans", sans-serif; white-space: nowrap; }
+
+  .team-mockup__summary { position: absolute; top: 65.185185%; left: 50.208333%; width: 36.354167%; color: #484848; }
+  .team-mockup__summary p { margin: 0; font: 600 2.083333cqw/normal "Pretendard Variable", Pretendard, sans-serif; letter-spacing: -.035em; }
+  .team-mockup__link { position: absolute; top: 81.296296%; left: 50.208333%; color: #f1efeb; font: 600 1.041667cqw/normal "Pretendard Variable", Pretendard, sans-serif; text-decoration: none; white-space: nowrap; }
+
   .js .team-overview__sign, .js .team-overview__car, .js .team-overview__heading, .js .team-overview__summary, .js .team-overview__meta { opacity: 0; transform: translateY(1.5rem); transition: opacity .7s var(--ease-out), transform .8s var(--ease-out); }
   .js .team-overview.is-active .team-overview__sign, .js .team-overview.is-active .team-overview__car, .js .team-overview.is-active .team-overview__heading, .js .team-overview.is-active .team-overview__summary, .js .team-overview.is-active .team-overview__meta { opacity: 1; transform: none; }
   .js .team-overview.is-active .team-overview__heading { transition-delay: .08s; }
   .js .team-overview.is-active .team-overview__summary { transition-delay: .15s; }
   .js .team-overview.is-active .team-overview__meta { transition-delay: .22s; }
   .js .team-overview.is-active .team-overview__car { transform: rotate(20.64deg) scale(1.15); }
+
+  .js .team-mockup__visual, .js .team-mockup__heading, .js .team-mockup__summary, .js .team-mockup__link { opacity: 0; transform: translateY(1.5rem); transition: opacity .7s var(--ease-out), transform .8s var(--ease-out); }
+  .js .team-mockup.is-active .team-mockup__visual, .js .team-mockup.is-active .team-mockup__heading, .js .team-mockup.is-active .team-mockup__summary, .js .team-mockup.is-active .team-mockup__link { opacity: 1; transform: none; }
+  .js .team-mockup.is-active .team-mockup__heading { transition-delay: .08s; }
+  .js .team-mockup.is-active .team-mockup__summary { transition-delay: .15s; }
+  .js .team-mockup.is-active .team-mockup__link { transition-delay: .22s; }
 }
 
 @media (min-width: 64rem) {
-  .team-overview { flex: 0 0 100vw; width: 100vw; height: 100svh; }
+  .team-overview, .team-mockup { flex: 0 0 100vw; width: 100vw; height: 100svh; }
 }
 
 @media (min-width: 48rem) and (max-width: 63.99rem) {
@@ -48,6 +98,20 @@
   .team-overview h2 { font-size: clamp(4.2rem, 11vw, 7rem); }
   .team-overview__summary { top: 48%; left: 45%; width: 51%; }
   .team-overview__meta { top: 68%; left: 45%; width: 50%; }
+
+  .team-mockup { min-height: 70rem; }
+  .team-mockup__desktop { top: 32%; left: 3%; width: 43%; height: 44%; }
+  .team-mockup__phone { top: 52%; left: 38%; width: 12%; height: 25%; }
+  .team-mockup__note { top: 8%; left: 44%; width: 52%; height: 34%; }
+  .team-mockup__tape { top: 8%; left: 41%; width: 18%; height: 3.8rem; }
+  .team-mockup__kicker { top: 9.2%; left: 44%; font-size: 1rem; }
+  .team-mockup h2 { font-size: clamp(5rem, 11vw, 7rem); }
+  .team-mockup h2 span:first-child { top: 17%; left: 40%; }
+  .team-mockup h2 span:last-child { top: 29%; left: 45%; }
+  .team-mockup__summary { top: 49%; left: 48%; width: 48%; }
+  .team-mockup__summary p { font-size: clamp(1.75rem, 3.7vw, 2.5rem); }
+  .team-mockup__label { top: 34%; left: 73%; width: 25%; height: 8rem; }
+  .team-mockup__link { top: 66%; left: 48%; font-size: .9rem; }
 }
 
 @media (max-width: 47.99rem) {
@@ -67,8 +131,25 @@
   .team-overview__meta { top: 65rem; left: 6%; width: 88%; font-size: .65rem; }
   .team-overview__meta div { gap: .15rem; }
   .team-overview__meta div + div { margin-top: .45rem; }
+
+  .team-mockup { min-height: 74rem; }
+  .team-mockup__heading { top: 3rem; height: 24rem; }
+  .team-mockup__note { top: 0; left: 4%; width: 92%; height: 20rem; }
+  .team-mockup__tape { top: 0; left: 0; width: 42%; height: 2.8rem; }
+  .team-mockup__kicker { top: .7rem; left: 5%; font-size: .75rem; }
+  .team-mockup h2 { font-size: clamp(3.65rem, 19vw, 6rem); line-height: .92; }
+  .team-mockup h2 span:first-child { top: 7rem; left: 2%; }
+  .team-mockup h2 span:last-child { top: 13rem; left: 5%; }
+  .team-mockup__car { top: 5rem; left: 72%; width: 11%; height: 4rem; }
+  .team-mockup__label { top: 16rem; left: 50%; width: 50%; height: 4rem; }
+  .team-mockup__label span { font-size: .72rem; }
+  .team-mockup__desktop { top: 29rem; left: 4%; width: 76%; height: 29rem; }
+  .team-mockup__phone { top: 44rem; left: 67%; width: 25%; height: 18rem; }
+  .team-mockup__summary { top: 61rem; left: 6%; width: 88%; }
+  .team-mockup__summary p { font-size: clamp(1.55rem, 7vw, 2.1rem); }
+  .team-mockup__link { top: 69rem; left: 6%; font-size: .72rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .team-overview * { transition: none !important; }
+  .team-overview *, .team-mockup * { transition: none !important; }
 }

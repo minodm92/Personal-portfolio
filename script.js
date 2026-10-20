@@ -8,9 +8,12 @@ import {
   initHorizontalStory,
   initIntro,
   initPortfolioBot,
+  initPersonalStory,
+  initPostProcessToc,
   initProcessMarket,
   initSkills,
   initTeamOverview,
+  initThirdToc,
   initWork,
   initWorkTypes,
 } from "./assets/components/index.js";
@@ -27,6 +30,9 @@ initIntro({ reduceMotion });
 initTeamOverview();
 await initHorizontalStory();
 initProcessMarket();
+await initPostProcessToc();
+initPersonalStory();
+await initThirdToc();
 initWork({ reduceMotion });
 initWorkTypes({ reduceMotion });
 initCaseStudy({ reduceMotion });

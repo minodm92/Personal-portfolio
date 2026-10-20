@@ -17,6 +17,10 @@
     will-change: transform;
   }
 
+  @media (min-width: 64rem) {
+    .process-market-sequence__track { gap: 30vw; }
+  }
+
   .process-market {
     position: relative;
     flex: 0 0 100vw;
@@ -38,23 +42,21 @@
   .process-market__photo {
     position: absolute;
     z-index: 1;
-    top: 26.203704%;
-    left: 14.322917%;
-    width: 28.645833%;
-    height: auto;
-    aspect-ratio: 1;
+    top: 10.648148%;
+    left: 5.208333%;
+    width: 44.270833%;
+    height: 78.703704%;
     overflow: hidden;
   }
 
   .process-market__photo img {
     position: absolute;
-    top: 0;
+    top: -12.08%;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 124.17%;
     max-width: none;
-    object-fit: contain;
-    object-position: center;
+    object-fit: cover;
     transition: opacity 180ms ease;
   }
 
@@ -62,6 +64,40 @@
 
   .process-market__frame {
     position: absolute;
+    z-index: 2;
+    top: 4.444444%;
+    left: 3.177083%;
+    width: 48.125%;
+    height: 88.888889%;
+    overflow: hidden;
+  }
+
+  .process-market__frame img {
+    position: absolute;
+    top: -4.07%;
+    left: -3.11%;
+    width: 105.56%;
+    height: 108.57%;
+    max-width: none;
+    object-fit: cover;
+  }
+
+  .process-market--par1 .process-market__photo {
+    top: 26.203704%;
+    left: 14.322917%;
+    width: 28.645833%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .process-market--par1 .process-market__photo img {
+    top: 0;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .process-market--par1 .process-market__frame {
     z-index: 0;
     top: 12.037037%;
     left: 9.427083%;
@@ -71,14 +107,11 @@
     overflow: visible;
   }
 
-  .process-market__frame img {
-    position: absolute;
+  .process-market--par1 .process-market__frame img {
     top: -3.1%;
     left: -6.5%;
     width: 113.28%;
     height: 108.1%;
-    max-width: none;
-    object-fit: cover;
   }
 
   .process-market__content { position: absolute; inset: 0; }
@@ -290,8 +323,10 @@
   .process-market-sequence__track { height: auto; }
   .process-market { min-height: 70rem; }
   .process-market { scroll-snap-align: start; }
-  .process-market__photo { top: 14%; left: 21%; width: 58%; height: auto; aspect-ratio: 1; }
-  .process-market__frame { top: 4%; left: 11%; width: 78%; height: auto; aspect-ratio: 738 / 774; }
+  .process-market__photo { top: 7%; left: 7%; width: 86%; height: 48%; }
+  .process-market__frame { top: 4%; left: 3%; width: 94%; height: 54%; }
+  .process-market--par1 .process-market__photo { top: 14%; left: 21%; width: 58%; height: auto; aspect-ratio: 1; }
+  .process-market--par1 .process-market__frame { top: 4%; left: 11%; width: 78%; height: auto; aspect-ratio: 738 / 774; }
   .process-market__heading { top: 59%; left: 8%; width: 50%; height: 6.5rem; }
   .process-market__heading--sage { left: 8%; width: 50%; height: 6.5rem; }
   .process-market__heading--sage h2 { top: 34.579439%; left: 10.629067%; width: 135.574837%; }
@@ -303,8 +338,10 @@
 
 @media (max-width: 47.99rem) {
   .process-market { min-height: 60rem; }
-  .process-market__photo { top: 12%; left: 18%; width: 64%; height: auto; }
-  .process-market__frame { top: 3%; left: 7%; width: 86%; height: auto; }
+  .process-market__photo { top: 5%; left: 6%; width: 88%; height: 38%; }
+  .process-market__frame { top: 2%; left: 2%; width: 96%; height: 44%; }
+  .process-market--par1 .process-market__photo { top: 12%; left: 18%; width: 64%; height: auto; }
+  .process-market--par1 .process-market__frame { top: 3%; left: 7%; width: 86%; height: auto; }
   .process-market__heading { top: 49%; left: 5%; width: 72%; height: 5rem; }
   .process-market__description { top: 59%; left: 7%; width: 86%; font-size: .82rem; line-height: 1.45; }
   .process-market__categories { top: 78%; left: 5%; width: 90%; height: 6rem; }

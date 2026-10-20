@@ -1,0 +1,224 @@
+@layer components {
+  .personal-story-sequence {
+    position: relative;
+    margin-block-start: 35svh;
+    color: #11100d;
+    background: transparent;
+  }
+
+  .personal-story-sequence__viewport {
+    position: relative;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  .personal-story-sequence__track {
+    position: relative;
+    display: flex;
+    width: max-content;
+    height: 100%;
+    gap: 30vw;
+    will-change: transform;
+  }
+
+  .personal-story-panel {
+    position: relative;
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: 100%;
+    overflow: hidden;
+    container-type: inline-size;
+  }
+
+  .personal-story-mockup__image,
+  .personal-story-mockup__note,
+  .personal-story-mockup__tape,
+  .personal-story-mockup__label {
+    position: absolute;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .personal-story-mockup__image {
+    top: 26.666667%;
+    left: 3.020833%;
+    width: 36.458333%;
+    height: 51.759259%;
+  }
+
+  .personal-story-mockup__image img { width: 100%; height: 100%; object-fit: cover; }
+
+  .personal-story-mockup__note {
+    top: 15.925926%;
+    left: 50.208333%;
+    width: 41.979167%;
+    height: 43.703704%;
+    overflow: hidden;
+  }
+
+  .personal-story-mockup__note img {
+    position: absolute;
+    top: -12.57%;
+    left: -3.96%;
+    width: 106.74%;
+    height: 121.47%;
+    max-width: none;
+  }
+
+  .personal-story-mockup__title {
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    font: 700 8.333333cqw/normal "Caveat", cursive;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .personal-story-mockup__title--personal {
+    top: 28.425926%;
+    left: 43.59375%;
+    color: #a9b8ae;
+    transform: translateY(-50%);
+  }
+
+  .personal-story-mockup__title--project {
+    top: 43.703704%;
+    right: 5.520833%;
+    color: #484848;
+    transform: translateY(-50%);
+  }
+
+  .personal-story-mockup__tape {
+    top: 15.925926%;
+    left: 44.53125%;
+    width: 11.306667%;
+    height: 4.898148%;
+    overflow: hidden;
+  }
+
+  .personal-story-mockup__tape img {
+    position: absolute;
+    top: -23.12%;
+    left: -1.88%;
+    width: 103.41%;
+    height: 141.78%;
+    max-width: none;
+  }
+
+  .personal-story-mockup__kicker {
+    position: absolute;
+    z-index: 2;
+    top: 17.12963%;
+    left: 46.09375%;
+    margin: 0;
+    font: 600 1.041667cqw/normal "DM Sans", sans-serif;
+  }
+
+  .personal-story-mockup__summary {
+    position: absolute;
+    top: 63.981481%;
+    left: 50.208333%;
+    width: 45.520833%;
+    margin: 0;
+    color: #484848;
+    font: 600 1.041667cqw/normal "Pretendard Variable", Pretendard, sans-serif;
+  }
+
+  .personal-story-mockup__label {
+    top: 50.37037%;
+    left: 79.010417%;
+    width: 17.96875%;
+    height: 10.648148%;
+  }
+
+  .personal-story-mockup__label img { width: 100%; height: 100%; object-fit: cover; }
+
+  .personal-story-mockup__label span {
+    position: absolute;
+    top: 39.130435%;
+    left: 31.014493%;
+    color: #f1efeb;
+    font: 600 1.041667cqw/normal "DM Sans", sans-serif;
+    white-space: nowrap;
+  }
+
+  .personal-story-mockup__meta {
+    position: absolute;
+    top: 72.777778%;
+    left: 50.208333%;
+    margin: 0;
+    font: 700 .78125cqw/1.533333 "Be Vietnam Pro", sans-serif;
+  }
+
+  .personal-story-mockup__meta div + div { margin-top: 1.388889svh; }
+  .personal-story-mockup__meta dt { margin-bottom: .260417cqw; }
+  .personal-story-mockup__meta dd { margin: 0; }
+
+  .personal-story-mockup__tasks {
+    display: grid;
+    grid-template-columns: 1fr 13.541667cqw;
+    width: 27.239583cqw;
+    column-gap: .260417cqw;
+    row-gap: .260417cqw;
+  }
+
+  .personal-wire__image {
+    position: absolute;
+    top: 22.222222%;
+    left: 10.15625%;
+    width: 31.25%;
+    aspect-ratio: 1;
+    background: #bababa;
+  }
+
+  .personal-wire__title {
+    position: absolute;
+    top: 22.222222%;
+    left: 50%;
+    margin: 0;
+    color: #000;
+    font: 600 2.083333cqw/normal "DM Sans", sans-serif;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .personal-wire__copy {
+    position: absolute;
+    top: 31.666667%;
+    left: 50%;
+    width: 31.25%;
+    margin: 0;
+    color: #000;
+    font: 400 1.5625cqw/normal "DM Sans", sans-serif;
+    text-transform: uppercase;
+  }
+
+  .personal-wire__enter {
+    position: absolute;
+    display: grid;
+    top: 66.203704%;
+    left: 82.552083%;
+    width: 7.864583%;
+    height: 4.444444%;
+    color: #000;
+    background: #c3c3c3;
+    font: 400 .833333cqw/normal "Inter", Arial, sans-serif;
+    place-items: center;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .personal-wire__enter:focus-visible { outline: 2px solid #000; outline-offset: 3px; }
+}
+
+@media (max-width: 63.99rem) {
+  .personal-story-sequence__viewport {
+    height: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+  }
+
+  .personal-story-sequence__track { height: min(62rem, 100svh); gap: 0; }
+  .personal-story-panel { min-width: 100vw; scroll-snap-align: start; }
+}

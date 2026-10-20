@@ -75,6 +75,10 @@
     will-change: transform;
   }
 
+  @media (min-width: 64rem) {
+    .horizontal-story__track { gap: 30vw; }
+  }
+
   .horizontal-story__panel {
     --preview-bg: #2a2926;
     --preview-accent: var(--color-accent);

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="https://mbc-teamproject-wheat.vercel.app/" />
+    <title>HYUNDAI MOTORSTUDIO Renewal</title>
+    <link rel="stylesheet" crossorigin href="https://mbc-teamproject-wheat.vercel.app/assets/index-CvCI40yc.css" />
+    <style>
+      html { scroll-behavior: auto !important; scrollbar-width: none; }
+      html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+      body { overflow-x: hidden; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const moduleUrl = new URL("./motorstudio-embed.js", location.href).href;
+      try {
+        sessionStorage.setItem("hyundai-motorstudio-home-loader-complete", "true");
+      } catch {}
+      history.replaceState(null, "", `${location.origin}/`);
+      window.addEventListener("wheel", (event) => {
+        parent.postMessage({
+          type: "team-mockup-wheel",
+          deltaX: event.deltaX,
+          deltaY: event.deltaY,
+        }, "*");
+        event.preventDefault();
+      }, { capture: true, passive: false });
+      import(moduleUrl).catch((error) => console.error("Motorstudio embed failed", error));
+    </script>
+  </body>
+</html>
