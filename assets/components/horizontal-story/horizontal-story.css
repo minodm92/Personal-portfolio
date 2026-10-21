@@ -389,8 +389,18 @@
   .story-figma__title--double > span { position: relative; display: block; }
   .story-figma--four .story-figma__title--single { padding-left: 5.9375vw; }
 
-  .story-figma__photo { position: absolute; z-index: 1; top: 17.777778%; left: 55.729167%; width: 39.0625%; height: 68.703704%; margin: 0; overflow: hidden; }
-  .story-figma__photo img { position: absolute; top: -12.08%; left: 0; width: 100%; height: 124.17%; max-width: none; object-fit: cover; }
+  .story-figma__photo { position: absolute; z-index: 1; top: 23.518519%; left: 57.1875%; width: 37.604167%; height: 52.962963%; margin: 0; overflow: hidden; }
+  .story-figma__screen { position: absolute; z-index: 1; top: 6.54%; left: 3.91%; width: 91.4%; height: 62.17%; overflow: hidden; background: #f1efeb; }
+  .story-figma__screen img, .story-figma__screen video { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center; }
+  .story-figma__screen--comparison { isolation: isolate; }
+  .story-figma__comparison-video { position: absolute; inset: 0; }
+  .story-figma__comparison-video--before { z-index: 1; }
+  .story-figma__comparison-video--after { z-index: 2; opacity: 0; transition: opacity .8s ease; }
+  .story-figma--four.is-after-visible .story-figma__comparison-video--after { opacity: 1; }
+  @media (hover: hover) and (pointer: fine) {
+    .story-figma--four .story-figma__photo:hover .story-figma__comparison-video--after { opacity: 0; }
+  }
+  .story-figma__device-frame { position: absolute; z-index: 2; top: -5.16%; left: -5.05%; width: 109.39%; height: 110.17%; max-width: none; pointer-events: none; }
   .story-figma__frame { position: absolute; z-index: 3; top: 14.351852%; left: 45.052083%; width: 51.302083%; height: 48.981481%; max-width: none; object-fit: cover; pointer-events: none; }
   .story-figma__tape { position: absolute; z-index: 4; top: 14.814815%; left: 85.46875%; width: 11.637083%; height: 9.35463%; display: grid; place-items: center; max-width: none; object-fit: cover; pointer-events: none; }
   .story-figma__tape > div { position: relative; width: 97.161552%; height: 52.360684%; overflow: hidden; transform: rotate(13.19deg); }

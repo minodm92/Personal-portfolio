@@ -30,7 +30,7 @@
     container-type: inline-size;
   }
 
-  .personal-story-mockup__image,
+  .personal-story-mockup__desktop,
   .personal-story-mockup__note,
   .personal-story-mockup__tape,
   .personal-story-mockup__label {
@@ -39,14 +39,41 @@
     pointer-events: none;
   }
 
-  .personal-story-mockup__image {
-    top: 26.666667%;
-    left: 3.020833%;
-    width: 36.458333%;
-    height: 51.759259%;
+  .personal-story-mockup__desktops {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
   }
 
-  .personal-story-mockup__image img { width: 100%; height: 100%; object-fit: cover; }
+  .personal-story-mockup__desktop--rear {
+    z-index: 1;
+    top: 20.833333%;
+    left: 3.333333%;
+    width: 36.458333%;
+    height: 51.666667%;
+  }
+
+  .personal-story-mockup__desktop--front-left {
+    z-index: 2;
+    top: 43.703704%;
+    left: 1.197917%;
+    width: 26.041667%;
+    height: 36.944444%;
+  }
+
+  .personal-story-mockup__desktop--front-right {
+    z-index: 3;
+    top: 38.425926%;
+    left: 21.5625%;
+    width: 26.041667%;
+    height: 36.944444%;
+  }
+
+  .personal-story-mockup__desktop img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
 
   .personal-story-mockup__note {
     top: 15.925926%;
@@ -162,13 +189,44 @@
     row-gap: .260417cqw;
   }
 
-  .personal-wire__image {
+  .personal-wire__mockup {
     position: absolute;
-    top: 22.222222%;
-    left: 10.15625%;
-    width: 31.25%;
-    aspect-ratio: 1;
-    background: #bababa;
+    top: 23.518519%;
+    left: 9.375%;
+    width: 37.612552%;
+    height: 52.962963%;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .personal-wire__screen {
+    position: absolute;
+    z-index: 1;
+    top: 6.5%;
+    left: 3.95%;
+    width: 91.4%;
+    height: 62.4%;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .personal-wire__screen > img,
+  .personal-wire__screen > video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .personal-wire__frame {
+    position: absolute;
+    z-index: 2;
+    top: -5.16%;
+    left: -5.05%;
+    width: 109.39%;
+    height: 110.17%;
+    max-width: none;
+    object-fit: fill;
+    pointer-events: none;
   }
 
   .personal-wire__title {
@@ -189,8 +247,7 @@
     width: 31.25%;
     margin: 0;
     color: #000;
-    font: 400 1.5625cqw/normal "DM Sans", sans-serif;
-    text-transform: uppercase;
+    font: 400 1.5625cqw/normal "Pretendard Variable", Pretendard, sans-serif;
   }
 
   .personal-wire__enter {
@@ -209,6 +266,31 @@
   }
 
   .personal-wire__enter:focus-visible { outline: 2px solid #000; outline-offset: 3px; }
+
+  .personal-wire--ikea { cursor: default; }
+
+  .personal-wire__cursor {
+    position: absolute;
+    z-index: 20;
+    display: none;
+    width: 5.729167cqw;
+    min-width: 5.5rem;
+    height: 4.074074svh;
+    min-height: 2.5rem;
+    color: #000;
+    background: #c3c3c3;
+    font: 400 .833333cqw/normal "Inter", Arial, sans-serif;
+    place-items: center;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .personal-wire--ikea.is-enter-zone,
+    .personal-wire--ikea.is-enter-zone * { cursor: none !important; }
+
+    .personal-wire--ikea.is-enter-zone .personal-wire__cursor { display: grid; }
+  }
 }
 
 @media (max-width: 63.99rem) {
