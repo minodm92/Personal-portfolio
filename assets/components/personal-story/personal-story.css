@@ -72,7 +72,7 @@
   .personal-story-mockup__desktop img {
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    object-fit: cover;
   }
 
   .personal-story-mockup__note {
@@ -193,8 +193,9 @@
     position: absolute;
     top: 23.518519%;
     left: 9.375%;
-    width: 37.612552%;
-    height: 52.962963%;
+    width: 37.604167%;
+    height: auto;
+    aspect-ratio: 722 / 572;
     margin: 0;
     overflow: hidden;
   }
@@ -231,8 +232,8 @@
 
   .personal-wire__title {
     position: absolute;
-    top: 22.222222%;
-    left: 50%;
+    top: calc(22.222222% + 14px);
+    left: 57.65625%;
     margin: 0;
     color: #000;
     font: 600 2.083333cqw/normal "DM Sans", sans-serif;
@@ -242,8 +243,8 @@
 
   .personal-wire__copy {
     position: absolute;
-    top: 31.666667%;
-    left: 50%;
+    top: calc(31.666667% + 14px);
+    left: 57.65625%;
     width: 31.25%;
     margin: 0;
     color: #000;
@@ -267,7 +268,7 @@
 
   .personal-wire__enter:focus-visible { outline: 2px solid #000; outline-offset: 3px; }
 
-  .personal-wire--ikea { cursor: default; }
+  [data-personal-enter-panel] { cursor: default; }
 
   .personal-wire__cursor {
     position: absolute;
@@ -286,10 +287,10 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .personal-wire--ikea.is-enter-zone,
-    .personal-wire--ikea.is-enter-zone * { cursor: none !important; }
+    [data-personal-enter-panel].is-enter-zone,
+    [data-personal-enter-panel].is-enter-zone * { cursor: none !important; }
 
-    .personal-wire--ikea.is-enter-zone .personal-wire__cursor { display: grid; }
+    [data-personal-enter-panel].is-enter-zone .personal-wire__cursor { display: grid; }
   }
 }
 

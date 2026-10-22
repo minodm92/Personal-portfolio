@@ -1,0 +1,119 @@
+@layer components {
+  .clone-coding {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    min-height: 40rem;
+    overflow: hidden;
+    color: #484848;
+    container-type: inline-size;
+  }
+
+  .clone-coding__background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  .clone-coding__heading {
+    position: absolute;
+    top: 9.259259%;
+    left: 6.302083%;
+    width: 24.53125%;
+    color: #484848;
+    text-transform: uppercase;
+  }
+
+  .clone-coding__heading h2,
+  .clone-coding__heading p {
+    margin: 0;
+  }
+
+  .clone-coding__heading h2 {
+    font: 900 3.125cqw/normal "DM Sans", sans-serif;
+    white-space: nowrap;
+  }
+
+  .clone-coding__heading p {
+    font: 400 1.5625cqw/normal "DM Sans", sans-serif;
+    white-space: nowrap;
+  }
+
+  .clone-coding__cards {
+    position: absolute;
+    top: 26.851852%;
+    left: 6.354167%;
+    display: flex;
+    gap: 3.90625cqw;
+    align-items: center;
+    width: max-content;
+  }
+
+  .clone-coding__card {
+    position: relative;
+    display: block;
+    flex: 0 0 26.041667cqw;
+    width: 26.041667cqw;
+    aspect-ratio: 1;
+    margin: 0;
+    overflow: hidden;
+    border-radius: .78125cqw;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .clone-coding__card:focus-visible {
+    outline: 3px solid #484848;
+    outline-offset: 6px;
+  }
+
+  .clone-coding__card img {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .clone-coding {
+    height: auto;
+    min-height: 100svh;
+    padding: 5rem 1.5rem;
+    overflow-x: auto;
+  }
+
+  .clone-coding__heading,
+  .clone-coding__cards {
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+
+  .clone-coding__heading {
+    width: auto;
+  }
+
+  .clone-coding__heading h2 { font-size: clamp(2.25rem, 10vw, 3.75rem); }
+  .clone-coding__heading p { font-size: clamp(1rem, 4.5vw, 1.875rem); }
+
+  .clone-coding__cards {
+    gap: 1.25rem;
+    margin-top: 4rem;
+    padding-right: 1.5rem;
+  }
+
+  .clone-coding__card {
+    flex-basis: min(78vw, 31.25rem);
+    width: min(78vw, 31.25rem);
+    border-radius: .9375rem;
+  }
+}

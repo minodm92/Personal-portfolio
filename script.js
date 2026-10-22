@@ -2,6 +2,7 @@ import {
   initAbout,
   initApproach,
   initCaseStudy,
+  initCloneCoding,
   initContact,
   initHeader,
   initHero,
@@ -33,6 +34,7 @@ initProcessMarket();
 await initPostProcessToc();
 initPersonalStory();
 await initThirdToc();
+initCloneCoding();
 initWork({ reduceMotion });
 initWorkTypes({ reduceMotion });
 initCaseStudy({ reduceMotion });

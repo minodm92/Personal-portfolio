@@ -7,6 +7,7 @@ export { initProcessMarket } from "./process-market/process-market.js";
 export { initPostProcessToc } from "./post-process-toc/post-process-toc.js";
 export { initPersonalStory } from "./personal-story/personal-story.js";
 export { initThirdToc } from "./third-toc/third-toc.js";
+export { initCloneCoding } from "./clone-coding/clone-coding.js";
 export { initWork } from "./work/work.js";
 export { initWorkTypes } from "./work-types/work-types.js";
 export { initCaseStudy } from "./case-study/case-study.js";

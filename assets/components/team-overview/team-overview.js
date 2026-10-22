@@ -1,7 +1,7 @@
 const videoStates = new WeakMap();
 const comparisonTimers = new WeakMap();
 const LOADER_PLAYBACK_RATE = 8;
-const VIDEO_SELECTOR = "[data-team-mockup-video], [data-editorial-video], [data-brand-experience-video], [data-typography-video], [data-before-after-video], [data-before-after-result-video], [data-personal-mockup-video]";
+const VIDEO_SELECTOR = "[data-team-mockup-video], [data-editorial-video], [data-brand-experience-video], [data-typography-video], [data-before-after-video], [data-before-after-result-video], [data-personal-mockup-video], [data-video-content-video]";
 const STORY_VIDEO_SELECTOR = "[data-editorial-video], [data-brand-experience-video], [data-typography-video], [data-before-after-video], [data-before-after-result-video]";
 const COMPARISON_DELAY = 2000;
 
@@ -24,6 +24,8 @@ function prepareVideo(video) {
     visible: false,
     rate: Number(video.dataset.playbackRate) || 1,
     loaderEnd: Number(video.dataset.loaderEnd) || 0,
+    manual: video.hasAttribute("data-manual-playback"),
+    manualRequested: false,
   });
   video.addEventListener("timeupdate", () => {
     const state = videoStates.get(video);
@@ -59,7 +61,49 @@ function setVideoPlayback(section, playing) {
       return;
     }
 
+    if (state.manual && !state.manualRequested) {
+      video.pause();
+      return;
+    }
+
     playForward(video);
+  });
+}
+
+function initVideoContentControls() {
+  document.querySelectorAll("[data-video-content-toggle]").forEach((button) => {
+    const panel = button.closest(".video-content");
+    const video = panel?.querySelector("[data-video-content-video]");
+    if (!video) {
+      button.disabled = true;
+      button.setAttribute("aria-label", "영상 준비 중");
+      return;
+    }
+
+    const state = videoStates.get(video);
+    if (!state) return;
+    button.disabled = false;
+
+    const updateButton = (playing) => {
+      button.classList.toggle("is-playing", playing);
+      button.setAttribute("aria-pressed", String(playing));
+      button.setAttribute("aria-label", playing ? "영상 일시정지" : "영상 재생");
+    };
+
+    updateButton(false);
+    button.addEventListener("click", () => {
+      if (video.paused) {
+        state.manualRequested = true;
+        state.visible = true;
+        playForward(video);
+        return;
+      }
+
+      state.manualRequested = false;
+      video.pause();
+    });
+    video.addEventListener("play", () => updateButton(true));
+    video.addEventListener("pause", () => updateButton(false));
   });
 }
 
@@ -80,18 +124,25 @@ export function initTeamOverview() {
       .map((video) => video.closest("[data-personal-story-panel]"))
       .filter(Boolean),
   )];
+  const videoContentSections = [...new Set(
+    [...document.querySelectorAll("[data-video-content-video]")]
+      .map((video) => video.closest(".video-content"))
+      .filter(Boolean),
+  )];
   const comparisonSection = document.querySelector(".story-figma--four");
   const comparisonMonitor = comparisonSection?.querySelector(".story-figma__photo");
   const videos = document.querySelectorAll(VIDEO_SELECTOR);
   if (!sections.length) return;
 
   videos.forEach(prepareVideo);
+  initVideoContentControls();
 
   if (!("IntersectionObserver" in window)) {
     sections.forEach((section) => section.classList.add("is-active"));
     setVideoPlayback(mockup, true);
     storySections.forEach((section) => setVideoPlayback(section, true));
     personalSections.forEach((section) => setVideoPlayback(section, true));
+    videoContentSections.forEach((section) => setVideoPlayback(section, true));
     setComparisonState(comparisonSection, true);
     return;
   }
@@ -102,12 +153,14 @@ export function initTeamOverview() {
       if (entry.target === mockup) setVideoPlayback(mockup, entry.isIntersecting);
       if (storySections.includes(entry.target)) setVideoPlayback(entry.target, entry.isIntersecting);
       if (personalSections.includes(entry.target)) setVideoPlayback(entry.target, entry.isIntersecting);
+      if (videoContentSections.includes(entry.target)) setVideoPlayback(entry.target, entry.isIntersecting);
     }),
     { threshold: .35 },
   );
   sections.forEach((section) => observer.observe(section));
   storySections.forEach((section) => observer.observe(section));
   personalSections.forEach((section) => observer.observe(section));
+  videoContentSections.forEach((section) => observer.observe(section));
 
   if (comparisonMonitor) {
     const comparisonObserver = new IntersectionObserver(

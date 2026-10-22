@@ -871,13 +871,13 @@
       <article class="personal-story-panel personal-story-mockup" aria-labelledby="personal-story-mockup-title" data-personal-story-panel>
         <div class="personal-story-mockup__desktops" role="img" aria-label="개인 프로젝트 데스크톱 목업 3개">
           <figure class="personal-story-mockup__desktop personal-story-mockup__desktop--rear" aria-hidden="true">
-            <img src="assets/components/personal-story/personal-mockup.png" alt="" width="700" height="559" loading="lazy" />
+            <img src="assets/components/personal-story/personal-mockup.png" alt="" width="1404" height="1120" loading="lazy" />
           </figure>
           <figure class="personal-story-mockup__desktop personal-story-mockup__desktop--front-left" aria-hidden="true">
-            <img src="assets/components/personal-story/personal-mockup.png" alt="" width="700" height="559" loading="lazy" />
+            <img src="assets/components/personal-story/personal-mockup.png" alt="" width="1404" height="1120" loading="lazy" />
           </figure>
           <figure class="personal-story-mockup__desktop personal-story-mockup__desktop--front-right" aria-hidden="true">
-            <img src="assets/components/personal-story/personal-mockup.png" alt="" width="700" height="559" loading="lazy" />
+            <img src="assets/components/personal-story/personal-mockup.png" alt="" width="1404" height="1120" loading="lazy" />
           </figure>
         </div>
         <figure class="personal-story-mockup__note" aria-hidden="true">
@@ -907,7 +907,7 @@
         </dl>
       </article>
 
-      <article class="personal-story-panel personal-wire personal-wire--ikea" aria-labelledby="personal-wire-title-1" data-personal-story-panel data-personal-enter-url="https://ikea-korea.vercel.app/">
+      <article class="personal-story-panel personal-wire personal-wire--ikea" aria-labelledby="personal-wire-title-1" data-personal-story-panel data-personal-enter-panel data-personal-enter-url="https://ikea-korea.vercel.app/">
         <figure class="personal-wire__mockup" aria-label="IKEA Korea 데스크톱 목업">
           <div class="personal-wire__screen" data-personal-screen>
             <video data-personal-mockup-video data-playback-rate="0.8" muted loop playsinline preload="metadata" aria-label="IKEA Korea 메인 페이지 스크롤 영상">
@@ -921,24 +921,24 @@
         <span class="personal-wire__cursor" data-personal-enter-cursor aria-hidden="true">Enter</span>
       </article>
 
-      <article class="personal-story-panel personal-wire" aria-labelledby="personal-wire-title-2" data-personal-story-panel>
-        <figure class="personal-wire__mockup" aria-label="Personal Project 02 데스크톱 목업">
+      <article class="personal-story-panel personal-wire" aria-labelledby="personal-wire-title-2" data-personal-story-panel data-personal-enter-panel>
+        <figure class="personal-wire__mockup" aria-label="KODAK 데스크톱 목업">
           <div class="personal-wire__screen" data-personal-screen></div>
           <img class="personal-wire__frame" src="assets/components/personal-story/personal-content-imac-frame.png" alt="" width="1404" height="1120" loading="lazy" aria-hidden="true" />
         </figure>
-        <h2 class="personal-wire__title" id="personal-wire-title-2">PERSONAL PROJECT 02</h2>
-        <p class="personal-wire__copy">INTERATION INTERATION<br />INTERATIONINTERATION<br />INTERATIONINTERATION</p>
-        <a class="personal-wire__enter" href="#" data-personal-enter aria-label="Personal Project 02 웹사이트 준비 중">Enter</a>
+        <h2 class="personal-wire__title" id="personal-wire-title-2">KODAK</h2>
+        <p class="personal-wire__copy">코닥의 감성과 정체성을 전달하고,<br />다양한 스타일과 컬렉션을 소개하며,<br />트렌디한 브랜드 경험을 제공합니다.</p>
+        <span class="personal-wire__cursor" data-personal-enter-cursor aria-hidden="true">Enter</span>
       </article>
 
-      <article class="personal-story-panel personal-wire" aria-labelledby="personal-wire-title-3" data-personal-story-panel>
+      <article class="personal-story-panel personal-wire" aria-labelledby="personal-wire-title-3" data-personal-story-panel data-personal-enter-panel>
         <figure class="personal-wire__mockup" aria-label="Personal Project 03 데스크톱 목업">
           <div class="personal-wire__screen" data-personal-screen></div>
           <img class="personal-wire__frame" src="assets/components/personal-story/personal-content-imac-frame.png" alt="" width="1404" height="1120" loading="lazy" aria-hidden="true" />
         </figure>
         <h2 class="personal-wire__title" id="personal-wire-title-3">PERSONAL PROJECT 03</h2>
         <p class="personal-wire__copy">INTERATION INTERATION<br />INTERATIONINTERATION<br />INTERATIONINTERATION</p>
-        <a class="personal-wire__enter" href="#" data-personal-enter aria-label="Personal Project 03 웹사이트 준비 중">Enter</a>
+        <span class="personal-wire__cursor" data-personal-enter-cursor aria-hidden="true">Enter</span>
       </article>
           </div>
         </div>
@@ -1015,32 +1015,72 @@
       </article>
 
       <article class="video-story-panel video-content" aria-labelledby="video-content-title-1">
-        <div class="video-content__media" role="img" aria-label="비디오 콘텐츠 1 영역"></div>
+        <figure class="video-content__media" aria-label="비디오 콘텐츠 1 데스크톱 목업">
+          <div class="video-content__screen">
+            <video data-video-content-video data-manual-playback muted loop playsinline preload="metadata" aria-label="IKEA Light 비디오 콘텐츠 영상">
+              <source src="assets/common/video/ikea_light.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <img class="video-content__frame" src="assets/components/personal-story/personal-content-imac-frame.png" alt="" width="1404" height="1120" aria-hidden="true" />
+        </figure>
         <div class="video-content__body">
           <h2 id="video-content-title-1">INTERATION INTERATION</h2>
           <dl><div><dt>기획 의도</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>타깃</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>제작 과정</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>편집 포인트</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>사용 도구</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>포맷</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div></dl>
-          <div class="video-content__icons" aria-hidden="true"><i></i><i></i></div>
+          <div class="video-content__icons">
+            <button class="video-content__play-toggle" type="button" data-video-content-toggle aria-label="영상 재생" aria-pressed="false">
+              <span class="video-content__play-glyph" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
       </article>
 
       <article class="video-story-panel video-content" aria-labelledby="video-content-title-2">
-        <div class="video-content__media" role="img" aria-label="비디오 콘텐츠 2 영역"></div>
+        <figure class="video-content__media" aria-label="비디오 콘텐츠 2 데스크톱 목업">
+          <div class="video-content__screen" aria-hidden="true"></div>
+          <img class="video-content__frame" src="assets/components/personal-story/personal-content-imac-frame.png" alt="" width="1404" height="1120" aria-hidden="true" />
+        </figure>
         <div class="video-content__body">
           <h2 id="video-content-title-2">INTERATION INTERATION</h2>
           <dl><div><dt>기획 의도</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>타깃</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>제작 과정</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>편집 포인트</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>사용 도구</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>포맷</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div></dl>
-          <div class="video-content__icons" aria-hidden="true"><i></i><i></i></div>
+          <div class="video-content__icons">
+            <button class="video-content__play-toggle" type="button" data-video-content-toggle aria-label="영상 준비 중" aria-pressed="false">
+              <span class="video-content__play-glyph" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
       </article>
 
       <article class="video-story-panel video-content" aria-labelledby="video-content-title-3">
-        <div class="video-content__media" role="img" aria-label="비디오 콘텐츠 3 영역"></div>
+        <figure class="video-content__media" aria-label="비디오 콘텐츠 3 데스크톱 목업">
+          <div class="video-content__screen" aria-hidden="true"></div>
+          <img class="video-content__frame" src="assets/components/personal-story/personal-content-imac-frame.png" alt="" width="1404" height="1120" aria-hidden="true" />
+        </figure>
         <div class="video-content__body">
           <h2 id="video-content-title-3">INTERATION INTERATION</h2>
           <dl><div><dt>기획 의도</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>타깃</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>제작 과정</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>편집 포인트</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>사용 도구</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div><div><dt>포맷</dt><dd>이렇게 저렇게 기획해서 이렇게 만들어서 이걸 표현할래</dd></div></dl>
-          <div class="video-content__icons" aria-hidden="true"><i></i><i></i></div>
+          <div class="video-content__icons">
+            <button class="video-content__play-toggle" type="button" data-video-content-toggle aria-label="영상 준비 중" aria-pressed="false">
+              <span class="video-content__play-glyph" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
       </article>
           </div>
+        </div>
+      </section>
+
+      <section class="clone-coding" aria-labelledby="clone-coding-title">
+        <img class="clone-coding__background" src="assets/components/clone-coding/clone-coding-background.png" alt="" width="1920" height="1080" aria-hidden="true" />
+        <header class="clone-coding__heading">
+          <h2 id="clone-coding-title">Colon coding</h2>
+          <p>One step toward the result</p>
+        </header>
+        <div class="clone-coding__cards" aria-label="클론 코딩 콘텐츠 목록">
+          <a class="clone-coding__card" href="https://cloncoding.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="LIVE EVIL 클론 코딩 사이트 새 탭에서 열기"><img src="assets/components/clone-coding/cards/01-cloncoding.png" alt="LIVE EVIL 사이트 첫 화면" width="1920" height="1080" /></a>
+          <a class="clone-coding__card" href="https://nol-phi.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="NOL 클론 코딩 사이트 새 탭에서 열기"><img src="assets/components/clone-coding/cards/02-nol.png" alt="NOL 사이트 첫 화면" width="1920" height="1080" /></a>
+          <a class="clone-coding__card" href="https://kyungdong-peach.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="경동 클론 코딩 사이트 새 탭에서 열기"><img src="assets/components/clone-coding/cards/03-kyungdong.png" alt="경동 사이트 첫 화면" width="1920" height="1080" /></a>
+          <a class="clone-coding__card" href="https://project0-vert.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="RUNWAY 클론 코딩 사이트 새 탭에서 열기"><img src="assets/components/clone-coding/cards/04-project0.png" alt="RUNWAY 사이트 첫 화면" width="1920" height="1080" /></a>
+          <a class="clone-coding__card" href="https://musign-azure.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Musign 클론 코딩 사이트 새 탭에서 열기"><img src="assets/components/clone-coding/cards/05-musign.png" alt="Musign 사이트 첫 화면" width="1920" height="1080" /></a>
         </div>
       </section>
 
