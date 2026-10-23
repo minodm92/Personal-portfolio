@@ -5,7 +5,7 @@
 
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Kapakana&display=swap");
@@ -17,6 +17,7 @@
 @import url("./assets/components/intro/intro.css");
 @import url("./assets/components/table-of-contents/table-of-contents.css");
 @import url("./assets/components/team-overview/team-overview.css");
+@import url("./assets/components/team-subpage/team-subpage.css");
 @import url("./assets/components/horizontal-story/horizontal-story.css");
 @import url("./assets/components/process-bridge/process-bridge.css");
 @import url("./assets/components/process-market/process-market.css");
@@ -25,6 +26,10 @@
 @import url("./assets/components/third-toc/third-toc.css");
 @import url("./assets/components/video-story/video-story.css");
 @import url("./assets/components/clone-coding/clone-coding.css");
+@import url("./assets/components/clone-coding-bridge/clone-coding-bridge.css");
+@import url("./assets/components/skills-gallery/skills-gallery.css");
+@import url("./assets/components/about-visual/about-visual.css");
+@import url("./assets/components/quick-qa/quick-qa.css");
 @import url("./assets/components/work/work.css");
 @import url("./assets/components/work-types/work-types.css");
 @import url("./assets/components/case-study/case-study.css");

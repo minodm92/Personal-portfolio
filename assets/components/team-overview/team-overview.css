@@ -153,3 +153,162 @@
 @media (prefers-reduced-motion: reduce) {
   .team-overview *, .team-mockup * { transition: none !important; }
 }
+
+@layer components {
+  .team-overview { container-type: inline-size; }
+  .team-overview__sign { top: 5.555556%; left: 7.916667%; width: 28.177083%; height: 88.888889%; overflow: hidden; object-fit: initial; }
+  .team-overview__sign img { position: absolute; top: -1.35%; left: -13.81%; width: 121.9%; height: 103.02%; max-width: none; }
+  .team-overview__car { top: 34.259259%; left: 26.09375%; display: grid; width: 4.914688%; height: 7.009074%; place-items: center; object-fit: initial; transform: none; }
+  .team-overview__car img { width: 86.898%; height: 66.052%; max-width: none; object-fit: cover; transform: rotate(20.64deg); }
+  .team-overview__heading { inset: 0; width: 100%; height: 100%; }
+  .team-overview__note { top: 5.555556%; left: 50.208333%; width: 41.979167%; height: 43.703704%; overflow: hidden; object-fit: initial; }
+  .team-overview__note img { position: absolute; top: -12.57%; left: -3.96%; width: 106.74%; height: 121.47%; max-width: none; }
+  .team-overview__kicker { top: 5.555556%; left: 44.53125%; width: 11.306667%; height: 4.898148%; overflow: hidden; font: 600 1.041667cqw/1 "DM Sans", sans-serif; }
+  .team-overview__kicker img { top: -23.12%; left: -1.88%; width: 103.41%; height: 141.78%; max-width: none; object-fit: initial; }
+  .team-overview h2 { inset: 0; width: 100%; font-size: 8.333333cqw; line-height: normal; letter-spacing: 0; pointer-events: none; }
+  .team-overview h2 span { position: absolute; transform: translateY(-50%); }
+  .team-overview h2 span:first-child { top: 18.055556%; left: 43.59375%; }
+  .team-overview h2 span:last-child { top: 33.333333%; right: 5.520833%; margin: 0; color: #484848; }
+  .team-overview__label { top: 40%; left: 79.010417%; right: auto; bottom: auto; width: 17.96875%; height: 10.648148%; font: 600 1.041667cqw/1 "DM Sans", sans-serif; }
+  .team-overview__sticker-list { position: absolute; z-index: 3; top: 51.111111%; left: 50.677083%; display: flex; align-items: flex-start; gap: 1.041667cqw; }
+  .team-overview__sticker { position: relative; display: inline-flex; box-sizing: border-box; min-width: 5.989583cqw; height: 2.916667cqw; align-items: center; justify-content: flex-start; padding: 0 1.041667cqw; color: #000; font: 600 .833333cqw/normal "DM Sans", sans-serif; font-variation-settings: "opsz" 14; text-transform: uppercase; white-space: nowrap; }
+  .team-overview__sticker > span { position: relative; z-index: 2; translate: 0 .104167cqw; }
+  .team-overview__sticker::before, .team-overview__sticker::after, .team-overview__sticker i { position: absolute; top: .104167cqw; height: 2.864583cqw; background-image: url("./team-overview-button-sticker.png"); background-repeat: no-repeat; content: ""; pointer-events: none; }
+  .team-overview__sticker::before { left: 0; width: 2.083333cqw; background-size: 7.604167cqw 7.604167cqw; background-position: -.885417cqw -2.34375cqw; }
+  .team-overview__sticker::after { right: 0; width: 2.083333cqw; background-size: 7.604167cqw 7.604167cqw; background-position: -4.6875cqw -2.34375cqw; }
+  .team-overview__sticker i { right: 2.083333cqw; left: 2.083333cqw; background-size: 442% 7.604167cqw; background-position: center -2.34375cqw; }
+  .team-overview__sticker:is(a, button) { text-decoration: none; cursor: pointer; }
+  .team-overview__sticker:is(a, button):is(:hover, :focus-visible)::before,
+  .team-overview__sticker:is(a, button):is(:hover, :focus-visible)::after,
+  .team-overview__sticker:is(a, button):is(:hover, :focus-visible) i { background-image: url("./team-overview-button-sticker-hover.png"); filter: brightness(98%); /* Textured paper center: #BFCCDD */ }
+  .team-overview__summary { top: 60.185185%; left: 50.208333%; width: 45.520833%; color: #484848; }
+  .team-overview__summary p { margin: 0; font: 700 1.041667cqw/1.4 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; }
+  .team-overview__meta { top: 69.62963%; left: 50.208333%; width: 27.239583%; font: 400 .833333cqw/1.4375 "DM Sans", sans-serif; }
+  .team-overview__meta div { gap: .260417cqw; }
+  .team-overview__meta div + div { margin-top: 1.041667cqw; }
+  .team-overview__meta dt { font-weight: 700; }
+  .team-overview__meta dd { font-weight: 400; }
+  .team-overview__tasks { display: grid; grid-template-columns: 15.78125cqw 11.197917cqw; gap: .260417cqw; font-family: "Pretendard Variable", Pretendard, sans-serif; }
+  .team-overview__tasks span { white-space: nowrap; }
+  .js .team-overview__heading, .js .team-overview__summary, .js .team-overview__meta { transform: none; translate: 0 1.5rem; transition: opacity .7s var(--ease-out), translate .8s var(--ease-out); }
+  .js .team-overview.is-active .team-overview__heading, .js .team-overview.is-active .team-overview__summary, .js .team-overview.is-active .team-overview__meta { translate: 0 0; }
+  .js .team-overview__sticker-list { opacity: 0; transform: translateY(1.5rem); transition: opacity .7s var(--ease-out), transform .8s var(--ease-out); }
+  .js .team-overview.is-active .team-overview__sticker-list { opacity: 1; transform: none; transition-delay: .12s; }
+  .js .team-overview.is-active .team-overview__car { transform: none; }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .team-overview { min-height: 900px; }
+  .team-overview__sign { top: 28%; left: 1%; width: 39%; height: 64%; }
+  .team-overview__car { top: 46%; left: 31%; width: 7%; height: 6%; }
+  .team-overview__note { top: 8%; left: 44%; width: 52%; height: 34%; }
+  .team-overview__kicker { top: 8%; left: 42%; width: 24%; height: 42px; font-size: 14px; }
+  .team-overview h2 { font-size: clamp(4rem, 9vw, 6rem); }
+  .team-overview h2 span:first-child { top: 17%; left: 43%; }
+  .team-overview h2 span:last-child { top: 31%; right: 3%; }
+  .team-overview__label { top: 36%; left: 73%; width: 25%; height: 9%; font-size: 13px; }
+  .team-overview__sticker-list { top: 47%; left: 44%; gap: 12px; }
+  .team-overview__summary { top: 56%; left: 44%; width: 53%; }
+  .team-overview__summary p { font-size: 16px; }
+  .team-overview__meta { top: 72%; left: 44%; width: 53%; font-size: 13px; }
+  .team-overview__tasks { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 12px; }
+  .team-overview__tasks span { white-space: normal; }
+}
+
+@media (max-width: 63.99rem) {
+  .team-overview__sticker { min-width: 100px; height: 44px; padding: 0 14px; font-size: 12px; }
+  .team-overview__sticker > span { translate: none; }
+  .team-overview__sticker::before { top: 1px; width: 30px; height: 43px; background-size: 110px 110px; background-position: -13px -34px; }
+  .team-overview__sticker::after { top: 1px; width: 30px; height: 43px; background-size: 110px 110px; background-position: -68px -34px; }
+  .team-overview__sticker i { top: 1px; right: 30px; left: 30px; height: 43px; background-size: 442% 110px; background-position: center -34px; }
+}
+
+@media (max-width: 47.99rem) {
+  .team-overview { min-height: 1180px; }
+  .team-overview__note { top: 4rem; left: 5%; width: 90%; height: 17rem; }
+  .team-overview__kicker { top: 4rem; left: 2%; width: 40%; height: 2.6rem; font-size: 12px; }
+  .team-overview h2 { font-size: clamp(2.2rem, 11.5vw, 5rem); }
+  .team-overview h2 span:first-child { top: 8.5rem; left: 6%; }
+  .team-overview h2 span:last-child { top: 14.3rem; right: 3%; }
+  .team-overview__label { top: 17rem; left: 54%; width: 43%; height: 4rem; font-size: 11px; }
+  .team-overview__sign { top: 23rem; left: 7%; width: 56%; height: 24rem; }
+  .team-overview__car { top: 34rem; left: 47%; width: 13%; height: 3.5rem; }
+  .team-overview__sticker-list { top: 49rem; left: 6%; gap: 12px; }
+  .team-overview__summary { top: 53.5rem; left: 6%; width: 88%; }
+  .team-overview__summary p { font-size: 14px; }
+  .team-overview__meta { top: 61rem; left: 6%; width: 88%; font-size: 12px; }
+  .team-overview__tasks { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 10px; }
+  .team-overview__tasks span { white-space: normal; }
+}
+
+@layer components {
+  /* The mockup reuses the portfolio's paper backdrop and sticker component. */
+  .team-mockup__content { z-index: 2; }
+  .team-mockup__desktop { top: 19.259259%; left: 3.020833%; width: 37.604167%; height: 52.962963%; aspect-ratio: auto; }
+  .team-mockup__desktop-frame { top: -5.16%; left: -5.05%; width: 109.39%; height: 110.17%; object-fit: fill; filter: none; }
+  .team-mockup__desktop-screen { top: 6.65%; left: 4%; width: 91.6%; height: 61.9%; }
+  .team-mockup__phone { top: 41.759259%; left: 33.75%; }
+  .team-mockup__phone-frame { filter: none; }
+  .team-mockup__note, .team-mockup__tape { top: 5.555556%; }
+  .team-mockup__kicker { top: 6.759259%; }
+  .team-mockup h2 span:first-child { top: 18.055556%; }
+  .team-mockup h2 span:last-child { top: 33.333333%; right: 5.520833%; left: auto; }
+  .team-mockup__label { top: 40%; }
+  .team-mockup__sticker-list { position: absolute; z-index: 3; top: 51.111111%; left: 50.677083%; display: flex; align-items: flex-start; gap: 1.041667cqw; pointer-events: auto; }
+  .team-mockup__summary { top: 60.185185%; width: 45.520833%; }
+  .team-mockup__summary p { font: 700 1.041667cqw/1.4 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; }
+  .team-mockup__meta { position: absolute; top: 69.62963%; left: 50.208333%; width: 27.239583%; margin: 0; color: #11100d; font: 400 .833333cqw/1.4375 "DM Sans", sans-serif; }
+  .team-mockup__meta div { display: flex; flex-direction: column; gap: .260417cqw; }
+  .team-mockup__meta div + div { margin-top: 1.041667cqw; }
+  .team-mockup__meta dt, .team-mockup__meta dd { margin: 0; }
+  .team-mockup__meta dt { font-weight: 700; }
+  .team-mockup__tasks { display: grid; grid-template-columns: 15.78125cqw 11.197917cqw; gap: .260417cqw; font-family: "Pretendard Variable", Pretendard, sans-serif; }
+  .team-mockup__tasks span { white-space: nowrap; }
+  .js .team-mockup__heading, .js .team-mockup__summary, .js .team-mockup__meta { transform: none; translate: 0 1.5rem; transition: opacity .7s var(--ease-out), translate .8s var(--ease-out); }
+  .js .team-mockup.is-active .team-mockup__heading, .js .team-mockup.is-active .team-mockup__summary, .js .team-mockup.is-active .team-mockup__meta { opacity: 1; translate: 0 0; }
+  .js .team-mockup__meta, .js .team-mockup__sticker-list { opacity: 0; }
+  .js .team-mockup__sticker-list { transform: translateY(1.5rem); transition: opacity .7s var(--ease-out), transform .8s var(--ease-out); }
+  .js .team-mockup.is-active .team-mockup__sticker-list { opacity: 1; transform: none; transition-delay: .22s; }
+  .js .team-mockup.is-active .team-mockup__meta { transition-delay: .22s; }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .team-mockup__desktop { top: 27%; left: 2%; width: 46%; height: 38%; }
+  .team-mockup__phone { top: 49%; left: 39%; width: 12%; }
+  .team-mockup__note, .team-mockup__tape { top: 8%; }
+  .team-mockup__kicker { top: 8%; }
+  .team-mockup h2 span:first-child { top: 17%; }
+  .team-mockup h2 span:last-child { top: 31%; right: 3%; }
+  .team-mockup__label { top: 36%; }
+  .team-mockup__sticker-list { top: 47%; left: 44%; gap: 12px; }
+  .team-mockup__summary { top: 56%; left: 44%; width: 53%; }
+  .team-mockup__summary p { font-size: 16px; }
+  .team-mockup__meta { top: 72%; left: 44%; width: 53%; font-size: 13px; }
+  .team-mockup__tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; }
+  .team-mockup__tasks span { white-space: normal; }
+}
+
+@media (max-width: 47.99rem) {
+  .team-mockup { min-height: 1180px; }
+  .team-mockup__heading { inset: 0; height: 100%; }
+  .team-mockup__note { top: 4rem; left: 5%; width: 90%; height: 17rem; }
+  .team-mockup__tape { top: 4rem; left: 2%; width: 40%; height: 2.6rem; }
+  .team-mockup__kicker { top: 4rem; left: 5%; font-size: 12px; }
+  .team-mockup h2 { font-size: clamp(2.2rem, 11.5vw, 5rem); }
+  .team-mockup h2 span:first-child { top: 8.5rem; left: 6%; }
+  .team-mockup h2 span:last-child { top: 14.3rem; right: 3%; left: auto; }
+  .team-mockup__label { top: 17rem; left: 54%; width: 43%; height: 4rem; }
+  .team-mockup__desktop { top: 23rem; left: 7%; width: 75%; height: 22rem; }
+  .team-mockup__phone { top: 33rem; left: 69%; width: 24%; }
+  .team-mockup__sticker-list { top: 49rem; left: 6%; gap: 12px; }
+  .team-mockup__summary { top: 53.5rem; left: 6%; width: 88%; }
+  .team-mockup__summary p { font-size: 14px; }
+  .team-mockup__meta { top: 61rem; left: 6%; width: 88%; font-size: 12px; }
+  .team-mockup__tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 10px; }
+  .team-mockup__tasks span { white-space: normal; }
+}
+
+@media (min-width: 64rem) {
+  /* Let the mockup stickers enter over the overview without moving its copy. */
+  .team-mockup { overflow: visible; }
+}

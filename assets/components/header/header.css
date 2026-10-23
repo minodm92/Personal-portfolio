@@ -6,79 +6,64 @@
     inset: .75rem var(--page-gutter) auto;
     display: flex;
     width: auto;
-    height: 4rem;
+    height: 68px;
     align-items: center;
     justify-content: space-between;
-    padding: .35rem .45rem .35rem .85rem;
-    border: 1px solid rgb(37 35 34 / 8%);
-    border-radius: 1.15rem;
-    color: var(--color-black);
-    background: rgb(240 236 232 / 97%);
-    box-shadow: 0 .75rem 2.5rem rgb(0 0 0 / 15%);
-    backdrop-filter: blur(1rem);
+    padding: 6px 30px;
+    border: 0;
+    border-radius: 15px;
+    color: #f1efeb;
+    background: #b3ab9e;
+    box-shadow: none;
+    backdrop-filter: none;
     transition: background var(--duration-base), box-shadow var(--duration-base), transform var(--duration-base) var(--ease-out);
   }
 
   .site-header.is-scrolled {
-    background: rgb(240 236 232 / 94%);
-    box-shadow: 0 1rem 3rem rgb(0 0 0 / 22%);
+    background: #b3ab9e;
+    box-shadow: none;
   }
 
   .site-header.is-hidden {
     transform: translateY(calc(-100% - 1rem));
   }
 
-  /* Page progress */
-  .scroll-progress {
-    position: fixed;
-    z-index: var(--z-toast);
-    inset: 0 0 auto;
-    height: 3px;
-    pointer-events: none;
-  }
-
-  .scroll-progress i {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: var(--color-accent);
-    transform: scaleX(var(--page-progress, 0));
-    transform-origin: left center;
-  }
-
-  /* Figma 604:44 logo */
+  /* Figma 941:201 / 941:244 diary home control */
   .site-header .brand {
     position: relative;
     z-index: 2;
     display: flex;
-    width: 96px;
-    height: 54px;
+    width: 102px;
+    height: 100%;
     flex: 0 0 auto;
     align-items: center;
-    color: var(--color-black);
+    overflow: hidden;
+    color: inherit;
     text-decoration: none;
   }
 
-  .site-header .brand__logo {
-    position: relative;
-    display: block;
-    width: 96px;
-    height: 43.719px;
-  }
-
-  .site-header .brand__logo img {
+  .site-header .brand__sticker {
     position: absolute;
     display: block;
     max-width: none;
+    transition: opacity var(--duration-fast), transform var(--duration-base) var(--ease-out);
   }
 
-  .site-header .brand__logo-q { top: 10.248px; left: .115px; }
-  .site-header .brand__logo-u { top: 16.155px; left: 26.016px; }
-  .site-header .brand__logo-o { top: 15.808px; left: 48px; }
-  .site-header .brand__logo-roof { top: .726px; left: 44.918px; }
-  .site-header .brand__logo-t { top: 11.403px; left: 70.618px; }
-  .site-header .brand__logo-i { top: 15.993px; left: 85.277px; }
-  .site-header .brand__logo-dot { top: 8.625px; left: 84.97px; }
+  .site-header .brand__sticker--closed {
+    top: 0;
+    left: 4px;
+    width: 74px;
+    height: 68px;
+  }
+
+  .site-header .brand__sticker--open {
+    top: 7px;
+    left: 0;
+    width: 102px;
+    height: 61px;
+    opacity: 0;
+    transform: translateY(-3px);
+  }
 
   /* Mobile menu trigger */
   .site-header .menu-toggle {
@@ -91,7 +76,7 @@
     gap: .7rem;
     padding: 0 .4rem;
     border: 0;
-    color: var(--color-black);
+    color: inherit;
     background: transparent;
     cursor: pointer;
   }
@@ -122,30 +107,30 @@
   .site-header .site-nav.is-open { visibility: visible; opacity: 1; transform: none; }
   .site-header .site-nav__links { display: flex; flex-direction: column; gap: var(--space-4); }
   .site-header .site-nav a { width: fit-content; font-size: clamp(2rem, 12vw, 4rem); font-weight: 750; line-height: 1; text-decoration: none; }
-  .site-header .site-nav .site-nav__actions { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
-  .site-header .site-nav .site-nav__actions .nav-cta { color: var(--color-accent); }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .site-header .brand:hover { opacity: .78; }
+  .site-header .brand:hover .brand__sticker--closed,
+  .site-header .brand:focus-visible .brand__sticker--closed { opacity: 0; transform: translateY(3px); }
+  .site-header .brand:hover .brand__sticker--open,
+  .site-header .brand:focus-visible .brand__sticker--open { opacity: 1; transform: translateY(0); }
   .site-header .site-nav__links a:hover { color: var(--color-accent); }
-  .site-header .site-nav .site-nav__actions .nav-login:hover { color: var(--color-white); background: #3a3735; }
-  .site-header .site-nav .site-nav__actions .nav-cta:hover { color: var(--color-white); background: #e94e23; }
 }
 
 @media (min-width: 64rem) {
   .site-header {
     inset: 24px auto auto 50%;
     display: grid;
-    grid-template-columns: 96px auto;
-    column-gap: 61px;
-    width: max-content;
+    grid-template-columns: 102px minmax(0, 1fr);
+    column-gap: 0;
+    width: min(919px, calc(100vw - 1.5rem));
     max-width: calc(100vw - 2.5rem);
-    height: 64px;
-    padding: 5px 20px;
-    border: 1px solid #dbdbd3;
-    border-radius: 16px;
-    background: #f0ece8;
+    height: 68px;
+    padding: 0 30px;
+    border: 0;
+    border-radius: 15px;
+    color: #f1efeb;
+    background: #b3ab9e;
     box-shadow: none;
     transform: translateX(-50%);
   }
@@ -155,13 +140,13 @@
 
   .site-header .site-nav {
     position: static;
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
     align-items: center;
+    justify-content: flex-end;
     width: auto;
-    gap: 61px;
+    gap: 0;
     padding: 0;
-    color: var(--color-black);
+    color: #f1efeb;
     background: transparent;
     visibility: visible;
     opacity: 1;
@@ -170,10 +155,11 @@
 
   .site-header .site-nav .site-nav__links {
     position: static;
-    justify-self: center;
+    justify-self: end;
     flex-direction: row;
     height: 54px;
     align-items: flex-start;
+    justify-content: flex-end;
     column-gap: 15px;
     transform: none;
   }
@@ -183,37 +169,11 @@
     height: 54px;
     align-items: center;
     padding-inline: 12px;
-    font: 400 20px/28px Arial, sans-serif;
+    font: 400 20px/28px "Be Vietnam Pro", sans-serif;
     letter-spacing: -.2px;
     text-transform: none;
     transition: color var(--duration-fast);
   }
 
-  .site-header .site-nav .site-nav__actions {
-    justify-self: end;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    margin-left: 0;
-  }
-
-  .site-header .site-nav .site-nav__actions a {
-    display: inline-flex;
-    min-height: 54px;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 24px;
-    border: 1px solid currentColor;
-    border-radius: 12px;
-    font: 400 16px/24px "Arial Black", Arial, sans-serif;
-    letter-spacing: .48px;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color var(--duration-fast), background var(--duration-fast), transform var(--duration-fast);
-  }
-
-  .site-header .site-nav .site-nav__actions a:hover { transform: translateY(-1px); }
-  .site-header .site-nav .site-nav__actions .nav-login { color: #fff; background: #252322; border-color: #252322; }
-  .site-header .site-nav .site-nav__actions .nav-cta { color: #fff; background: #fd5b2c; border-color: #fd5b2c; }
 }
 

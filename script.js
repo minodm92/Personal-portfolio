@@ -1,5 +1,6 @@
 import {
   initAbout,
+  initAboutVisual,
   initApproach,
   initCaseStudy,
   initCloneCoding,
@@ -9,10 +10,12 @@ import {
   initHorizontalStory,
   initIntro,
   initPortfolioBot,
+  initQuickQa,
   initPersonalStory,
   initPostProcessToc,
   initProcessMarket,
   initSkills,
+  initSkillsGallery,
   initTeamOverview,
   initThirdToc,
   initWork,
@@ -43,3 +46,6 @@ initSkills({ reduceMotion });
 initAbout({ reduceMotion });
 initContact({ reduceMotion });
 initPortfolioBot({ reduceMotion });
+initSkillsGallery();
+initAboutVisual();
+initQuickQa();

@@ -1,0 +1,137 @@
+@layer components {
+  .clone-coding-bridge {
+    position: relative;
+    width: 100%;
+    padding-block: 35svh;
+    overflow: hidden;
+    color: #484848;
+    background: #e9dfcf;
+  }
+
+  .clone-coding-bridge--about {
+    background: transparent;
+  }
+
+  .clone-coding-bridge__background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  .clone-coding-bridge__stage {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+  }
+
+  .clone-coding-bridge__banner {
+    position: absolute;
+    top: 37.12963%;
+    left: 22.604167%;
+    width: 54.739583%;
+    height: 25.648148%;
+  }
+
+  .clone-coding-bridge__paper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .clone-coding-bridge__paper img {
+    position: absolute;
+    top: -15.6%;
+    left: -2.61%;
+    width: 104.98%;
+    height: 132.84%;
+    max-width: none;
+    object-fit: cover;
+  }
+
+  .clone-coding-bridge__title {
+    position: absolute;
+    top: 19.855596%;
+    left: 16.84%;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.40625vw;
+    margin: 0;
+    color: #484848;
+    font-family: "Literata", Georgia, serif;
+    font-size: 5.729167vw;
+    font-weight: 200;
+    line-height: normal;
+    letter-spacing: -.458333vw;
+    white-space: nowrap;
+  }
+
+  .clone-coding-bridge__word {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: max-content;
+    grid-template-rows: max-content;
+    place-items: start;
+    flex: none;
+    line-height: 0;
+  }
+
+  .clone-coding-bridge__word i,
+  .clone-coding-bridge__word b {
+    grid-area: 1 / 1;
+    font: inherit;
+  }
+
+  .clone-coding-bridge__word i {
+    margin-top: 1.574074svh;
+    font-family: "Kapakana", "Times New Roman", serif;
+    font-size: 9.375vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .clone-coding-bridge__word b {
+    font-weight: 200;
+    line-height: normal;
+  }
+
+  .clone-coding-bridge__word--tools b { margin-left: 4.270833vw; }
+  .clone-coding-bridge__word--skill b { margin-left: 5.572917vw; }
+  .clone-coding-bridge__and { flex: none; line-height: normal; }
+}
+
+@media (max-width: 63.99rem) {
+  .clone-coding-bridge__banner {
+    top: 36%;
+    left: 7%;
+    width: 86%;
+    height: 28%;
+  }
+
+  .clone-coding-bridge__title {
+    top: 24%;
+    left: 9%;
+    gap: 1.5vw;
+    font-size: clamp(2.2rem, 8vw, 5rem);
+    letter-spacing: -.55vw;
+  }
+
+  .clone-coding-bridge__word i { margin-top: 1.1rem; font-size: clamp(3.6rem, 13vw, 8rem); }
+  .clone-coding-bridge__word--tools b { margin-left: 6vw; }
+  .clone-coding-bridge__word--skill b { margin-left: 8vw; }
+}
+
+@media (max-width: 47.99rem) {
+  .clone-coding-bridge__stage { min-height: max(42rem, 100svh); }
+  .clone-coding-bridge__banner { top: 31%; left: 2%; width: 96%; height: 31%; }
+  .clone-coding-bridge__title { top: 27%; left: 5%; gap: 1vw; font-size: clamp(1.8rem, 9vw, 3.5rem); }
+  .clone-coding-bridge__word i { margin-top: .65rem; font-size: clamp(3rem, 16vw, 5rem); }
+  .clone-coding-bridge__word--tools b { margin-left: 8vw; }
+  .clone-coding-bridge__word--skill b { margin-left: 10vw; }
+}

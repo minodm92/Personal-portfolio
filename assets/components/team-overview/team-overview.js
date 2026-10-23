@@ -107,12 +107,13 @@ function initVideoContentControls() {
   });
 }
 
-export function setTeamMockupProgress() {
-  // Retained for the horizontal-story integration. Videos play independently.
+export function setTeamMockupPreviewActive(active) {
+  const mockup = document.querySelector("[data-team-mockup]");
+  if (mockup) setVideoPlayback(mockup, active);
 }
 
 export function initTeamOverview() {
-  const sections = document.querySelectorAll("[data-team-overview], [data-team-mockup]");
+  const sections = document.querySelectorAll("[data-team-overview], [data-team-mockup], [data-team-subpage]");
   const mockup = document.querySelector("[data-team-mockup]");
   const storySections = [...new Set(
     [...document.querySelectorAll(STORY_VIDEO_SELECTOR)]

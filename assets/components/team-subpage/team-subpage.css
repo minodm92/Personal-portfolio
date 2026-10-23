@@ -1,0 +1,74 @@
+@font-face { font-family: "Subpage Caveat"; src: url("./fonts/caveat-bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Subpage DM Sans"; src: url("./fonts/dm-sans-regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Subpage DM Sans"; src: url("./fonts/dm-sans-semibold.ttf") format("truetype"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Subpage DM Sans"; src: url("./fonts/dm-sans-bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Subpage Pretendard"; src: url("./fonts/pretendard-regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Subpage Pretendard"; src: url("./fonts/pretendard-bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+@layer components {
+  .team-subpage .team-mockup__note,
+  .team-subpage .team-mockup__tape { top: 9.722222%; }
+  .team-subpage .team-mockup__kicker { top: 10.925926%; left: 45.364583%; }
+  .team-subpage .team-mockup__kicker,
+  .team-subpage .team-mockup__label span { font-family: "Subpage DM Sans", sans-serif; font-size: 1.041667cqw; }
+  .team-subpage .team-mockup__heading h2 { font-family: "Subpage Caveat", cursive; font-size: 8.333333cqw; letter-spacing: 0; }
+  .team-subpage .team-mockup__heading h2 span:first-child { top: 22.222222%; }
+  .team-subpage .team-mockup__heading h2 span:last-child { top: 40.833333%; left: 47.916667%; right: auto; }
+  .team-subpage .team-mockup__label { top: 44.166667%; }
+  .team-subpage .team-mockup__car { top: 13.888889%; left: 67.395833%; height: 2.6846875cqw; transform: none; overflow: visible; }
+  .team-subpage__car-art { position: relative; width: 3.28125cqw; height: 2.03125cqw; overflow: hidden; transform: rotate(-12.32deg); }
+  .team-subpage .team-mockup__car img { position: absolute; top: -8%; left: -2.87%; width: 104.99%; height: 113.78%; max-width: none; }
+  .team-subpage .team-overview__sticker { font-family: "Subpage DM Sans", sans-serif; }
+  .team-subpage .team-mockup__sticker-list { top: 55.277778%; }
+  .team-subpage__details { position: absolute; top: 64.722222%; left: 50.208333%; width: 45.520833%; display: flex; flex-direction: column; gap: 2.395833cqw; }
+  .team-subpage .team-mockup__summary { position: relative; inset: auto; width: 100%; }
+  .team-subpage .team-mockup__summary p { font-family: "Subpage Pretendard", sans-serif; font-weight: 700; line-height: 1.4; word-break: normal; overflow-wrap: break-word; text-wrap: pretty; }
+  .team-subpage .team-mockup__meta { position: relative; inset: auto; width: 27.239583cqw; font-family: "Subpage DM Sans", sans-serif; }
+  .team-subpage .team-mockup__tasks { font-family: "Subpage Pretendard", sans-serif; grid-template-columns: 15.78125cqw 11.197917cqw; }
+  .team-subpage .team-mockup__desktop { height: auto; aspect-ratio: 722 / 572; overflow: hidden; }
+  .team-subpage .team-mockup__phone { overflow: hidden; }
+  .team-subpage .team-mockup__phone-screen { background: #fff; }
+}
+
+@media (min-width: 64rem) {
+  .team-subpage .team-mockup__desktop { aspect-ratio: 722 / 572; }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .team-subpage .team-mockup__desktop { height: auto; aspect-ratio: 722 / 572; }
+  .team-subpage .team-mockup__note,
+  .team-subpage .team-mockup__tape { top: 8%; }
+  .team-subpage .team-mockup__kicker { top: 9%; left: 44%; font-size: 1rem; }
+  .team-subpage .team-mockup__heading h2 { font-size: clamp(4rem, 9vw, 6rem); }
+  .team-subpage .team-mockup__heading h2 span:first-child { top: 17%; }
+  .team-subpage .team-mockup__heading h2 span:last-child { top: 31%; left: 45%; }
+  .team-subpage .team-mockup__label { top: 36%; }
+  .team-subpage .team-mockup__car { top: 11%; left: 72%; }
+  .team-subpage .team-mockup__sticker-list { top: 47%; }
+  .team-subpage__details { top: 56%; left: 44%; width: 53%; gap: 32px; }
+  .team-subpage .team-mockup__summary,
+  .team-subpage .team-mockup__meta { inset: auto; width: 100%; }
+  .team-subpage .team-mockup__tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 47.99rem) {
+  .team-subpage { min-height: 1260px; }
+  .team-subpage .team-mockup__note,
+  .team-subpage .team-mockup__tape { top: 6.5rem; }
+  .team-subpage .team-mockup__kicker { top: 7.2rem; left: 5%; font-size: 12px; }
+  .team-subpage .team-mockup__heading h2 { font-size: clamp(2.2rem, 11.5vw, 5rem); }
+  .team-subpage .team-mockup__heading h2 span:first-child { top: 11rem; }
+  .team-subpage .team-mockup__heading h2 span:last-child { top: 16.8rem; left: auto; right: 3%; }
+  .team-subpage .team-mockup__label { top: 19.5rem; }
+  .team-subpage .team-mockup__label span { font-size: 11px; }
+  .team-subpage .team-mockup__car { top: 8.5rem; left: 73%; width: 12%; }
+  .team-subpage .team-mockup__desktop { top: 26rem; height: auto; aspect-ratio: 722 / 572; }
+  .team-subpage .team-mockup__phone { top: 36rem; }
+  .team-subpage .team-mockup__sticker-list { top: 51rem; }
+  .team-subpage__details { top: 55.5rem; left: 6%; width: 88%; gap: 32px; }
+  .team-subpage .team-mockup__summary { inset: auto; width: 100%; }
+  .team-subpage .team-mockup__summary p { font-size: 14px; }
+  .team-subpage .team-mockup__meta { inset: auto; width: 100%; }
+  .team-subpage__car-art { width: 43px; height: 27px; }
+  .team-subpage .team-mockup__tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

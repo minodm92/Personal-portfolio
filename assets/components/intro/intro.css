@@ -345,6 +345,9 @@
   border: 0;
 }
 
+.intro-profile__torn-paper { position: absolute; z-index: 0; top: 88.0556%; left: -6.25%; width: 23.9583%; height: auto; pointer-events: none; }
+.intro-profile__details dd { max-width: 18em; }
+
 .intro.intro--profile {
   background: transparent;
 }
@@ -381,12 +384,12 @@
 .intro-profile__details {
   position: absolute;
   z-index: 1;
-  top: 39.39%;
-  left: 2.94%;
-  width: 77%;
+  top: 34.19%;
+  left: 3.59%;
+  width: 88%;
   margin: 0;
   color: #484848;
-  font-family: "Pretendard Variable", "Pretendard", sans-serif;
+  font-family: "Caveat", "Pretendard Variable", "Pretendard", sans-serif;
   font-size: clamp(.82rem, 1.563vw, 1.875rem);
   font-weight: 700;
   line-height: 1.2;
@@ -394,7 +397,7 @@
 
 .intro-profile__details > div {
   display: grid;
-  grid-template-columns: 20.8% minmax(0, 1fr);
+  grid-template-columns: 30.7% minmax(0, 1fr);
   align-items: start;
   min-height: 5.052vw;
 }
@@ -500,24 +503,21 @@
 .intro-profile__sticker-copy {
   position: absolute;
   z-index: 1;
-  top: 16.975%;
-  left: 15.65%;
+  top: 19.66%;
+  left: 26.87%;
+  display: grid;
+  gap: 1.2cqw;
+  width: 71%;
   margin: 0;
-  color: #b3ab9e;
-  font-family: "DM Sans", "Pretendard Variable", "Pretendard", sans-serif;
-  font-size: clamp(1.35rem, 3.125vw, 3.75rem);
-  font-weight: 600;
-  line-height: 1.35;
+  color: #484848;
+  font-family: "Pretendard Variable", "Pretendard", sans-serif;
+  font-size: 2.083333cqw;
+  font-weight: 400;
+  line-height: 1.4;
   white-space: nowrap;
 }
 
-.intro-profile__sticker-copy strong,
 .intro-profile__sticker-copy span { display: block; }
-
-.intro-profile__sticker-copy strong {
-  color: #484848;
-  font: inherit;
-}
 
 .js .intro-profile__sticker { opacity: 0; }
 
@@ -925,7 +925,7 @@ html:not(.js) .intro-2 {
   }
 }
 
-/* Exact 1920x1706 composition from Figma node 604:122. */
+/* 1920x1706 intro_2 composition from Figma node 737:2507. */
 .intro-2 {
   width: 100%;
   height: 88.854167vw;
@@ -1068,8 +1068,8 @@ html:not(.js) .intro-2 {
 .intro-2-figma__card img { position: absolute; }
 
 .intro-2-figma__card--left {
-  top: 36.184642%;
-  left: 2.017188%;
+  top: 36.166471%;
+  left: 2.135417%;
   width: 36.069427%;
   height: 37.360727%;
 }
@@ -1154,15 +1154,16 @@ html:not(.js) .intro-2 {
 }
 
 .intro-2-figma__copy span {
-  width: 15.861146%;
-  height: 4.489918%;
+  width: 15.885417%;
+  height: 1.641266%;
   font-family: "Pretendard Variable", "Pretendard", sans-serif;
   font-size: 1.041667cqw;
-  font-weight: 900;
-  line-height: normal;
+  font-weight: 500;
+  line-height: 1.4;
   text-align: center;
 }
 
+.intro-profile__sticker-copy mark,
 .intro-2-figma__copy mark {
   position: relative;
   z-index: 0;
@@ -1173,6 +1174,7 @@ html:not(.js) .intro-2 {
   isolation: isolate;
 }
 
+.intro-profile__sticker-copy mark::before,
 .intro-2-figma__copy mark::before {
   position: absolute;
   z-index: -1;
@@ -1180,19 +1182,14 @@ html:not(.js) .intro-2 {
   bottom: .02em;
   left: -.08em;
   height: .78em;
-  background: linear-gradient(
-    180deg,
-    rgb(237 188 194 / 18%) 0%,
-    rgb(237 188 194 / 88%) 18%,
-    rgb(237 188 194 / 82%) 82%,
-    rgb(237 188 194 / 26%) 100%
-  );
+  background: rgb(255 225 1 / 75%);
   clip-path: polygon(0 17%, 99% 5%, 100% 84%, 1% 100%);
   content: "";
   transform: scaleX(var(--highlight-progress, 1));
   transform-origin: left center;
 }
 
+.js .intro-profile__sticker-copy mark,
 .js .intro-2-figma__copy mark { --highlight-progress: 0; }
 
 .intro-2-figma__copy--left,
@@ -1202,76 +1199,75 @@ html:not(.js) .intro-2 {
 }
 
 .intro-2-figma__copy--left strong {
-  top: 47.431506%;
-  left: 14.934896%;
+  top: 49.423212%;
+  left: 14.388542%;
   width: 9.482708%;
-  transform: rotate(-10deg);
+  transform: translateY(-50%) rotate(-10deg);
 }
 
 .intro-2-figma__copy--left .intro-2-figma__line--one {
-  top: 50.568054%;
-  left: 12.244427%;
+  top: 55.173505%;
+  left: 11.995%;
   transform: rotate(-10deg);
 }
 
 .intro-2-figma__copy--left .intro-2-figma__line--two {
-  top: 54.031125%;
-  left: 12.787135%;
+  top: 56.814771%;
+  left: 12.248%;
   transform: rotate(-10deg);
 }
 
 .intro-2-figma__copy--left .intro-2-figma__line--three {
-  top: 57.494783%;
-  left: 13.329323%;
+  top: 58.456037%;
+  left: 12.501%;
   transform: rotate(-10deg);
 }
 
 .intro-2-figma__copy--center strong {
-  top: 42.735053%;
-  left: 45.364583%;
+  top: 42.79367%;
+  left: 45.833333%;
   width: auto;
   height: auto;
   transform: translateY(-50%);
 }
 
 .intro-2-figma__copy--center .intro-2-figma__line--one {
-  top: 43.886342%;
-  left: 42.03125%;
+  top: 48.274326%;
+  left: 41.822917%;
 }
 
 .intro-2-figma__copy--center .intro-2-figma__line--two {
-  top: 47.403341%;
-  left: 42.03125%;
+  top: 49.915592%;
+  left: 41.822917%;
 }
 
 .intro-2-figma__copy--center .intro-2-figma__line--three {
-  top: 50.92034%;
-  left: 42.03125%;
+  top: 51.556858%;
+  left: 41.822917%;
 }
 
 .intro-2-figma__copy--right strong {
-  top: 47.733118%;
-  left: 76.983854%;
+  top: 49.694607%;
+  left: 77%;
   width: 7.636198%;
-  height: 3.696718%;
-  transform: rotate(10deg);
+  transform: translateY(-50%) rotate(10deg);
 }
 
 .intro-2-figma__copy--right .intro-2-figma__line--one {
-  top: 50.859379%;
-  left: 73.245469%;
+  top: 55.049238%;
+  left: 71.878%;
   transform: rotate(10deg);
 }
 
 .intro-2-figma__copy--right .intro-2-figma__line--two {
-  top: 54.323036%;
-  left: 72.70276%;
+  top: 56.690504%;
+  left: 71.624%;
   transform: rotate(10deg);
 }
 
 .intro-2-figma__copy--right .intro-2-figma__line--three {
-  top: 57.786694%;
-  left: 72.160052%;
+  top: 58.33177%;
+  left: 71.371%;
   transform: rotate(10deg);
 }
 
@@ -1364,7 +1360,7 @@ html:not(.js) .intro-2 {
 }
 
 .intro-profile__details {
-  width: 77%;
+  width: 88%;
   font-size: 1.5625cqw;
 }
 
@@ -1406,9 +1402,9 @@ html:not(.js) .intro-2 {
 }
 
 .intro-profile__sticker-copy {
-  top: 16.975%;
-  left: 15.65%;
-  font-size: 3.125cqw;
+  top: 19.66%;
+  left: 26.87%;
+  font-size: 2.083333cqw;
 }
 
 @media (max-width: 35rem) {

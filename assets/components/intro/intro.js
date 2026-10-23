@@ -98,12 +98,14 @@ function initProfileSticker(viewport, intro) {
     const tape = intro?.querySelector('[data-whoami-tape]');
     const cat = intro?.querySelector('[data-cat-sticker]');
     const catFront = intro?.querySelector('[data-cat-sticker-front]');
+    const highlights = gsap.utils.toArray('[data-intro-highlight]', intro);
     if (!viewport || !intro || !sticker || !tape || !cat || !catFront) return () => {};
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const restingShadow = 'drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2)) drop-shadow(0px 1px 1.5px rgba(0, 0, 0, 0.18))';
 
     if (prefersReducedMotion) {
+        gsap.set(highlights, { '--highlight-progress': 1 });
         gsap.set(sticker, { autoAlpha: 1, y: 0, scale: 1, filter: restingShadow });
         gsap.set(tape, { autoAlpha: 1, y: 0, scaleX: 1, scaleY: 1, rotation: 0, clipPath: 'inset(0 0% 0 0)', filter: 'none' });
         gsap.set(cat, { autoAlpha: 1, xPercent: 0 });
@@ -113,6 +115,7 @@ function initProfileSticker(viewport, intro) {
             gsap.set(tape, { clearProps: 'opacity,visibility,transform,clipPath,filter' });
             gsap.set(cat, { clearProps: 'opacity,visibility,transform' });
             gsap.set(catFront, { clearProps: 'opacity,visibility,transform,clipPath' });
+            gsap.set(highlights, { clearProps: '--highlight-progress' });
         };
     }
 
@@ -147,6 +150,7 @@ function initProfileSticker(viewport, intro) {
         clipPath: 'inset(0 100% 0 0)',
         willChange: 'transform,opacity,clip-path',
     });
+    gsap.set(highlights, { '--highlight-progress': 0 });
 
     const setMotionHints = () => {
         gsap.set(sticker, { willChange: 'transform,opacity,filter' });
@@ -214,7 +218,16 @@ function initProfileSticker(viewport, intro) {
             duration: 0.45,
             ease: 'none',
         }, 'tapeAndCat')
-        .to({}, { duration: 0.5 });
+        .to({}, { duration: 0.15 });
+
+    highlights.forEach((highlight) => {
+        introTimeline.to(highlight, {
+            '--highlight-progress': 1,
+            duration: 0.18,
+            ease: 'none',
+        });
+    });
+    introTimeline.to({}, { duration: 0.35 });
 
     return () => {
         introTimeline.scrollTrigger?.kill();
@@ -223,6 +236,7 @@ function initProfileSticker(viewport, intro) {
         gsap.set(tape, { clearProps: 'opacity,visibility,transform,clipPath,filter,willChange' });
         gsap.set(cat, { clearProps: 'opacity,visibility,transform,willChange' });
         gsap.set(catFront, { clearProps: 'opacity,visibility,transform,clipPath,willChange' });
+        gsap.set(highlights, { clearProps: '--highlight-progress' });
     };
 }
 

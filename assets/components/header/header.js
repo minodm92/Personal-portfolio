@@ -24,8 +24,6 @@ export function initHeader() {
   let ticking = false;
   const updateHeader = () => {
     const scrollY = window.scrollY;
-    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    document.documentElement.style.setProperty("--page-progress", Math.min(1, Math.max(0, scrollY / maxScroll)).toFixed(4));
     header?.classList.toggle("is-scrolled", scrollY > 24);
     header?.classList.toggle("is-hidden", scrollY > lastScrollY && scrollY > 160 && !navigation?.classList.contains("is-open"));
     lastScrollY = scrollY;
