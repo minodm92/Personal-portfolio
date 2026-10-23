@@ -311,4 +311,33 @@
 @media (min-width: 64rem) {
   /* Let the mockup stickers enter over the overview without moving its copy. */
   .team-mockup { overflow: visible; }
+
+  /* Scroll timelines own these transforms; CSS transitions would delay handoff. */
+  .is-scroll-controlled .team-overview__sign,
+  .is-scroll-controlled .team-overview__heading,
+  .is-scroll-controlled .team-overview__summary,
+  .is-scroll-controlled .team-overview__meta,
+  .is-scroll-controlled .team-mockup__visual,
+  .is-scroll-controlled .team-mockup__heading,
+  .is-scroll-controlled .team-mockup__summary,
+  .is-scroll-controlled .team-mockup__meta,
+  .is-scroll-controlled .team-mockup__sticker-list { transition: none; }
+}
+
+@layer components {
+  .team-mockup__kicker-sticker { position: absolute; z-index: 2; top: 5.555556%; left: 44.53125%; width: 11.306667%; height: 4.898148%; }
+  .team-mockup__kicker-sticker .team-mockup__tape { inset: 0; width: 100%; height: 100%; }
+  .team-mockup__kicker-sticker .team-mockup__kicker { inset: 0; display: grid; place-items: center; }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .team-mockup__kicker-sticker { top: 8%; left: 41%; width: 24%; height: 42px; }
+  .team-mockup__kicker-sticker .team-mockup__tape,
+  .team-mockup__kicker-sticker .team-mockup__kicker { inset: 0; width: 100%; height: 100%; }
+}
+
+@media (max-width: 47.99rem) {
+  .team-mockup__kicker-sticker { top: 4rem; left: 2%; width: 40%; height: 2.6rem; }
+  .team-mockup__kicker-sticker .team-mockup__tape,
+  .team-mockup__kicker-sticker .team-mockup__kicker { inset: 0; width: 100%; height: 100%; }
 }

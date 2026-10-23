@@ -151,7 +151,8 @@ export function initTeamOverview() {
   const observer = new IntersectionObserver(
     (entries) => entries.forEach((entry) => {
       entry.target.classList.toggle("is-active", entry.isIntersecting);
-      if (entry.target === mockup) setVideoPlayback(mockup, entry.isIntersecting);
+      // The desktop sticker timeline owns playback, including preview and reverse entry.
+      if (entry.target === mockup && !mockup.closest(".is-scroll-controlled")) setVideoPlayback(mockup, entry.isIntersecting);
       if (storySections.includes(entry.target)) setVideoPlayback(entry.target, entry.isIntersecting);
       if (personalSections.includes(entry.target)) setVideoPlayback(entry.target, entry.isIntersecting);
       if (videoContentSections.includes(entry.target)) setVideoPlayback(entry.target, entry.isIntersecting);

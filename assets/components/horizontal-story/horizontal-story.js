@@ -131,10 +131,12 @@ export async function initHorizontalStory() {
   const teamExitSummary = teamOverview?.querySelector(".team-overview__summary");
   const teamExitMeta = teamOverview?.querySelector(".team-overview__meta");
   const teamSign = teamOverview?.querySelector(".team-overview__sign");
+  const teamKickerSticker = teamOverview?.querySelector(".team-overview__kicker");
   const teamMockup = sequence?.querySelector("[data-team-mockup]");
   const mockupExitVisual = teamMockup?.querySelector(".team-mockup__visual");
   const mockupDesktop = teamMockup?.querySelector(".team-mockup__desktop");
   const mockupPhone = teamMockup?.querySelector(".team-mockup__phone");
+  const mockupKickerSticker = teamMockup?.querySelector(".team-mockup__kicker-sticker");
   const mockupExitHeading = teamMockup?.querySelector(".team-mockup__heading");
   const mockupExitSummary = teamMockup?.querySelector(".team-mockup__summary");
   const mockupExitActions = teamMockup?.querySelector(".team-mockup__sticker-list");
@@ -154,6 +156,7 @@ export async function initHorizontalStory() {
   const lineDash = section?.querySelector("[data-story-line-dash]");
   const lineSolid = section?.querySelector("[data-story-line-solid]");
   const lineReveal = section?.querySelector("[data-story-line-reveal]");
+  if (!teamKickerSticker || !mockupKickerSticker) return;
   if (!sequence || !sequenceViewport || !sequenceTrack || !tableOfContents || !tocStage || tocTopics.length !== 3 || !tocNumber || !tocPeriod || !tocDirection || !teamOverview || !teamExitVisual || !teamExitHeading || !teamExitSummary || !teamExitMeta || !teamSign || !teamMockup || !mockupExitVisual || !mockupDesktop || !mockupPhone || !mockupExitHeading || !mockupExitSummary || !mockupExitActions || !mockupExitMeta || !teamSubpage || !subpageExitVisual || !subpageExitHeading || !subpageExitSummary || !subpageExitActions || !subpageExitMeta || !section || !track || !storyViewport || !line || !lineTrack || !lineSvg || !lineDash || !lineSolid || !lineReveal) return;
 
   const parallaxItems = gsap.utils.toArray("[data-story-parallax]", section);
@@ -224,6 +227,8 @@ export async function initHorizontalStory() {
 
   media.add("(min-width: 64rem)", () => {
     // The table of contents, overview, and story share one pinned horizontal journey.
+    sequence.classList.add("is-scroll-controlled");
+    setTeamMockupPreviewActive(false);
     const distance = () => Math.max(0, track.scrollWidth - storyViewport.clientWidth);
     const tocBuild = () => window.innerWidth * 1.45;
     const tocHold = () => window.innerWidth * .2;
@@ -243,15 +248,44 @@ export async function initHorizontalStory() {
     gsap.set([teamExitHeading, teamExitSummary, teamExitMeta, mockupExitVisual, mockupExitHeading, mockupExitSummary, mockupExitActions, mockupExitMeta], { y: 0 });
     gsap.set([subpageExitVisual, subpageExitHeading, subpageExitSummary, subpageExitActions, subpageExitMeta], { y: 0, opacity: 1, translate: "0px 0px" });
     gsap.set(mockupExitVisual, { x: () => -teamOverview.clientWidth, opacity: 1 });
+    gsap.set(teamSign, { x: 0, y: 0, rotation: 0, scale: 1, autoAlpha: 1 });
+    gsap.set(teamKickerSticker, { y: 0, rotation: 0, scale: 1, autoAlpha: 1, transformOrigin: "20% 50%" });
+    gsap.set(mockupKickerSticker, { x: () => -teamOverview.clientWidth, y: -35, rotation: -6, scale: 1.03, autoAlpha: 0, transformOrigin: "20% 50%" });
     gsap.set([mockupExitHeading, mockupExitSummary, mockupExitActions, mockupExitMeta], { opacity: 1, translate: "0px 0px" });
     gsap.set(mockupDesktop, { autoAlpha: 0, y: -120, rotation: -9, scale: 1.05, transformOrigin: "50% 50%" });
     gsap.set(mockupPhone, { autoAlpha: 0, y: -160, rotation: 12, scale: 1.08, transformOrigin: "50% 50%" });
+    let mockupAttached = false;
+    let mockupLanded = false;
+    let mockupVideoPlaying = false;
+    const syncMockupPlayback = () => {
+      const visible = [mockupDesktop, mockupPhone].some((element) => {
+        const rect = element.getBoundingClientRect();
+        return rect.right > 0 && rect.left < window.innerWidth && rect.bottom > 0 && rect.top < window.innerHeight;
+      });
+      const playing = mockupAttached && mockupLanded && visible;
+      if (playing === mockupVideoPlaying) return;
+      mockupVideoPlaying = playing;
+      setTeamMockupPreviewActive(playing);
+    };
     const signFlight = gsap.timeline({ paused: true });
     signFlight.to(teamSign, { x: -26, y: -42, rotation: -7, scale: 1.03, duration: .22, ease: "power2.out" });
     signFlight.to(teamSign, { x: -420, y: () => window.innerHeight * .85, rotation: -35, scale: .84, autoAlpha: 0, duration: .75, ease: "power2.in" });
-    const stickerLanding = gsap.timeline({ paused: true });
+    signFlight.to(teamKickerSticker, { y: -15, rotation: -6, scale: 1.03, duration: .14, ease: "power2.out" }, 0);
+    signFlight.to(teamKickerSticker, { y: 85, rotation: -18, autoAlpha: 0, duration: .3, ease: "power2.in" }, .14);
+    const stickerLanding = gsap.timeline({
+      paused: true,
+      onComplete: () => {
+        mockupLanded = true;
+        syncMockupPlayback();
+      },
+      onReverseComplete: () => {
+        mockupLanded = false;
+        syncMockupPlayback();
+      },
+    });
     stickerLanding.to(mockupDesktop, { autoAlpha: 1, y: 0, rotation: 0, scale: 1, duration: .75, ease: "back.out(1.15)" }, 0);
     stickerLanding.to(mockupPhone, { autoAlpha: 1, y: 0, rotation: 0, scale: 1, duration: .72, ease: "back.out(1.15)" }, .18);
+    stickerLanding.to(mockupKickerSticker, { autoAlpha: 1, y: 0, rotation: 0, scale: 1, duration: .45, ease: "back.out(1.15)" }, .44);
     gsap.set(tocTopicBefores, { autoAlpha: reduceMotion ? 0 : 1, scale: 1 });
     gsap.set(tocTopicAfters, { autoAlpha: reduceMotion ? 1 : 0, scale: reduceMotion ? 1 : 0 });
     gsap.set(titleInk.fills, { autoAlpha: reduceMotion ? 1 : 0 });
@@ -379,6 +413,7 @@ export async function initHorizontalStory() {
     timeline.add("mockup-handoff");
     timeline.set(sequenceTrack, { x: () => -teamMockup.offsetLeft }, "mockup-handoff");
     timeline.set(mockupExitVisual, { x: 0 }, "mockup-handoff");
+    timeline.set(mockupKickerSticker, { x: 0 }, "mockup-handoff");
     timeline.add("mockup-exit");
     timeline.to(sequenceTrack, { x: () => -teamSubpage.offsetLeft, duration: mockupToSubpage(), ease: "power1.inOut" }, "mockup-exit");
     timeline.to(
@@ -426,7 +461,6 @@ export async function initHorizontalStory() {
     timeline.to({}, { duration: outroHold });
 
     let signDetached = false;
-    let mockupAttached = false;
     const syncStickers = () => {
       const now = timeline.time();
       const exit = timeline.labels["team-exit"];
@@ -434,29 +468,37 @@ export async function initHorizontalStory() {
       const attach = exit + (handoff - exit) * .18;
       if (now >= exit && !signDetached) {
         signDetached = true;
-        if (reduceMotion) gsap.set(teamSign, { autoAlpha: 0 });
-        else signFlight.restart();
+        if (reduceMotion) gsap.set([teamSign, teamKickerSticker], { autoAlpha: 0 });
+        else signFlight.play();
       } else if (now < exit && signDetached) {
         signDetached = false;
-        signFlight.pause(0);
-        gsap.set(teamSign, { clearProps: "transform,opacity,visibility" });
+        if (reduceMotion) gsap.set([teamSign, teamKickerSticker], { autoAlpha: 1 });
+        else signFlight.reverse();
       }
       if (now >= attach && !mockupAttached) {
         mockupAttached = true;
-        setTeamMockupPreviewActive(true);
-        if (reduceMotion) gsap.set([mockupDesktop, mockupPhone], { autoAlpha: 1, y: 0, rotation: 0, scale: 1 });
-        else stickerLanding.restart();
+        if (reduceMotion) {
+          gsap.set([mockupDesktop, mockupPhone], { autoAlpha: 1, y: 0, rotation: 0, scale: 1 });
+          gsap.set(mockupKickerSticker, { autoAlpha: 1, y: 0, rotation: 0, scale: 1 });
+          mockupLanded = true;
+        } else {
+          mockupLanded = stickerLanding.progress() === 1;
+          stickerLanding.play();
+        }
       } else if (now < attach && mockupAttached) {
         mockupAttached = false;
-        setTeamMockupPreviewActive(false);
-        stickerLanding.pause(0);
-        gsap.set(mockupDesktop, { autoAlpha: 0, y: -120, rotation: -9, scale: 1.05 });
-        gsap.set(mockupPhone, { autoAlpha: 0, y: -160, rotation: 12, scale: 1.08 });
+        mockupLanded = false;
+        if (reduceMotion) {
+          gsap.set([mockupDesktop, mockupPhone], { autoAlpha: 0 });
+          gsap.set(mockupKickerSticker, { autoAlpha: 0 });
+        } else stickerLanding.reverse();
       }
       if (now >= exit && now < handoff) {
         gsap.set(sequenceTrack, { x: -teamOverview.offsetLeft });
         gsap.set(mockupExitVisual, { x: -teamOverview.clientWidth });
+        gsap.set(mockupKickerSticker, { x: -teamOverview.clientWidth });
       }
+      syncMockupPlayback();
     };
     timeline.eventCallback("onUpdate", syncStickers);
 
@@ -465,6 +507,8 @@ export async function initHorizontalStory() {
       timeline.kill();
       signFlight.kill();
       stickerLanding.kill();
+      sequence.classList.remove("is-scroll-controlled");
+      gsap.set([teamKickerSticker, mockupKickerSticker], { clearProps: "transform,opacity,visibility,transformOrigin" });
       gsap.set([teamSign, mockupDesktop, mockupPhone, mockupExitVisual, mockupExitHeading, mockupExitSummary, mockupExitActions, mockupExitMeta], { clearProps: "transform,translate,opacity,visibility" });
       gsap.set([subpageExitVisual, subpageExitHeading, subpageExitSummary, subpageExitActions, subpageExitMeta], { clearProps: "transform,translate,opacity,visibility" });
       gsap.set([sequenceTrack, track, lineTrack, tocDirection, tocNumber, teamExitVisual, teamExitHeading, teamExitSummary, teamExitMeta, mockupExitVisual, mockupExitHeading, mockupExitSummary, mockupExitActions, mockupExitMeta, subpageExitVisual, subpageExitHeading, subpageExitSummary, subpageExitActions, subpageExitMeta, ...tocTopics, ...tocTopicBefores, ...tocTopicAfters, ...tocYearParts, ...titleInk.strokes, ...titleInk.fills, ...tocDetails, ...parallaxItems], { clearProps: "transform,opacity,visibility,filter,willChange,strokeDasharray,strokeDashoffset" });
