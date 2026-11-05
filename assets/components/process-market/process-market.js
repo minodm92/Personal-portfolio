@@ -3,11 +3,39 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const imageUrls = {
+  "process-market-research.png": new URL("./process-market-research.png", import.meta.url).href,
+  "process-market-competitor.png": new URL("./process-market-competitor.png", import.meta.url).href,
+  "process-market-steep.png": new URL("./process-market-steep.png", import.meta.url).href,
+  "process-market-3c.png": new URL("./process-market-3c.png", import.meta.url).href,
+  "process-interview-original-figma.png": new URL("./process-interview-original-figma.png", import.meta.url).href,
+  "process-interview-questions.png": new URL("./process-interview-questions.png", import.meta.url).href,
+  "process-interview-summary.png": new URL("./process-interview-summary.png", import.meta.url).href,
+  "process-interview-affinity.jpeg": new URL("./process-interview-affinity.jpeg", import.meta.url).href,
+  "process-planning-persona.png": new URL("./process-planning-persona.png", import.meta.url).href,
+  "process-planning-journey.png": new URL("./process-planning-journey.png", import.meta.url).href,
+  "process-planning-lean-canvas.jpeg": new URL("./process-planning-lean-canvas.jpeg", import.meta.url).href,
+  "process-structure-meeting.png": new URL("./process-structure-meeting.png", import.meta.url).href,
+  "process-structure-menu-tree.png": new URL("./process-structure-menu-tree.png", import.meta.url).href,
+  "process-structure-user-flow.png": new URL("./process-structure-user-flow.png", import.meta.url).href,
+  "process-structure-requirements.png": new URL("./process-structure-requirements.png", import.meta.url).href,
+  "process-direction-mode-board.png": new URL("./process-direction-mode-board.png", import.meta.url).href,
+  "process-direction-design-mindmap.jpeg": new URL("./process-direction-design-mindmap.jpeg", import.meta.url).href,
+  "process-screen-wireframe.png": new URL("./process-screen-wireframe.png", import.meta.url).href,
+  "process-screen-design-system.png": new URL("./process-screen-design-system.png", import.meta.url).href,
+  "process-screen-components.png": new URL("./process-screen-components.png", import.meta.url).href,
+};
+
 function initPanelButtons(panel) {
   const image = panel.querySelector("[data-market-image]");
   const buttons = [...panel.querySelectorAll("[data-market-image-src]")];
   const originalPreview = panel.querySelector("[data-market-original-preview]");
   if (!image || buttons.length === 0) return;
+
+  buttons.forEach((button) => {
+    const filename = button.dataset.marketImageSrc?.split("/").pop();
+    if (imageUrls[filename]) button.dataset.marketImageSrc = imageUrls[filename];
+  });
 
   panel.classList.add("has-selection");
   image.src = buttons[0].dataset.marketImageSrc;

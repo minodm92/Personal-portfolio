@@ -50,6 +50,15 @@ try {
     await evaluate("new Promise(resolve => { if (document.readyState === 'complete') resolve(true); else addEventListener('load', () => resolve(true), { once: true }); })");
     await evaluate('document.fonts.ready.then(() => true)');
     if (!mobile) {
+      const failedImages = await evaluate(`Promise.all([...document.querySelectorAll('[data-market-image-src]')].map(button => new Promise(resolve => {
+        const image = new Image();
+        image.onload = () => resolve(null);
+        image.onerror = () => resolve(button.dataset.marketImageSrc);
+        image.src = button.dataset.marketImageSrc;
+      }))).then(results => results.filter(Boolean))`);
+      if (failedImages.length) throw new Error(`Built button images failed to load: ${JSON.stringify(failedImages)}`);
+    }
+    if (!mobile) {
       const start = await evaluate(`(() => {
         const sequence = document.querySelector('[data-process-market-sequence]');
         const track = sequence.querySelector('[data-process-market-track]');
@@ -107,7 +116,7 @@ try {
       const photoRect = photo.getBoundingClientRect();
       return { src: image.getAttribute('src'), loaded: image.complete, width: image.naturalWidth, height: image.naturalHeight, fit: getComputedStyle(image).objectFit, photoWidth: photo.clientWidth, photoHeight: photo.clientHeight, imageWidth: image.naturalWidth * scale, imageHeight: image.naturalHeight * scale, insetX: imageRect.x - photoRect.x, insetY: imageRect.y - photoRect.y, boxWidth: imageRect.width, boxHeight: imageRect.height, selected: panel.classList.contains('is-original-selected') };
     })()`);
-    if (!interviewPanel.src.includes('process-interview-original-figma.png') || !interviewPanel.loaded || interviewPanel.width !== 482 || interviewPanel.height !== 388 || interviewPanel.fit !== 'contain' || !interviewPanel.selected || interviewPanel.insetX < 18 || interviewPanel.insetY < 25 || interviewPanel.boxWidth >= interviewPanel.photoWidth || interviewPanel.boxHeight >= interviewPanel.photoHeight) throw new Error(JSON.stringify(interviewPanel));
+    if (!interviewPanel.src.includes('process-interview-original-figma') || !interviewPanel.loaded || interviewPanel.width !== 482 || interviewPanel.height !== 388 || interviewPanel.fit !== 'contain' || !interviewPanel.selected || interviewPanel.insetX < 18 || interviewPanel.insetY < 25 || interviewPanel.boxWidth >= interviewPanel.photoWidth || interviewPanel.boxHeight >= interviewPanel.photoHeight) throw new Error(JSON.stringify(interviewPanel));
     const interviewShot = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
     await writeFile(join(tmpdir(), `process-market-interview-${width}.png`), Buffer.from(interviewShot.data, 'base64'));
     const interviewSwitch = await evaluate(`(async () => {
