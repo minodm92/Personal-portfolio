@@ -1,7 +1,7 @@
 const videoStates = new WeakMap();
 const comparisonTimers = new WeakMap();
 const LOADER_PLAYBACK_RATE = 8;
-const VIDEO_SELECTOR = "[data-team-mockup-video], [data-editorial-video], [data-brand-experience-video], [data-typography-video], [data-before-after-video], [data-before-after-result-video], [data-personal-mockup-video], [data-video-content-video]";
+const VIDEO_SELECTOR = "[data-editorial-video], [data-brand-experience-video], [data-typography-video], [data-before-after-video], [data-before-after-result-video], [data-personal-mockup-video], [data-video-content-video]";
 const STORY_VIDEO_SELECTOR = "[data-editorial-video], [data-brand-experience-video], [data-typography-video], [data-before-after-video], [data-before-after-result-video]";
 const COMPARISON_DELAY = 2000;
 
@@ -42,16 +42,80 @@ function setComparisonState(section, playing) {
   const timer = comparisonTimers.get(section);
   if (timer) clearTimeout(timer);
   section.classList.remove("is-after-visible");
+  syncComparisonAccessible(section);
 
   if (!playing) return;
   comparisonTimers.set(section, window.setTimeout(() => {
     section.classList.add("is-after-visible");
+    syncComparisonAccessible(section);
     comparisonTimers.delete(section);
   }, COMPARISON_DELAY));
 }
 
-function setVideoPlayback(section, playing) {
-  section?.querySelectorAll(VIDEO_SELECTOR).forEach((video) => {
+function syncComparisonAccessible(section) {
+  const before = section?.querySelector(".story-figma__comparison-preview--before");
+  const after = section?.querySelector(".story-figma__comparison-preview--after");
+  if (!before || !after) return;
+  const hovered = window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    && section.querySelector(".story-figma__photo")?.matches(":hover");
+  const afterVisible = section.classList.contains("is-after-visible") && !hovered;
+  before.setAttribute("aria-hidden", String(afterVisible));
+  after.setAttribute("aria-hidden", String(!afterVisible));
+}
+
+function initComparisonPreviews(section) {
+  const screen = section?.querySelector(".story-figma__screen--comparison");
+  if (!screen) return;
+  const updateSize = () => {
+    screen.style.setProperty("--comparison-viewport-height", `${screen.clientHeight}px`);
+    screen.querySelectorAll(".story-figma__comparison-preview").forEach((preview) => {
+      const image = preview.querySelector("img");
+      if (!image?.naturalWidth) return;
+      const travel = image.naturalHeight / image.naturalWidth * screen.clientWidth - screen.clientHeight;
+      preview.style.setProperty("--comparison-scroll-duration", `${Math.max(8, travel / 90)}s`);
+    });
+  };
+  new ResizeObserver(updateSize).observe(screen);
+  screen.querySelectorAll("img").forEach((image) => image.addEventListener("load", updateSize));
+  const monitor = section.querySelector(".story-figma__photo");
+  monitor?.addEventListener("pointerenter", () => syncComparisonAccessible(section));
+  monitor?.addEventListener("pointerleave", () => syncComparisonAccessible(section));
+  updateSize();
+}
+
+function initMockupPreviews(mockup) {
+  mockup?.querySelectorAll(".team-mockup__desktop-screen, .team-mockup__phone-screen").forEach((screen) => {
+    const updateSize = () => {
+      screen.style.setProperty("--mockup-viewport-height", `${screen.clientHeight}px`);
+      screen.querySelectorAll(".team-mockup__page-preview").forEach((preview) => {
+        const image = preview.querySelector("img");
+        if (!image?.naturalWidth) return;
+        const travel = image.naturalHeight / image.naturalWidth * screen.clientWidth - screen.clientHeight;
+        preview.style.setProperty("--mockup-scroll-duration", `${Math.max(8, travel / 90)}s`);
+      });
+    };
+    new ResizeObserver(updateSize).observe(screen);
+    screen.querySelectorAll("img").forEach((image) => image.addEventListener("load", updateSize));
+    updateSize();
+  });
+  if (mockup && "IntersectionObserver" in window) {
+    const readyObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      const ready = entry.intersectionRatio >= .95;
+      const becameReady = ready && !entry.target.classList.contains("is-preview-ready");
+      entry.target.classList.toggle("is-preview-ready", ready);
+      if (becameReady) {
+        const page = mockup.classList.contains("is-subpage-preview") ? "subpage" : "main";
+        entry.target.querySelector(`.team-mockup__${page}-preview img`)
+          ?.getAnimations().forEach((animation) => { animation.currentTime = 0; });
+      }
+    }), { threshold: [.95] });
+    mockup.querySelectorAll(".team-mockup__desktop, .team-mockup__phone")
+      .forEach((device) => readyObserver.observe(device));
+  }
+}
+
+function setVideoPlayback(section, playing, selector = VIDEO_SELECTOR) {
+  section?.querySelectorAll(selector).forEach((video) => {
     const state = videoStates.get(video);
     if (!state) return;
     state.visible = playing;
@@ -107,9 +171,18 @@ function initVideoContentControls() {
   });
 }
 
-export function setTeamMockupPreviewActive(active) {
+export function setTeamMockupPreviewActive(active, subpage = false) {
   const mockup = document.querySelector("[data-team-mockup]");
-  if (mockup) setVideoPlayback(mockup, active);
+  if (!mockup) return;
+  const playingClass = subpage ? "is-subpage-preview-playing" : "is-main-preview-playing";
+  const starting = active && !mockup.classList.contains(playingClass);
+  mockup.classList.toggle("is-subpage-preview", subpage);
+  mockup.classList.toggle("is-main-preview-playing", active && !subpage);
+  mockup.classList.toggle("is-subpage-preview-playing", active && subpage);
+  if (starting) mockup.querySelectorAll(`.team-mockup__${subpage ? "subpage" : "main"}-preview img`)
+    .forEach((image) => image.getAnimations().forEach((animation) => { animation.currentTime = 0; }));
+  mockup.querySelector(".team-mockup__desktop-screen .team-mockup__main-preview")?.setAttribute("aria-hidden", String(subpage));
+  mockup.querySelector(".team-mockup__desktop-screen .team-mockup__subpage-preview")?.setAttribute("aria-hidden", String(!subpage));
 }
 
 export function initTeamOverview() {
@@ -137,10 +210,14 @@ export function initTeamOverview() {
 
   videos.forEach(prepareVideo);
   initVideoContentControls();
+  initComparisonPreviews(comparisonSection);
+  initMockupPreviews(mockup);
 
   if (!("IntersectionObserver" in window)) {
     sections.forEach((section) => section.classList.add("is-active"));
-    setVideoPlayback(mockup, true);
+    mockup?.querySelectorAll(".team-mockup__desktop, .team-mockup__phone")
+      .forEach((device) => device.classList.add("is-preview-ready"));
+    setTeamMockupPreviewActive(true);
     storySections.forEach((section) => setVideoPlayback(section, true));
     personalSections.forEach((section) => setVideoPlayback(section, true));
     videoContentSections.forEach((section) => setVideoPlayback(section, true));
@@ -152,7 +229,7 @@ export function initTeamOverview() {
     (entries) => entries.forEach((entry) => {
       entry.target.classList.toggle("is-active", entry.isIntersecting);
       // The desktop sticker timeline owns playback, including preview and reverse entry.
-      if (entry.target === mockup && !mockup.closest(".is-scroll-controlled")) setVideoPlayback(mockup, entry.isIntersecting);
+      if (entry.target === mockup && !mockup.closest(".is-scroll-controlled")) setTeamMockupPreviewActive(entry.intersectionRatio >= .35);
       if (storySections.includes(entry.target)) setVideoPlayback(entry.target, entry.isIntersecting);
       if (personalSections.includes(entry.target)) setVideoPlayback(entry.target, entry.isIntersecting);
       if (videoContentSections.includes(entry.target)) setVideoPlayback(entry.target, entry.isIntersecting);
@@ -166,8 +243,8 @@ export function initTeamOverview() {
 
   if (comparisonMonitor) {
     const comparisonObserver = new IntersectionObserver(
-      ([entry]) => setComparisonState(comparisonSection, entry.isIntersecting),
-      { threshold: .8 },
+      ([entry]) => setComparisonState(comparisonSection, entry.intersectionRatio >= .35),
+      { threshold: .35 },
     );
     comparisonObserver.observe(comparisonMonitor);
   }

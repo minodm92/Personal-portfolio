@@ -230,6 +230,41 @@
     pointer-events: none;
   }
 
+  .personal-wire--project-detail .personal-wire__details {
+    position: absolute;
+    top: 23.518519%;
+    left: 50.208333%;
+    width: 42.708333%;
+    color: #484848;
+  }
+
+  .personal-wire--project-detail .personal-wire__heading {
+    position: relative;
+    width: 24.010417cqw;
+    height: 5.572917cqw;
+    background: url("../horizontal-story/h1-strip.png") center / 100% 100% no-repeat;
+  }
+
+  .personal-wire--project-detail .personal-wire__title {
+    top: 2.1875cqw;
+    left: 3.177083cqw;
+    color: #f1efeb;
+    font: 600 2.604167cqw/normal "Pretendard Variable", Pretendard, sans-serif;
+  }
+
+  .personal-wire--project-detail .personal-wire__description {
+    display: flex;
+    flex-direction: column;
+    gap: .78125cqw;
+    width: 39.583333cqw;
+    margin-top: .520833cqw;
+    margin-left: 3.177083cqw;
+    font: 500 1.041667cqw/1 "Pretendard Variable", Pretendard, sans-serif;
+  }
+
+  .personal-wire--project-detail .personal-wire__description p { margin: 0; }
+  .personal-wire--project-detail .personal-wire__website { margin-top: .833333cqw; margin-left: 3.177083cqw; }
+
   .personal-wire__title {
     position: absolute;
     top: calc(22.222222% + 14px);
@@ -295,6 +330,23 @@
 }
 
 @media (max-width: 63.99rem) {
+  .personal-wire--project-detail .personal-wire__mockup { top: 8%; left: 10%; width: 80%; }
+  .personal-wire--project-detail .personal-wire__details { top: 43%; left: 8%; width: 84%; }
+  .personal-wire--project-detail .personal-wire__heading { width: min(100%, 22rem); height: 5rem; }
+  .personal-wire--project-detail .personal-wire__title { top: 1.65rem; left: 1.5rem; font-size: clamp(1.25rem, 5vw, 2rem); }
+  .personal-wire--project-detail .personal-wire__description { width: 100%; gap: .6rem; margin: .4rem 0 0; font-size: clamp(.875rem, 1.3vw, .95rem); line-height: 1.35; }
+  .personal-wire--project-detail .personal-wire__website { margin: 1rem 0 0; }
+  .personal-wire--project-detail .personal-wire__website::before {
+    top: -29.89%;
+    left: -3.84%;
+    width: 105.21%;
+    height: 155.39%;
+    background: url("../team-overview/team-overview-fabric-button.png") center / 100% 100% no-repeat;
+  }
+  .personal-wire--project-detail .personal-wire__website:is(:hover, :focus-visible)::before {
+    background-image: url("../team-overview/team-overview-fabric-button-hover.png");
+  }
+
   .personal-story-sequence__viewport {
     height: auto;
     overflow-x: auto;

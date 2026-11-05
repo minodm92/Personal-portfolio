@@ -13,14 +13,14 @@
     border: 0;
     border-radius: 15px;
     color: #f1efeb;
-    background: #b3ab9e;
+    background: rgb(72 72 72 / 75%);
     box-shadow: none;
     backdrop-filter: none;
     transition: background var(--duration-base), box-shadow var(--duration-base), transform var(--duration-base) var(--ease-out);
   }
 
   .site-header.is-scrolled {
-    background: #b3ab9e;
+    background: rgb(72 72 72 / 75%);
     box-shadow: none;
   }
 
@@ -130,7 +130,7 @@
     border: 0;
     border-radius: 15px;
     color: #f1efeb;
-    background: #b3ab9e;
+    background: rgb(72 72 72 / 75%);
     box-shadow: none;
     transform: translateX(-50%);
   }
@@ -139,10 +139,14 @@
   .site-header .menu-toggle { display: none; }
 
   .site-header .site-nav {
-    position: static;
+    position: absolute;
+    top: 7px;
+    right: auto;
+    bottom: auto;
+    left: 534px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     width: auto;
     gap: 0;
     padding: 0;
@@ -155,11 +159,11 @@
 
   .site-header .site-nav .site-nav__links {
     position: static;
-    justify-self: end;
+    justify-self: start;
     flex-direction: row;
     height: 54px;
     align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: flex-start;
     column-gap: 15px;
     transform: none;
   }
@@ -169,7 +173,7 @@
     height: 54px;
     align-items: center;
     padding-inline: 12px;
-    font: 400 20px/28px "Be Vietnam Pro", sans-serif;
+    font: 400 20px/28px "DM Sans", sans-serif;
     letter-spacing: -.2px;
     text-transform: none;
     transition: color var(--duration-fast);

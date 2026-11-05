@@ -76,7 +76,7 @@
   }
 
   @media (min-width: 64rem) {
-    .horizontal-story__track { gap: 30vw; }
+    .horizontal-story__track { gap: 15vw; }
   }
 
   .horizontal-story__panel {
@@ -393,14 +393,19 @@
   .story-figma__screen { position: absolute; z-index: 1; top: 6.54%; left: 3.91%; width: 91.4%; height: 62.17%; overflow: hidden; background: #f1efeb; }
   .story-figma__screen img, .story-figma__screen video { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: center; }
   .story-figma__screen--comparison { isolation: isolate; }
-  .story-figma__comparison-video { position: absolute; inset: 0; }
-  .story-figma__comparison-video--before { z-index: 1; }
-  .story-figma__comparison-video--after { z-index: 2; opacity: 0; transition: opacity .8s ease; }
-  .story-figma--four.is-after-visible .story-figma__comparison-video--after { opacity: 1; }
-  @media (hover: hover) and (pointer: fine) {
-    .story-figma--four .story-figma__photo:hover .story-figma__comparison-video--after { opacity: 0; }
+  .story-figma__comparison-preview { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .story-figma__comparison-preview img {
+    width: 100%;
+    height: auto;
+    object-fit: initial;
+    animation: story-comparison-scroll var(--comparison-scroll-duration, 76.5s) linear infinite alternate;
   }
-  .story-figma__device-frame { position: absolute; z-index: 2; top: -5.16%; left: -5.05%; width: 109.39%; height: 110.17%; max-width: none; pointer-events: none; }
+  .story-figma__comparison-preview--before { z-index: 1; }
+  .story-figma__comparison-preview--after { z-index: 2; opacity: 0; transition: opacity .8s ease; }
+  .story-figma--four.is-after-visible .story-figma__comparison-preview--after { opacity: 1; }
+  @media (hover: hover) and (pointer: fine) {
+    .story-figma--four .story-figma__photo:hover .story-figma__comparison-preview--after { opacity: 0; }
+  }
   .story-figma__frame { position: absolute; z-index: 3; top: 14.351852%; left: 45.052083%; width: 51.302083%; height: 48.981481%; max-width: none; object-fit: cover; pointer-events: none; }
   .story-figma__tape { position: absolute; z-index: 4; top: 14.814815%; left: 85.46875%; width: 11.637083%; height: 9.35463%; display: grid; place-items: center; max-width: none; object-fit: cover; pointer-events: none; }
   .story-figma__tape > div { position: relative; width: 97.161552%; height: 52.360684%; overflow: hidden; transform: rotate(13.19deg); }
@@ -579,4 +584,231 @@
   .story-figma--four .story-figma__title-rest { top: 0; left: 15vw; font-size: clamp(2.75rem, 14vw, 4.5rem); }
   .story-figma--four .story-figma__frame { top: 34.5%; left: 5%; width: 90%; height: 32%; }
   .story-figma--four .story-figma__tape { top: 30%; left: 72%; width: 25%; height: 8%; }
+}
+
+/* Shared h_content paper and tape on the site's common background. */
+.story-figma .story-figma__photo { overflow: visible; }
+.story-figma .story-figma__paper {
+  position: relative;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+}
+.story-figma--one .story-figma__paper-image,
+.story-figma--two .story-figma__paper-image,
+.story-figma--three .story-figma__paper-image {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  background: #fff;
+  -webkit-mask: url("../process-market/process-paper-no-tape.png") center / 100% 100% no-repeat;
+  mask: url("../process-market/process-paper-no-tape.png") center / 100% 100% no-repeat;
+}
+.story-figma--four .story-figma__screen--comparison {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  -webkit-mask: url("../process-market/process-paper-no-tape.png") center / 100% 100% no-repeat;
+  mask: url("../process-market/process-paper-no-tape.png") center / 100% 100% no-repeat;
+}
+.story-figma--one .story-figma__paper-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: none;
+}
+.story-figma--three .story-figma__paper-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+.story-figma--two .story-figma__paper-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  animation: story-paper-page-scroll 76.5s linear infinite alternate;
+  animation-play-state: paused;
+}
+.story-figma--two.is-paper-preview-active .story-figma__paper-image img {
+  animation-play-state: running;
+}
+@keyframes story-paper-page-scroll {
+  0%, .5% { transform: translateY(0); }
+  94%, 100% { transform: translateY(calc(var(--paper-preview-height, 0px) - 100%)); }
+}
+@keyframes story-comparison-scroll {
+  0%, .5% { transform: translateY(0); }
+  94%, 100% { transform: translateY(calc(var(--comparison-viewport-height, 0px) - 100%)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-figma--two .story-figma__paper-image img,
+  .story-figma__comparison-preview img { animation: none; }
+}
+.story-figma .story-figma__paper-tape {
+  position: absolute;
+  z-index: 2;
+  top: 9%;
+  left: 39%;
+  width: 22%;
+  height: 14%;
+  max-width: none;
+  object-fit: contain;
+  opacity: .55;
+}
+@media (min-width: 64rem) {
+  .story-figma .story-figma__photo { top: 22.962963cqh; left: 53.59375cqw; width: 37.96875cqw; height: 61.203704cqh; }
+  .story-figma .story-figma__paper { top: -3.564815cqh; left: 2.291667cqw; }
+  .story-figma--one .story-figma__paper-image,
+  .story-figma--two .story-figma__paper-image,
+  .story-figma--three .story-figma__paper-image { top: -3.564815cqh; right: auto; bottom: auto; left: 2.291667cqw; width: 100%; height: 100%; }
+  .story-figma--four .story-figma__screen--comparison { top: -3.564815cqh; left: 2.291667cqw; }
+  .story-figma .story-figma__paper-tape { top: 3.17%; left: calc(39% + 2.291667cqw); }
+  .story-figma--one .story-figma__brush { top: 10.185185%; left: 7.395833%; width: 34.10526%; height: 22.921759%; }
+  .story-figma--one .story-figma__title-initial { top: 18.425926%; left: 12.135417%; }
+  .story-figma--one .story-figma__title-rest { top: 16.851852%; left: 16.354167%; }
+  .story-figma--one .story-figma__copy { top: 47.314815%; left: 8.4375%; width: 42.760417%; height: 30%; }
+  .story-figma--one .story-figma__strip { width: 24.010417cqw; height: 9.907407cqh; }
+  .story-figma--one .story-figma__tagline { top: 3.888889cqh; left: 3.177083cqw; font-family: "Pretendard Variable", Pretendard, sans-serif; font-size: 2.604167cqw; font-weight: 600; }
+  .story-figma--one .story-figma__description { top: 10.833333cqh; left: 3.177083cqw; display: flex; flex-direction: column; gap: 1.388889cqh; width: 39.583333cqw; font-size: 1.041667cqw; font-weight: 500; line-height: normal; letter-spacing: 0; }
+}
+.story-figma--one .story-figma__description p { margin: 0; }
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .story-figma--one .story-figma__brush { top: 10%; left: 5%; width: 43%; height: 23%; }
+  .story-figma--one .story-figma__title-initial { top: 18.425926%; left: 9%; }
+  .story-figma--one .story-figma__title-rest { top: 16.851852%; left: 15%; }
+  .story-figma--one .story-figma__copy { top: 48%; left: 6%; width: 51%; }
+  .story-figma--one .story-figma__tagline { font-family: "Pretendard Variable", Pretendard, sans-serif; font-weight: 600; }
+  .story-figma--one .story-figma__description { display: flex; flex-direction: column; gap: 12px; width: 100%; font-size: clamp(13px, 1.65vw, 18px); line-height: 1.3; letter-spacing: 0; }
+}
+
+@media (max-width: 47.99rem) {
+  .story-figma--one .story-figma__brush { top: 3%; left: 2%; width: 80%; height: 18%; }
+  .story-figma--one .story-figma__title { top: 7%; left: 5%; }
+  .story-figma--one .story-figma__title-initial { top: 10%; left: 0; }
+  .story-figma--one .story-figma__title-rest { top: 0; left: 12vw; font-size: clamp(2rem, 10vw, 3.5rem); letter-spacing: -.045em; }
+  .story-figma--one .story-figma__photo { top: 26%; left: 8%; width: 84%; height: 31%; }
+  .story-figma--one .story-figma__copy { top: 60%; left: 4%; width: 92%; height: 38%; }
+  .story-figma--one .story-figma__strip { width: 72%; }
+  .story-figma--one .story-figma__tagline { top: 1.15rem; left: 7%; font-family: "Pretendard Variable", Pretendard, sans-serif; font-weight: 600; }
+  .story-figma--one .story-figma__description { top: 4.75rem; left: 7%; display: flex; flex-direction: column; gap: .65rem; width: 88%; font-size: .72rem; line-height: 1.35; letter-spacing: 0; }
+}
+
+/* Design Concept: Figma 796:42. */
+.story-figma--two .story-figma__description p { margin: 0; }
+@media (min-width: 64rem) {
+  .story-figma--two .story-figma__brush { top: 10.185185%; left: 7.395833%; width: 34.10526%; height: 22.921759%; }
+  .story-figma--two .story-figma__title-initial { top: 18.425926%; left: 12.135417%; }
+  .story-figma--two .story-figma__title-rest { top: 16.851852%; left: 17.760417%; font-family: "Literata", Georgia, serif; font-size: 5.729167cqw; font-weight: 200; line-height: normal; letter-spacing: -.458333cqw; }
+  .story-figma--two .story-figma__copy { top: 47.314815%; left: 8.4375%; width: 42.760417%; height: 30%; }
+  .story-figma--two .story-figma__strip { width: 24.010417cqw; height: 9.907407cqh; }
+  .story-figma--two .story-figma__tagline { top: 3.888889cqh; left: 3.177083cqw; font-family: "Pretendard Variable", Pretendard, sans-serif; font-size: 2.604167cqw; font-weight: 600; }
+  .story-figma--two .story-figma__description { top: 10.833333cqh; left: 3.177083cqw; display: flex; flex-direction: column; gap: 1.388889cqh; width: 39.583333cqw; font-size: 1.041667cqw; font-weight: 500; line-height: normal; letter-spacing: 0; }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .story-figma--two .story-figma__brush { top: 10%; left: 5%; width: 43%; height: 23%; }
+  .story-figma--two .story-figma__title-initial { top: 18.425926%; left: 9%; }
+  .story-figma--two .story-figma__title-rest { top: 16.851852%; left: 16%; font-family: "Literata", Georgia, serif; font-size: 5.729167vw; font-weight: 200; letter-spacing: -.045em; }
+  .story-figma--two .story-figma__copy { top: 48%; left: 6%; width: 51%; }
+  .story-figma--two .story-figma__tagline { font-family: "Pretendard Variable", Pretendard, sans-serif; font-weight: 600; }
+  .story-figma--two .story-figma__description { display: flex; flex-direction: column; gap: 12px; width: 100%; font-size: clamp(13px, 1.65vw, 18px); line-height: 1.3; letter-spacing: 0; }
+}
+
+@media (max-width: 47.99rem) {
+  .story-figma--two .story-figma__brush { top: 3%; left: 2%; width: 80%; height: 18%; }
+  .story-figma--two .story-figma__title { top: 7%; left: 5%; }
+  .story-figma--two .story-figma__title-initial { top: 3%; left: 0; font-size: clamp(4rem, 18vw, 6rem); }
+  .story-figma--two .story-figma__title-rest { top: 0; left: 17vw; font-family: "Literata", Georgia, serif; font-size: clamp(2rem, 10vw, 3.5rem); font-weight: 200; letter-spacing: -.045em; }
+  .story-figma--two .story-figma__photo { top: 26%; left: 8%; width: 84%; height: 31%; }
+  .story-figma--two .story-figma__copy { top: 60%; left: 4%; width: 92%; height: 38%; }
+  .story-figma--two .story-figma__strip { width: 72%; }
+  .story-figma--two .story-figma__tagline { top: 1.15rem; left: 7%; font-family: "Pretendard Variable", Pretendard, sans-serif; font-weight: 600; }
+  .story-figma--two .story-figma__description { top: 4.75rem; left: 7%; display: flex; flex-direction: column; gap: .65rem; width: 88%; font-size: .72rem; line-height: 1.35; letter-spacing: 0; }
+}
+
+/* Before and After: Figma 796:99; the paper texture is supplied by body. */
+@media (min-width: 64rem) {
+  .story-figma--four .story-figma__brush { top: 10.185185%; left: 7.395833%; width: 34.10526%; height: 22.921759%; }
+  .story-figma--four .story-figma__title-initial { top: 18.425926%; left: 12.135417%; }
+  .story-figma--four .story-figma__title-rest { top: 16.851852%; left: 18.072917%; font-size: 5.729167cqw; line-height: normal; }
+  .story-figma--four .story-figma__copy { top: 47.314815%; left: 8.4375%; width: 42.760417%; height: 30%; }
+  .story-figma--four .story-figma__strip { width: 24.010417cqw; height: 9.907407cqh; }
+  .story-figma--four .story-figma__tagline { top: 3.425926cqh; left: 3.697917cqw; font-family: "Pretendard Variable", Pretendard, sans-serif; font-size: 2.604167cqw; font-weight: 600; }
+  .story-figma--four .story-figma__description { top: 10.833333cqh; left: 3.177083cqw; width: 39.583333cqw; font-size: 1.041667cqw; font-weight: 500; line-height: normal; letter-spacing: 0; }
+}
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .story-figma--four .story-figma__brush { top: 10%; left: 5%; width: 43%; height: 23%; }
+  .story-figma--four .story-figma__title-initial { top: 18.425926%; left: 9%; }
+  .story-figma--four .story-figma__title-rest { top: 16.851852%; left: 16%; }
+  .story-figma--four .story-figma__copy { top: 48%; left: 6%; width: 51%; }
+  .story-figma--four .story-figma__description { width: 100%; font-size: clamp(13px, 1.65vw, 18px); line-height: 1.3; letter-spacing: 0; }
+}
+@media (max-width: 47.99rem) {
+  .story-figma--four .story-figma__brush { top: 3%; left: 2%; width: 80%; height: 18%; }
+  .story-figma--four .story-figma__title { top: 7%; left: 5%; }
+  .story-figma--four .story-figma__title-initial { top: 3%; left: 0; font-size: clamp(4rem, 18vw, 6rem); }
+  .story-figma--four .story-figma__title-rest { top: 0; left: 17vw; font-size: clamp(2rem, 10vw, 3.5rem); letter-spacing: -.045em; }
+  .story-figma--four .story-figma__photo { top: 26%; left: 8%; width: 84%; height: 31%; }
+  .story-figma--four .story-figma__copy { top: 60%; left: 4%; width: 92%; height: 38%; }
+  .story-figma--four .story-figma__strip { width: 72%; }
+  .story-figma--four .story-figma__tagline { top: 1.15rem; left: 7%; font-family: "Pretendard Variable", Pretendard, sans-serif; font-size: clamp(1.05rem, 5vw, 1.5rem); }
+  .story-figma--four .story-figma__description { top: 4.75rem; left: 7%; width: 88%; font-size: .72rem; line-height: 1.35; letter-spacing: 0; }
+}
+
+/* Team Collaboration: Figma 1049:114. */
+.story-figma--three .story-figma__description p { margin: 0; }
+@media (min-width: 64rem) {
+  .story-figma--three .story-figma__brush { top: 10.185185%; left: 7.395833%; width: 34.10526%; height: 22.921759%; }
+  .story-figma--three .story-figma__title-initial { top: 18.425926%; left: 12.135417%; }
+  .story-figma--three .story-figma__title-rest { top: 16.851852%; left: 16.71875%; font-family: "Literata", Georgia, serif; font-size: 5.729167cqw; font-weight: 200; line-height: normal; letter-spacing: -.458333cqw; }
+  .story-figma--three .story-figma__copy { top: 47.314815%; left: 8.4375%; width: 42.760417%; height: 30%; }
+  .story-figma--three .story-figma__strip { width: 24.010417cqw; height: 9.907407cqh; }
+  .story-figma--three .story-figma__tagline { top: 3.425926cqh; left: 3.697917cqw; font-family: "Pretendard Variable", Pretendard, sans-serif; font-size: 2.604167cqw; font-weight: 600; }
+  .story-figma--three .story-figma__description { top: 10.833333cqh; left: 3.177083cqw; display: flex; flex-direction: column; gap: 1.388889cqh; width: 39.583333cqw; font-size: 1.041667cqw; font-weight: 500; line-height: normal; letter-spacing: 0; }
+}
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .story-figma--three .story-figma__brush { top: 10%; left: 5%; width: 43%; height: 23%; }
+  .story-figma--three .story-figma__title-initial { top: 18.425926%; left: 9%; }
+  .story-figma--three .story-figma__title-rest { top: 16.851852%; left: 15%; font-family: "Literata", Georgia, serif; font-size: 5.729167vw; font-weight: 200; letter-spacing: -.045em; }
+  .story-figma--three .story-figma__copy { top: 48%; left: 6%; width: 51%; }
+  .story-figma--three .story-figma__description { display: flex; flex-direction: column; gap: 12px; width: 100%; font-size: clamp(13px, 1.65vw, 18px); line-height: 1.3; letter-spacing: 0; }
+}
+@media (max-width: 47.99rem) {
+  .story-figma--three .story-figma__brush { top: 3%; left: 2%; width: 80%; height: 18%; }
+  .story-figma--three .story-figma__title { top: 7%; left: 5%; }
+  .story-figma--three .story-figma__title-initial { top: 3%; left: 0; font-size: clamp(4rem, 18vw, 6rem); }
+  .story-figma--three .story-figma__title-rest { top: 0; left: 13vw; font-family: "Literata", Georgia, serif; font-size: clamp(1.75rem, 8vw, 3rem); font-weight: 200; letter-spacing: -.045em; }
+  .story-figma--three .story-figma__copy { top: 42%; left: 4%; width: 92%; height: 50%; }
+  .story-figma--three .story-figma__strip { width: 72%; }
+  .story-figma--three .story-figma__tagline { top: 1.15rem; left: 7%; font-family: "Pretendard Variable", Pretendard, sans-serif; font-size: clamp(1.05rem, 5vw, 1.5rem); }
+  .story-figma--three .story-figma__description { top: 4.75rem; left: 7%; display: flex; flex-direction: column; gap: .65rem; width: 88%; font-size: .72rem; line-height: 1.35; letter-spacing: 0; }
+}
+
+/* Figma h_content: align the shared left-side layout across all four panels. */
+@media (min-width: 64rem) {
+  .story-figma .story-figma__brush { left: 6.197917cqw; }
+  .story-figma .story-figma__copy { left: 7.135417cqw; }
+  .story-figma .story-figma__title-initial { left: 10.833333cqw; }
+  .story-figma .story-figma__strip { width: 24.135313cqw; }
+  .story-figma--one .story-figma__strip { width: 24.010417cqw; }
+  .story-figma--one .story-figma__title-rest { left: 15.052083cqw; }
+  .story-figma--two .story-figma__title-rest { left: 16.458333cqw; }
+  .story-figma--three .story-figma__title-rest { left: 15.416667cqw; }
+  .story-figma--four .story-figma__title-rest { left: 16.770833cqw; }
+  .story-figma--two .story-figma__tagline { left: 3.28125cqw; }
+  .story-figma--three .story-figma__tagline { left: 4.375cqw; }
+  .story-figma--four .story-figma__tagline { left: 3.854167cqw; top: 3.333333cqh; }
 }

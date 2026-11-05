@@ -4,12 +4,11 @@
   .team-overview__visual { inset: 0; z-index: 1; pointer-events: none; }
 
   .team-overview__sign { position: absolute; top: 12.13%; left: 7.92%; width: 28.18%; height: 88.89%; object-fit: cover; object-position: 37.9% 49.6%; }
-  .team-overview__car { position: absolute; z-index: 2; top: 41.2%; left: 25.78%; width: 4.27%; height: 4.63%; object-fit: cover; transform: rotate(20.64deg) scale(1.15); }
   .team-overview__content { inset: 0; z-index: 2; }
   .team-overview__heading { top: 3.61%; left: 41.41%; width: 53.39%; height: 45.09%; }
   .team-overview__note { position: absolute; top: 0; left: 12.39%; width: 78.63%; height: 97.12%; object-fit: cover; object-position: 50% 48%; }
 
-  .team-overview__kicker { position: absolute; z-index: 2; top: 0; left: 1.76%; width: 21.18%; height: 10.86%; display: grid; place-items: center; font: 600 clamp(.72rem, 1.0417vw, 1.25rem)/1 "DM Sans", sans-serif; }
+  .team-overview__kicker { position: absolute; z-index: 2; top: 0; left: 1.76%; width: 21.18%; height: 10.86%; display: grid; place-items: center; color: #f1efeb; font: 600 clamp(.72rem, 1.0417vw, 1.25rem)/1 "DM Sans", sans-serif; }
   .team-overview__kicker img, .team-overview__label img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .team-overview__kicker span, .team-overview__label span { position: relative; z-index: 1; }
 
@@ -44,24 +43,27 @@
   .team-mockup__desktop-screen, .team-mockup__phone-screen { position: absolute; z-index: 3; overflow: hidden; contain: paint; background: #fff; opacity: 1; }
   .team-mockup__desktop-screen { top: 5.35%; left: 4.25%; width: 91.5%; height: 64.35%; clip-path: inset(0); }
   .team-mockup__phone-screen { top: 2.2%; left: 3.8%; width: 92.4%; height: 95.2%; border-radius: 13% / 6%; clip-path: none; }
-  .team-mockup__desktop-screen video, .team-mockup__phone-screen video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; background: #fff; }
-  .team-mockup__phone-screen video { transform: none; }
+  .team-mockup__page-preview { position: absolute; inset: 0; overflow: hidden; background: #fff; }
+  .team-mockup__page-preview img { display: block; width: 100%; height: auto; max-width: none; animation: team-mockup-page-scroll var(--mockup-scroll-duration, 45s) linear infinite alternate; animation-play-state: paused; }
+  .team-mockup__main-preview { z-index: 1; }
+  .team-mockup__subpage-preview { z-index: 2; opacity: 0; transition: opacity .5s ease; }
+  .team-mockup.is-subpage-preview .team-mockup__subpage-preview { opacity: 1; }
+  .team-mockup.is-main-preview-playing .team-mockup__main-preview img,
+  .team-mockup.is-subpage-preview-playing .team-mockup__subpage-preview img { animation-play-state: running; }
 
-  .team-mockup__note, .team-mockup__tape, .team-mockup__car, .team-mockup__label { position: absolute; margin: 0; pointer-events: none; }
+  .team-mockup__note, .team-mockup__tape, .team-mockup__label { position: absolute; margin: 0; pointer-events: none; }
   .team-mockup__note { top: 16.481481%; left: 50.208333%; width: 41.979167%; height: 43.703704%; overflow: hidden; }
   .team-mockup__note img { position: absolute; top: -12.57%; left: -3.96%; width: 106.74%; height: 121.47%; max-width: none; }
 
   .team-mockup__tape { top: 16.481481%; left: 44.53125%; width: 11.306667%; height: 4.898148%; overflow: hidden; }
   .team-mockup__tape img { position: absolute; top: -23.12%; left: -1.88%; width: 103.41%; height: 141.78%; max-width: none; }
-  .team-mockup__kicker { position: absolute; z-index: 2; top: 17.685185%; left: 46.09375%; margin: 0; font: 600 1.041667cqw/normal "DM Sans", sans-serif; white-space: nowrap; }
+  .team-mockup__kicker { position: absolute; z-index: 2; top: 17.685185%; left: 46.09375%; margin: 0; color: #f1efeb; font: 600 1.041667cqw/normal "DM Sans", sans-serif; white-space: nowrap; }
 
   .team-mockup h2 { position: absolute; inset: 0; margin: 0; font: 700 8.333333cqw/normal "Caveat", cursive; letter-spacing: -.025em; text-transform: uppercase; }
   .team-mockup h2 span { position: absolute; display: block; transform: translateY(-50%); white-space: nowrap; }
   .team-mockup h2 span:first-child { top: 28.981481%; left: 43.59375%; color: #a9b8ae; }
   .team-mockup h2 span:last-child { top: 44.259259%; left: 47.916667%; color: #484848; }
 
-  .team-mockup__car { top: 20.648148%; left: 67.395833%; width: 3.639167%; height: 4.772778%; display: grid; place-items: center; transform: rotate(-12.32deg); overflow: hidden; }
-  .team-mockup__car img { width: 90.161943%; height: 75.661667%; max-width: none; object-fit: cover; }
 
   .team-mockup__label { top: 50.925926%; left: 79.010417%; width: 17.96875%; height: 10.648148%; }
   .team-mockup__label img { width: 100%; height: 100%; object-fit: cover; }
@@ -71,12 +73,11 @@
   .team-mockup__summary p { margin: 0; font: 600 2.083333cqw/normal "Pretendard Variable", Pretendard, sans-serif; letter-spacing: -.035em; }
   .team-mockup__link { position: absolute; top: 81.296296%; left: 50.208333%; color: #f1efeb; font: 600 1.041667cqw/normal "Pretendard Variable", Pretendard, sans-serif; text-decoration: none; white-space: nowrap; }
 
-  .js .team-overview__sign, .js .team-overview__car, .js .team-overview__heading, .js .team-overview__summary, .js .team-overview__meta { opacity: 0; transform: translateY(1.5rem); transition: opacity .7s var(--ease-out), transform .8s var(--ease-out); }
-  .js .team-overview.is-active .team-overview__sign, .js .team-overview.is-active .team-overview__car, .js .team-overview.is-active .team-overview__heading, .js .team-overview.is-active .team-overview__summary, .js .team-overview.is-active .team-overview__meta { opacity: 1; transform: none; }
+  .js .team-overview__sign, .js .team-overview__heading, .js .team-overview__summary, .js .team-overview__meta { opacity: 0; transform: translateY(1.5rem); transition: opacity .7s var(--ease-out), transform .8s var(--ease-out); }
+  .js .team-overview.is-active .team-overview__sign, .js .team-overview.is-active .team-overview__heading, .js .team-overview.is-active .team-overview__summary, .js .team-overview.is-active .team-overview__meta { opacity: 1; transform: none; }
   .js .team-overview.is-active .team-overview__heading { transition-delay: .08s; }
   .js .team-overview.is-active .team-overview__summary { transition-delay: .15s; }
   .js .team-overview.is-active .team-overview__meta { transition-delay: .22s; }
-  .js .team-overview.is-active .team-overview__car { transform: rotate(20.64deg) scale(1.15); }
 
   .js .team-mockup__visual, .js .team-mockup__heading, .js .team-mockup__summary, .js .team-mockup__link { opacity: 0; transform: translateY(1.5rem); transition: opacity .7s var(--ease-out), transform .8s var(--ease-out); }
   .js .team-mockup.is-active .team-mockup__visual, .js .team-mockup.is-active .team-mockup__heading, .js .team-mockup.is-active .team-mockup__summary, .js .team-mockup.is-active .team-mockup__link { opacity: 1; transform: none; }
@@ -93,7 +94,6 @@
 @media (min-width: 48rem) and (max-width: 63.99rem) {
   .team-overview { min-height: 70rem; }
   .team-overview__sign { top: 9%; left: 1%; width: 43%; height: 58%; }
-  .team-overview__car { top: 29%; left: 28%; width: 7%; height: 3.7%; }
   .team-overview__heading { top: 7%; left: 42%; width: 56%; height: 31%; }
   .team-overview h2 { font-size: clamp(4.2rem, 11vw, 7rem); }
   .team-overview__summary { top: 48%; left: 45%; width: 51%; }
@@ -123,7 +123,6 @@
   .team-overview__kicker { left: 0; width: 38%; height: 2.6rem; }
   .team-overview__label { right: 0; bottom: .2rem; width: 48%; height: 3.4rem; }
   .team-overview__sign { top: 23rem; left: 4%; width: 50%; height: 31rem; }
-  .team-overview__car { top: 36rem; left: 37%; width: 10%; height: 3.2rem; }
   .team-overview__summary { top: 54rem; left: 6%; width: 88%; }
   .team-overview__summary h3 { font-size: clamp(1.55rem, 7vw, 2.1rem); }
   .team-overview__summary h3 { width: 100%; }
@@ -140,7 +139,6 @@
   .team-mockup h2 { font-size: clamp(3.65rem, 19vw, 6rem); line-height: .92; }
   .team-mockup h2 span:first-child { top: 7rem; left: 2%; }
   .team-mockup h2 span:last-child { top: 13rem; left: 5%; }
-  .team-mockup__car { top: 5rem; left: 72%; width: 11%; height: 4rem; }
   .team-mockup__label { top: 16rem; left: 50%; width: 50%; height: 4rem; }
   .team-mockup__label span { font-size: .72rem; }
   .team-mockup__desktop { top: 29rem; left: 4%; width: 76%; height: 29rem; }
@@ -158,19 +156,17 @@
   .team-overview { container-type: inline-size; }
   .team-overview__sign { top: 5.555556%; left: 7.916667%; width: 28.177083%; height: 88.888889%; overflow: hidden; object-fit: initial; }
   .team-overview__sign img { position: absolute; top: -1.35%; left: -13.81%; width: 121.9%; height: 103.02%; max-width: none; }
-  .team-overview__car { top: 34.259259%; left: 26.09375%; display: grid; width: 4.914688%; height: 7.009074%; place-items: center; object-fit: initial; transform: none; }
-  .team-overview__car img { width: 86.898%; height: 66.052%; max-width: none; object-fit: cover; transform: rotate(20.64deg); }
   .team-overview__heading { inset: 0; width: 100%; height: 100%; }
-  .team-overview__note { top: 5.555556%; left: 50.208333%; width: 41.979167%; height: 43.703704%; overflow: hidden; object-fit: initial; }
+  .team-overview__note { top: 9.722222%; left: 50.208333%; width: 41.979167%; height: 43.703704%; overflow: hidden; object-fit: initial; }
   .team-overview__note img { position: absolute; top: -12.57%; left: -3.96%; width: 106.74%; height: 121.47%; max-width: none; }
-  .team-overview__kicker { top: 5.555556%; left: 44.53125%; width: 11.306667%; height: 4.898148%; overflow: hidden; font: 600 1.041667cqw/1 "DM Sans", sans-serif; }
+  .team-overview__kicker { top: 9.722222%; left: 44.53125%; width: 11.306667%; height: 4.898148%; overflow: hidden; font: 600 1.041667cqw/1 "DM Sans", sans-serif; }
   .team-overview__kicker img { top: -23.12%; left: -1.88%; width: 103.41%; height: 141.78%; max-width: none; object-fit: initial; }
   .team-overview h2 { inset: 0; width: 100%; font-size: 8.333333cqw; line-height: normal; letter-spacing: 0; pointer-events: none; }
   .team-overview h2 span { position: absolute; transform: translateY(-50%); }
-  .team-overview h2 span:first-child { top: 18.055556%; left: 43.59375%; }
-  .team-overview h2 span:last-child { top: 33.333333%; right: 5.520833%; margin: 0; color: #484848; }
-  .team-overview__label { top: 40%; left: 79.010417%; right: auto; bottom: auto; width: 17.96875%; height: 10.648148%; font: 600 1.041667cqw/1 "DM Sans", sans-serif; }
-  .team-overview__sticker-list { position: absolute; z-index: 3; top: 51.111111%; left: 50.677083%; display: flex; align-items: flex-start; gap: 1.041667cqw; }
+  .team-overview h2 span:first-child { top: 22.222222%; left: 43.59375%; }
+  .team-overview h2 span:last-child { top: 37.5%; right: 5.520833%; margin: 0; color: #484848; }
+  .team-overview__label { top: 44.166667%; left: 79.010417%; right: auto; bottom: auto; width: 17.96875%; height: 10.648148%; font: 600 1.041667cqw/1 "DM Sans", sans-serif; }
+  .team-overview__sticker-list { position: absolute; z-index: 3; top: 53.425926%; left: 50.208333%; display: flex; align-items: flex-start; gap: .520833cqw; }
   .team-overview__sticker { position: relative; display: inline-flex; box-sizing: border-box; min-width: 5.989583cqw; height: 2.916667cqw; align-items: center; justify-content: flex-start; padding: 0 1.041667cqw; color: #000; font: 600 .833333cqw/normal "DM Sans", sans-serif; font-variation-settings: "opsz" 14; text-transform: uppercase; white-space: nowrap; }
   .team-overview__sticker > span { position: relative; z-index: 2; translate: 0 .104167cqw; }
   .team-overview__sticker::before, .team-overview__sticker::after, .team-overview__sticker i { position: absolute; top: .104167cqw; height: 2.864583cqw; background-image: url("./team-overview-button-sticker.png"); background-repeat: no-repeat; content: ""; pointer-events: none; }
@@ -181,26 +177,48 @@
   .team-overview__sticker:is(a, button):is(:hover, :focus-visible)::before,
   .team-overview__sticker:is(a, button):is(:hover, :focus-visible)::after,
   .team-overview__sticker:is(a, button):is(:hover, :focus-visible) i { background-image: url("./team-overview-button-sticker-hover.png"); filter: brightness(98%); /* Textured paper center: #BFCCDD */ }
-  .team-overview__summary { top: 60.185185%; left: 50.208333%; width: 45.520833%; color: #484848; }
+  .team-overview__summary { top: 64.351852%; left: 50.208333%; width: 45.520833%; color: #484848; }
   .team-overview__summary p { margin: 0; font: 700 1.041667cqw/1.4 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; }
-  .team-overview__meta { top: 69.62963%; left: 50.208333%; width: 27.239583%; font: 400 .833333cqw/1.4375 "DM Sans", sans-serif; }
+  .team-overview__meta { top: 73.796296%; left: 50.208333%; width: 27.239583%; font: 400 .833333cqw/1.4375 "DM Sans", sans-serif; }
   .team-overview__meta div { gap: .260417cqw; }
   .team-overview__meta div + div { margin-top: 1.041667cqw; }
   .team-overview__meta dt { font-weight: 700; }
   .team-overview__meta dd { font-weight: 400; }
   .team-overview__tasks { display: grid; grid-template-columns: 15.78125cqw 11.197917cqw; gap: .260417cqw; font-family: "Pretendard Variable", Pretendard, sans-serif; }
   .team-overview__tasks span { white-space: nowrap; }
+  :is(.team-overview, .team-mockup, .personal-wire--project-detail) .team-overview__sticker {
+    width: max-content;
+    min-width: clamp(90px, 5.729167cqw, 110px);
+    height: clamp(44px, 3.072917cqw, 59px);
+    justify-content: center;
+    padding-inline: clamp(22px, 1.510417cqw, 29px);
+    overflow: hidden;
+    color: #f1efeb;
+    font-size: clamp(12px, .833333cqw, 16px);
+  }
+  :is(.team-overview, .team-mockup, .personal-wire--project-detail) .team-overview__sticker > span { translate: 0 clamp(3px, .364583cqw, 7px); }
+  :is(.team-overview, .team-mockup, .personal-wire--project-detail) .team-overview__sticker::before {
+    top: -29.89%;
+    left: -3.84%;
+    width: 105.21%;
+    height: 155.39%;
+    background: url("./team-overview-fabric-button.png") center / 100% 100% no-repeat;
+  }
+  :is(.team-overview, .team-mockup, .personal-wire--project-detail) .team-overview__sticker::after { content: none; }
+  :is(.team-overview, .team-mockup, .personal-wire--project-detail) .team-overview__sticker:is(:hover, :focus-visible) { color: #484848; }
+  :is(.team-overview, .team-mockup, .personal-wire--project-detail) .team-overview__sticker:is(:hover, :focus-visible)::before {
+    background-image: url("./team-overview-fabric-button-hover.png");
+    filter: none;
+  }
   .js .team-overview__heading, .js .team-overview__summary, .js .team-overview__meta { transform: none; translate: 0 1.5rem; transition: opacity .7s var(--ease-out), translate .8s var(--ease-out); }
   .js .team-overview.is-active .team-overview__heading, .js .team-overview.is-active .team-overview__summary, .js .team-overview.is-active .team-overview__meta { translate: 0 0; }
   .js .team-overview__sticker-list { opacity: 0; transform: translateY(1.5rem); transition: opacity .7s var(--ease-out), transform .8s var(--ease-out); }
   .js .team-overview.is-active .team-overview__sticker-list { opacity: 1; transform: none; transition-delay: .12s; }
-  .js .team-overview.is-active .team-overview__car { transform: none; }
 }
 
 @media (min-width: 48rem) and (max-width: 63.99rem) {
   .team-overview { min-height: 900px; }
   .team-overview__sign { top: 28%; left: 1%; width: 39%; height: 64%; }
-  .team-overview__car { top: 46%; left: 31%; width: 7%; height: 6%; }
   .team-overview__note { top: 8%; left: 44%; width: 52%; height: 34%; }
   .team-overview__kicker { top: 8%; left: 42%; width: 24%; height: 42px; font-size: 14px; }
   .team-overview h2 { font-size: clamp(4rem, 9vw, 6rem); }
@@ -232,7 +250,6 @@
   .team-overview h2 span:last-child { top: 14.3rem; right: 3%; }
   .team-overview__label { top: 17rem; left: 54%; width: 43%; height: 4rem; font-size: 11px; }
   .team-overview__sign { top: 23rem; left: 7%; width: 56%; height: 24rem; }
-  .team-overview__car { top: 34rem; left: 47%; width: 13%; height: 3.5rem; }
   .team-overview__sticker-list { top: 49rem; left: 6%; gap: 12px; }
   .team-overview__summary { top: 53.5rem; left: 6%; width: 88%; }
   .team-overview__summary p { font-size: 14px; }
@@ -249,15 +266,16 @@
   .team-mockup__desktop-screen { top: 6.65%; left: 4%; width: 91.6%; height: 61.9%; }
   .team-mockup__phone { top: 41.759259%; left: 33.75%; }
   .team-mockup__phone-frame { filter: none; }
-  .team-mockup__note, .team-mockup__tape { top: 5.555556%; }
+  .team-mockup__note, .team-mockup__tape { top: 9.722222%; }
   .team-mockup__kicker { top: 6.759259%; }
-  .team-mockup h2 span:first-child { top: 18.055556%; }
-  .team-mockup h2 span:last-child { top: 33.333333%; right: 5.520833%; left: auto; }
-  .team-mockup__label { top: 40%; }
-  .team-mockup__sticker-list { position: absolute; z-index: 3; top: 51.111111%; left: 50.677083%; display: flex; align-items: flex-start; gap: 1.041667cqw; pointer-events: auto; }
-  .team-mockup__summary { top: 60.185185%; width: 45.520833%; }
+  .team-mockup h2 { letter-spacing: 0; }
+  .team-mockup h2 span:first-child { top: 22.222222%; }
+  .team-mockup h2 span:last-child { top: 37.5%; right: 5.520833%; left: auto; }
+  .team-mockup__label { top: 44.166667%; }
+  .team-mockup__sticker-list { position: absolute; z-index: 3; top: 53.425926%; left: 50.208333%; display: flex; align-items: flex-start; gap: .520833cqw; pointer-events: auto; }
+  .team-mockup__summary { top: 64.351852%; width: 45.520833%; }
   .team-mockup__summary p { font: 700 1.041667cqw/1.4 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; }
-  .team-mockup__meta { position: absolute; top: 69.62963%; left: 50.208333%; width: 27.239583%; margin: 0; color: #11100d; font: 400 .833333cqw/1.4375 "DM Sans", sans-serif; }
+  .team-mockup__meta { position: absolute; top: 73.796296%; left: 50.208333%; width: 27.239583%; margin: 0; color: #11100d; font: 400 .833333cqw/1.4375 "DM Sans", sans-serif; }
   .team-mockup__meta div { display: flex; flex-direction: column; gap: .260417cqw; }
   .team-mockup__meta div + div { margin-top: 1.041667cqw; }
   .team-mockup__meta dt, .team-mockup__meta dd { margin: 0; }
@@ -311,6 +329,7 @@
 @media (min-width: 64rem) {
   /* Let the mockup stickers enter over the overview without moving its copy. */
   .team-mockup { overflow: visible; }
+  .is-scroll-controlled .team-subpage { pointer-events: none; }
 
   /* Scroll timelines own these transforms; CSS transitions would delay handoff. */
   .is-scroll-controlled .team-overview__sign,
@@ -325,7 +344,7 @@
 }
 
 @layer components {
-  .team-mockup__kicker-sticker { position: absolute; z-index: 2; top: 5.555556%; left: 44.53125%; width: 11.306667%; height: 4.898148%; }
+  .team-mockup__kicker-sticker { position: absolute; z-index: 2; top: 9.722222%; left: 44.53125%; width: 11.306667%; height: 4.898148%; }
   .team-mockup__kicker-sticker .team-mockup__tape { inset: 0; width: 100%; height: 100%; }
   .team-mockup__kicker-sticker .team-mockup__kicker { inset: 0; display: grid; place-items: center; }
 }
@@ -340,4 +359,18 @@
   .team-mockup__kicker-sticker { top: 4rem; left: 2%; width: 40%; height: 2.6rem; }
   .team-mockup__kicker-sticker .team-mockup__tape,
   .team-mockup__kicker-sticker .team-mockup__kicker { inset: 0; width: 100%; height: 100%; }
+}
+
+@keyframes team-mockup-page-scroll {
+  0%, .5% { transform: translateY(0); }
+  94%, 100% { transform: translateY(calc(var(--mockup-viewport-height, 0px) - 100%)); }
+}
+
+@media (max-width: 63.99rem) {
+  .team-mockup__desktop:not(.is-preview-ready) .team-mockup__page-preview img,
+  .team-mockup__phone:not(.is-preview-ready) .team-mockup__page-preview img { animation-play-state: paused; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-mockup__page-preview img { animation: none; }
 }

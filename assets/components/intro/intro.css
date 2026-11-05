@@ -345,7 +345,6 @@
   border: 0;
 }
 
-.intro-profile__torn-paper { position: absolute; z-index: 0; top: 88.0556%; left: -6.25%; width: 23.9583%; height: auto; pointer-events: none; }
 .intro-profile__details dd { max-width: 18em; }
 
 .intro.intro--profile {
@@ -957,7 +956,7 @@ html:not(.js) .intro-2 {
   left: -6.25%;
   width: 23.958333%;
   height: 25.908558%;
-  overflow: hidden;
+  overflow: visible;
   pointer-events: none;
 }
 
@@ -1001,7 +1000,7 @@ html:not(.js) .intro-2 {
   margin: 0;
   color: #484848;
   font-family: "DM Sans", "Arial Black", Arial, sans-serif;
-  font-size: 3.645833cqw;
+  font-size: 3.125cqw;
   font-weight: 900;
   font-variation-settings: "opsz" 14;
   letter-spacing: 0;
@@ -1128,7 +1127,8 @@ html:not(.js) .intro-2 {
 
 .intro-2-figma__copy {
   position: absolute;
-  z-index: 3;
+  z-index: 1;
+  inset: 0;
   color: #000;
   font-style: normal;
   text-transform: uppercase;
@@ -1136,16 +1136,15 @@ html:not(.js) .intro-2 {
 }
 
 .intro-2-figma__copy strong,
-.intro-2-figma__copy span {
+.intro-2-figma__copy .intro-2-figma__line {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-origin: center;
+  left: 50%;
+  display: block;
+  transform: translate(-50%, -50%);
 }
 
 .intro-2-figma__copy strong {
-  height: 4.06313%;
+  top: var(--card-title-center);
   font-family: "DM Sans", "Arial Black", Arial, sans-serif;
   font-size: 1.5625cqw;
   font-weight: 900;
@@ -1153,15 +1152,20 @@ html:not(.js) .intro-2 {
   line-height: normal;
 }
 
-.intro-2-figma__copy span {
-  width: 15.885417%;
-  height: 1.641266%;
+.intro-2-figma__copy .intro-2-figma__line {
+  top: calc(var(--card-body-center) + var(--line-offset));
+  width: 15.885417cqw;
+  height: 1.458333cqw;
   font-family: "Pretendard Variable", "Pretendard", sans-serif;
   font-size: 1.041667cqw;
   font-weight: 500;
   line-height: 1.4;
   text-align: center;
 }
+
+.intro-2-figma__line:nth-of-type(1) { --line-offset: -1.458333cqw; }
+.intro-2-figma__line:nth-of-type(2) { --line-offset: 0px; }
+.intro-2-figma__line:nth-of-type(3) { --line-offset: 1.458333cqw; }
 
 .intro-profile__sticker-copy mark,
 .intro-2-figma__copy mark {
@@ -1189,87 +1193,11 @@ html:not(.js) .intro-2 {
   transform-origin: left center;
 }
 
-.js .intro-profile__sticker-copy mark,
 .js .intro-2-figma__copy mark { --highlight-progress: 0; }
 
-.intro-2-figma__copy--left,
-.intro-2-figma__copy--center,
-.intro-2-figma__copy--right {
-  inset: 0;
-}
-
-.intro-2-figma__copy--left strong {
-  top: 49.423212%;
-  left: 14.388542%;
-  width: 9.482708%;
-  transform: translateY(-50%) rotate(-10deg);
-}
-
-.intro-2-figma__copy--left .intro-2-figma__line--one {
-  top: 55.173505%;
-  left: 11.995%;
-  transform: rotate(-10deg);
-}
-
-.intro-2-figma__copy--left .intro-2-figma__line--two {
-  top: 56.814771%;
-  left: 12.248%;
-  transform: rotate(-10deg);
-}
-
-.intro-2-figma__copy--left .intro-2-figma__line--three {
-  top: 58.456037%;
-  left: 12.501%;
-  transform: rotate(-10deg);
-}
-
-.intro-2-figma__copy--center strong {
-  top: 42.79367%;
-  left: 45.833333%;
-  width: auto;
-  height: auto;
-  transform: translateY(-50%);
-}
-
-.intro-2-figma__copy--center .intro-2-figma__line--one {
-  top: 48.274326%;
-  left: 41.822917%;
-}
-
-.intro-2-figma__copy--center .intro-2-figma__line--two {
-  top: 49.915592%;
-  left: 41.822917%;
-}
-
-.intro-2-figma__copy--center .intro-2-figma__line--three {
-  top: 51.556858%;
-  left: 41.822917%;
-}
-
-.intro-2-figma__copy--right strong {
-  top: 49.694607%;
-  left: 77%;
-  width: 7.636198%;
-  transform: translateY(-50%) rotate(10deg);
-}
-
-.intro-2-figma__copy--right .intro-2-figma__line--one {
-  top: 55.049238%;
-  left: 71.878%;
-  transform: rotate(10deg);
-}
-
-.intro-2-figma__copy--right .intro-2-figma__line--two {
-  top: 56.690504%;
-  left: 71.624%;
-  transform: rotate(10deg);
-}
-
-.intro-2-figma__copy--right .intro-2-figma__line--three {
-  top: 58.33177%;
-  left: 71.371%;
-  transform: rotate(10deg);
-}
+.intro-2-figma__card--left { --card-title-center: 39.92%; --card-body-center: 58.7%; }
+.intro-2-figma__card--center { --card-title-center: 45.1%; --card-body-center: 61.14%; }
+.intro-2-figma__card--right { --card-title-center: 44.37%; --card-body-center: 61.43%; }
 
 @media (max-width: 47.99rem) {
   .intro__inner {
@@ -1552,5 +1480,69 @@ html:not(.js) .intro-2 {
     width: 113.28%;
     height: 108.1%;
   }
+}
+
+/* Figma 605:1169 → 720:612. The shared paper background comes from body. */
+.intro-profile__note {
+  top: 21.2037%;
+  left: 10.821%;
+  height: 57.5926%;
+  overflow: visible;
+  transform: rotate(-10deg);
+}
+
+.intro-profile__notebook-clip {
+  position: absolute;
+  top: -4.257%;
+  left: 3.77%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.intro-profile__notebook {
+  top: -6.91%;
+  left: -3.75%;
+  width: 107%;
+  height: 152%;
+}
+
+.intro-profile__details {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.intro-profile__details > div {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 6.9906cqw minmax(0, 1fr);
+  align-items: start;
+  width: 75%;
+  min-height: 0;
+}
+
+.intro-profile__details > div:nth-child(1) { top: 34.5209%; left: 24.6403%; }
+.intro-profile__details > div:nth-child(2) { top: 49.8248%; left: 24.7364%; }
+.intro-profile__details > div:nth-child(3) { top: 66.3457%; left: 24.6809%; }
+.intro-profile__details dt { font-weight: 700; white-space: nowrap; }
+.intro-profile__details dd { max-width: none; font-weight: 400; }
+.intro-profile__role dd { white-space: nowrap; }
+.intro-profile__aspiration dd { width: 28.05cqw; line-height: normal; }
+
+.intro-profile__cup { top: 64.1667%; left: 87.3438%; }
+
+.intro-profile__sticker-copy {
+  gap: 1.927cqw;
+  font-size: 1.5625cqw;
+  line-height: 1.4;
+}
+
+@media (max-width: 47.99rem) {
+  .intro-profile__details { font-size: max(1.5625cqw, .48rem); }
+  .intro-profile__sticker-copy { font-size: max(1.5625cqw, .48rem); }
 }
 

@@ -108,6 +108,7 @@
     --color-text-on-light: var(--color-black);
     --color-text-muted-on-light: var(--color-gray-600);
     --color-border-on-light: var(--color-gray-300);
+    /* Shared paper background for the portfolio's light sections. */
     --paper-background: url("./assets/components/intro/intro2-background.png");
 
     /* Font families */

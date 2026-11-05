@@ -6,13 +6,23 @@ gsap.registerPlugin(ScrollTrigger);
 function initPanelButtons(panel) {
   const image = panel.querySelector("[data-market-image]");
   const buttons = [...panel.querySelectorAll("[data-market-image-src]")];
+  const originalPreview = panel.querySelector("[data-market-original-preview]");
   if (!image || buttons.length === 0) return;
 
-  buttons.forEach((button) => {
+  panel.classList.add("has-selection");
+  image.src = buttons[0].dataset.marketImageSrc;
+  image.alt = buttons[0].dataset.marketImageAlt ?? "";
+  panel.classList.toggle("is-original-selected", panel.classList.contains("process-market--par2"));
+  if (originalPreview) originalPreview.hidden = false;
+
+  buttons.forEach((button, index) => {
+    button.classList.toggle("is-active", index === 0);
+    button.setAttribute("aria-pressed", String(index === 0));
     const preload = new Image();
     preload.src = button.dataset.marketImageSrc;
 
     button.addEventListener("click", () => {
+      panel.classList.add("has-selection");
       if (button.classList.contains("is-active")) return;
 
       buttons.forEach((item) => {
@@ -20,9 +30,10 @@ function initPanelButtons(panel) {
         item.classList.toggle("is-active", active);
         item.setAttribute("aria-pressed", String(active));
       });
-
       image.classList.add("is-changing");
       window.setTimeout(() => {
+        if (panel.classList.contains("process-market--par2")) panel.classList.toggle("is-original-selected", index === 0);
+        if (originalPreview) originalPreview.hidden = index !== 0;
         image.src = button.dataset.marketImageSrc;
         image.alt = button.dataset.marketImageAlt ?? "";
         image.classList.remove("is-changing");

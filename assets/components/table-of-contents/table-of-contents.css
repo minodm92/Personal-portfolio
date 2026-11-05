@@ -143,6 +143,8 @@
   .table-of-contents__work { top: 49.166667%; left: 12.395833%; color: #78837c; }
   .table-of-contents__team { top: 45.833333%; left: 53.229167%; color: #a9b8ae; }
   .table-of-contents__project { top: 61.111111%; left: 57.552083%; color: #78837c; }
+  [data-table-of-contents] .table-of-contents__work { left: 13.28125%; color: #484848; }
+  [data-table-of-contents] .table-of-contents__project { color: #484848; }
 
   .table-of-contents__work .table-of-contents__topic-letter,
   .table-of-contents__project .table-of-contents__topic-letter {

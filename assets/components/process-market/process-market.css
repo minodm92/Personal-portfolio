@@ -18,7 +18,7 @@
   }
 
   @media (min-width: 64rem) {
-    .process-market-sequence__track { gap: 30vw; }
+    .process-market-sequence__track { gap: 15vw; }
   }
 
   .process-market {
@@ -84,6 +84,8 @@
 
   .process-market__photo img.is-changing { opacity: 0; }
 
+
+
   .process-market--par1 .process-market__photo,
   .process-market--par2 .process-market__photo,
   .process-market--par3 .process-market__photo,
@@ -100,6 +102,14 @@
   .process-market--par5 .process-market__photo img,
   .process-market--par6 .process-market__photo img {
     object-fit: contain;
+  }
+
+  .process-market--par2.is-original-selected .process-market__photo img {
+    position: absolute;
+    inset: 0;
+    width: 88%;
+    height: 88%;
+    margin: auto;
   }
 
   .process-market__content { position: absolute; inset: 0; }
@@ -328,4 +338,169 @@
   .process-market__description { top: 59%; left: 7%; width: 86%; font-size: .82rem; line-height: 1.45; }
   .process-market__categories { top: 78%; left: 5%; width: 90%; height: 6rem; }
   .process-market__categories ul { top: 42%; left: 9%; gap: 2.2vw; font-size: clamp(.6rem, 2.6vw, .8rem); }
+}
+
+/* Shared process panels: Figma 720:373 and 1007:1088–1144. */
+.process-market__photo {
+  z-index: 1;
+  top: -4.83%;
+  left: -5.29%;
+  width: 109.17%;
+  height: 108.57%;
+  background: transparent !important;
+  -webkit-mask-image: url("./process-paper-no-tape.png"), url("./process-blue-tape.png");
+  mask-image: url("./process-paper-no-tape.png"), url("./process-blue-tape.png");
+  -webkit-mask-size: 100% 100%, 20.15% 12.9%;
+  mask-size: 100% 100%, 20.15% 12.9%;
+  -webkit-mask-position: center, 50.2% 11.7%;
+  mask-position: center, 50.2% 11.7%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.process-market.has-selection .process-market__photo { opacity: 1; }
+.process-market__photo img { background: #fff; }
+.process-market--par2 .process-market__interview-hires {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 88%;
+  height: 88%;
+  margin: auto;
+  background: #fff;
+  pointer-events: none;
+}
+.process-market--par2 .process-market__interview-hires[hidden] { display: none; }
+.process-market__interview-spread {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  aspect-ratio: 482 / 388;
+}
+.process-market__interview-page { position: relative; overflow: hidden; }
+.process-market--par2.is-original-selected .process-market__interview-page img {
+  position: absolute;
+  inset: auto;
+  top: -9.54%;
+  left: -74.73%;
+  width: 249.04%;
+  height: 345.1%;
+  max-width: none;
+  margin: 0;
+  object-fit: fill;
+}
+.process-market--par2.is-original-selected .process-market__interview-page + .process-market__interview-page img {
+  top: -109.86%;
+  left: -74.39%;
+}
+.process-market__frame::after {
+  position: absolute;
+  z-index: 2;
+  top: 6.2%;
+  left: 38.5%;
+  width: 22%;
+  height: 14%;
+  background: url("./process-blue-tape.png") center / contain no-repeat;
+  opacity: .55;
+  content: "";
+  pointer-events: none;
+}
+.process-market__categories-paper,
+.process-market__decoration { display: none; }
+.process-market__description { padding-left: 30px; list-style: disc; }
+.process-market__description li { padding-left: 0; }
+.process-market__heading--sage,
+.process-market__heading { width: 24.010417%; height: 9.907407%; }
+.process-market__heading--sage .process-market__strip img { top: -28.57%; left: -1.74%; width: 103.65%; height: 149.62%; }
+.process-market__categories ul {
+  position: static;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  width: max-content;
+  max-width: 100%;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+.process-market__categories button {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  min-width: 110px;
+  height: 59px;
+  overflow: hidden;
+  padding: 14px 20px 0;
+  color: #f1efeb;
+  background: transparent;
+  line-height: 1;
+}
+.process-market__categories button::before {
+  position: absolute;
+  z-index: -1;
+  top: -49.33%;
+  left: -29.61%;
+  width: 157.38%;
+  height: 196.55%;
+  background: url("./process-figma-button.png") center / 100% 100% no-repeat;
+  content: "";
+  pointer-events: none;
+}
+.process-market__categories button.is-active {
+  color: #484848;
+  transform: translateY(2px);
+}
+.process-market__categories button:hover,
+.process-market__categories button:focus-visible { color: #484848; }
+.process-market__categories button:is(.is-active, :hover, :focus-visible)::before {
+  filter: grayscale(1) brightness(1.88) sepia(.08);
+}
+
+@media (min-width: 64rem) {
+  .process-market__frame { top: 19.351852%; left: 6.979167%; width: 37.96875%; height: 61.203704%; aspect-ratio: auto; }
+  .process-market__note { top: -4.83%; left: -5.29%; width: 109.17%; height: 108.57%; object-fit: fill; }
+  .process-market__photo { top: -4.83%; left: -5.29%; width: 109.17%; height: 108.57%; }
+  .process-market__heading,
+  .process-market__heading--sage { top: 41.481481%; left: 50%; }
+  .process-market__heading h2,
+  .process-market__heading--sage h2 { top: 34.579439%; left: 15.401302%; width: 135.574837%; font-size: 2.604167vw; letter-spacing: 0; }
+  .process-market__description { top: 52.314815%; left: 53.697917%; width: 40%; font-size: 1.041667vw; font-weight: 500; letter-spacing: 0; }
+  .process-market--par1 .process-market__description { top: 53.240741%; left: 50%; }
+  .process-market--par2 .process-market__description { top: 53.240741%; }
+  .process-market__categories { top: 65.833333%; left: 53.697917%; width: 42%; height: auto; }
+  .process-market--par1 .process-market__categories { left: 50.833333%; }
+}
+
+@media (max-width: 63.99rem) {
+  .process-market__frame { top: 5%; left: 11%; width: 78%; height: 51%; aspect-ratio: auto; }
+  .process-market__note { top: -4.83%; left: -5.29%; width: 109.17%; height: 108.57%; }
+  .process-market__photo { top: -4.83%; left: -5.29%; width: 109.17%; height: 108.57%; }
+  .process-market__heading,
+  .process-market__heading--sage { top: 58%; left: 8%; width: 48%; height: 7%; }
+  .process-market__heading h2,
+  .process-market__heading--sage h2 { top: 34%; left: 15%; width: max-content; font-size: clamp(1.4rem, 4.5vw, 2.5rem); }
+  .process-market__description { top: 67%; left: 8%; width: 84%; padding-left: 24px; font-size: clamp(.9rem, 1.8vw, 1.15rem); font-weight: 500; letter-spacing: 0; }
+  .process-market__categories { top: 84%; left: 8%; width: 84%; height: auto; }
+  .process-market__categories button { min-width: 88px; height: 50px; padding: 12px 16px 0; font-size: 13px; }
+}
+
+@media (max-width: 47.99rem) {
+  .process-market { min-height: 60rem; }
+  .process-market__frame { top: 3%; left: 7%; width: 86%; height: 45%; }
+  .process-market__heading,
+  .process-market__heading--sage { top: 50%; left: 5%; width: 72%; height: 8%; }
+  .process-market__heading h2,
+  .process-market__heading--sage h2 { font-size: clamp(1.1rem, 5vw, 1.6rem); }
+  .process-market__description { top: 61%; left: 7%; width: 86%; font-size: .82rem; line-height: 1.45; }
+  .process-market__categories { top: 80%; left: 7%; width: 86%; }
+  .process-market__categories ul { gap: 4px; }
+  .process-market__categories button { min-width: 76px; height: 46px; padding: 10px 12px 0; font-size: 11px; }
 }

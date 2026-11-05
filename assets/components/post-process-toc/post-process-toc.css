@@ -54,10 +54,22 @@
     z-index: 3;
     top: 50.833333%;
     left: 33.125%;
+    display: flex;
+    width: 3.550833cqw;
+    height: 4.582708cqw;
+    align-items: center;
+    justify-content: center;
     margin: 0;
-    color: #484848;
-    font: 600 1.5625cqw/normal "Pretendard Variable", Pretendard, Arial, sans-serif;
+    pointer-events: none;
     transform-origin: center;
+  }
+
+  .post-process-toc__number img {
+    display: block;
+    width: 2.916667cqw;
+    height: 4.166667cqw;
+    max-width: none;
+    transform: rotate(-9.29deg);
   }
 
   .post-process-toc .table-of-contents__period,
@@ -87,5 +99,6 @@
   .post-process-toc .table-of-contents__work { top: 18rem; left: 2%; }
   .post-process-toc .table-of-contents__team { top: 27rem; left: 43%; }
   .post-process-toc .table-of-contents__project { top: 33rem; left: 34%; }
-  .post-process-toc__number { top: 19.5rem; left: 51%; font-size: 1.5rem; }
+  .post-process-toc__number { top: 19.5rem; left: 51%; width: 3.5rem; height: 5rem; }
+  .post-process-toc__number img { width: 2.8rem; height: 4rem; }
 }
